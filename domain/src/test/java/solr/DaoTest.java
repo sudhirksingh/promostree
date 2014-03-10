@@ -27,6 +27,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = Application.class)
 public class DaoTest {
 
+	
 	@Autowired
 	DaoImpl di;
 
