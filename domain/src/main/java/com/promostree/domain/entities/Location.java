@@ -6,19 +6,28 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.hibernate.validator.constraints.NotBlank;
 
 
-@Entity
+@Entity(name="location")
+@Table(name="location")
 public class Location {
     
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private double lat;
-	private double lng;
+	@NotNull
+		private double lat;
+	@NotNull
+		private double lng;
 	
 	@OneToOne
-	@JoinColumn(name="addressId")
+	@JoinColumn(name="addressId",nullable=true)
+	@JsonBackReference
 	private Address address;
 	
 	public Address getAddress() {

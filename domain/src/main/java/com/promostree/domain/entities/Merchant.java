@@ -7,24 +7,34 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-@Entity
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.hibernate.validator.constraints.NotBlank;
+
+@Entity(name="merchant")
+@Table(name="merchant")
 public class Merchant {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	 @NotBlank(message = "merchant name must filled")
 	private String name;
+	 @NotBlank(message = "merchant loginId must filled")
 	private String loginId;
+	 @NotBlank(message = "merchant pwd must filled")
 	private String pwd;
 	
 	@ManyToOne
 	@JoinColumn(name="groupId")
+	@JsonBackReference
 	private Groups group;
 	
 	
 	@OneToOne
 	@JoinColumn(name="venueId")
+	@JsonBackReference
 	private Venue venue;
 	
 	
