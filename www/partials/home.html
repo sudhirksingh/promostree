@@ -1,0 +1,33 @@
+<ng-include src="'partials/app.html'"></ng-include>
+
+	<div class="scroller" when-scrolled="loadMore()">
+    	<ul class="list" ng-repeat="place in places | orderBy:predicate" ng-init="liVisible" ng-hide="liVisible == false" ng-controller="MyCtrl">
+        	<li class="list__item" ng-show="!showActions" ng-swipe-right="showActions = true" ng-swipe-left="showActions = true" ng-click="goToPage('/details/' + place.id)" >
+				<img src="{{place.image}}" /> <span> <{{place.distance}}</span>
+             	<a href=""><h4>{{place.name}}</h4></a>
+			 	<p>{{place.category.name}}<br />
+				{{place.address.city}}</p>
+        	</li>
+			<div ng-show="showActions" ng-swipe-left="showActions = false" ng-swipe-right="showActions = false" class="shout">
+				<li><i class="ion-speakerphone blue"></i><br />2</li>
+				<li><i class="ion-ios7-chatbubble blue" ></i><br />8</li>
+				<li><i class="ion-star blue" ></i></span><br />3</li>
+				<li><i class="ion-android-share blue" ></i><br />15</li>
+       		</div>
+    	</ul>
+	</div>
+	<div id="footer" class="container">
+   		<nav class="navbar navbar-default navbar-fixed-bottom">
+        	<div class="navbar-inner navbar-content-center">
+       			<div ng-controller="mainControl" >
+   	 				<rzslider 
+    					rz-slider-floor="rangeSlider.floor"
+    					rz-slider-ceil="rangeSlider.ceil"
+    					rz-slider-model="rangeSlider.min"
+    					rz-slider-high="rangeSlider.max"
+    					rz-slider-step="{{rangeSlider.step}}">
+					</rzslider>
+				</div>
+        	</div>
+    	</nav>
+	</div>
