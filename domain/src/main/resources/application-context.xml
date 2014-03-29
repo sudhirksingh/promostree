@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:repository="http://www.springframework.org/schema/data/repository"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+		http://www.springframework.org/schema/data/repository http://www.springframework.org/schema/data/repository/spring-repository-1.6.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+
+
+<!-- bean -->
+
+<context:component-scan base-package="com.promostree.domain.entities"/>
+<context:component-scan base-package="com.promostree.service.search"/>
+<context:component-scan base-package="com.promostree.service.core"/>
+
+
+<!-- d/b -->
+<bean id="dataSource"  class="com.mchange.v2.c3p0.ComboPooledDataSource">
+<property name="driverClass" value="${DB.driverClass}"/>
+<property name="jdbcUrl" value="${DB.url}"/>
+<property name="user" value="${DB.username}"/>
+<property name="password" value="${DB.password}"/>
+</bean>
+
+
+
+<!-- entity manager -->
+
+<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="persistenceProviderClass" value="org.hibernate.ejb.HibernatePersistence" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="database" value="${DB.database}" />
+				<property name="generateDdl" value="${DB.generateDdl~~false}" />
+				<property name="showSql" value="${DB.showSql~~true}" />
+			</bean>
+		</property>
+		<property name="packagesToScan" value="com.promostree.domain.entities" />
+	</bean>
+
+
+
+<!-- transaction manager -->
+<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+<property name="entityManagerFactory" ref="entityManagerFactory"/>
+</bean>
+
+
+
+
+<jpa:repositories base-package="com.promostree.repositories.entities"></jpa:repositories>
+
+<!-- venueService -->
+
+
+
+<!-- placeholder -->
+<bean  class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+<property name="ignoreUnresolvablePlaceholders" value="true" /> 
+  <property name="ignoreResourceNotFound" value="true" /> 
+  <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" /> 
+ <property name="locations">
+ <list>
+  <value>classpath:DataBase.properties</value> 
+  </list>
+  </property>
+  <property name="valueSeparator" value="~~" /> 
+</bean>
+
+
+
+       
+<!-- services  bean -->
+
+
+
+<!-- sorl integration -->
+<bean class="com.promostree.resources.solr.Application"/>
+
+
+
+
+
+</beans>
