@@ -13,59 +13,106 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+import javax.transaction.Transactional;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import javax.persistence.CascadeType;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.validator.constraints.NotBlank;
-
-@Entity
+@XmlRootElement(name="venue")
+@XmlType
+@XmlAccessorType(XmlAccessType.FIELD)
+@Entity(name="venue")
+@Table(name="venue")
 public class Venue {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@XmlElement
 	private Long id;
 
 	@NotBlank(message = " vname must filled")
+	@XmlElement
 	//@Pattern(regexp = "[a-z-A-Z]*", message = "First name has invalid ")
 	private String name;
-
+@XmlElement
 	private String image;
+@XmlElement
 	private String verified;
-	
+@XmlElement
 	private String fourSquareId;
+
+@Transient
+private double distance;
+
+
+@Temporal(TemporalType.DATE)
+@NotNull
+@XmlElement
+private Date createdDate;
+
+@Temporal(TemporalType.DATE)
+@XmlElement
+private Date updatedDate;
+
+
+@NotBlank(message = " createdBy must filled")
+@XmlElement
+private String createdBy;
+
+@XmlElement
+private String updatedBy;
+
+@XmlElement
+private boolean active;
+
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "categoryId")
+	@XmlElement
 	private Category category;
 
 	
 	@OneToMany(mappedBy = "venue", cascade = CascadeType.ALL, fetch = FetchType.EAGER,targetEntity = com.promostree.domain.entities.Offer.class)
+	@XmlElement
+	@JsonManagedReference
 	private List<Offer> offers = new ArrayList<Offer>();
 
-	@OneToOne(mappedBy = "venue", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Merchant merchant;
-
+	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "addressId")
+	@XmlElement
 	private Address address;
 	
-	
-	@Temporal(TemporalType.DATE)
-	private Date createdDate;
-	@Temporal(TemporalType.DATE)
-	private Date updatedDate;
-	
-	private String createdBy;
-	private String updatedBy;
-	private boolean active;
+	@OneToOne(mappedBy = "venue", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@XmlElement
+	  @JsonManagedReference
+	private Merchant merchant;
+
 	
 	
 	
 	
 
 
+	public double getDistance() {
+		return distance;
+	}
+
+	public void setDistance(double distance) {
+		this.distance = distance;
+	}
 
 	public Date getCreatedDate() {
 		return createdDate;

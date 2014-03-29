@@ -2,17 +2,21 @@ package com.promostree.domain.entities;
 
 public class User {
 	
-	private String searchTeam;
+	private String searchTerm;
 	private Double lat;
 	private Double lng;
 	private Double radius;
+	private int pageNumber;
 	
-	
-	public String getSearchTeam() {
-		return searchTeam;
+
+	public String getSearchTerm() {
+		return searchTerm;
 	}
-	public void setSearchTeam(String searchTeam) {
-		this.searchTeam = searchTeam;
+	public void setSearchTerm(String searchTerm) {
+		if(searchTerm!=null)
+		this.searchTerm = searchTerm.toLowerCase();
+		else
+			this.searchTerm = searchTerm;
 	}
 	public Double getLat() {
 		return lat;
@@ -31,6 +35,12 @@ public class User {
 	}
 	public void setRadius(Double radius) {
 		this.radius = radius;
+	}
+	public int getPageNumber() {
+		return pageNumber;
+	}
+	public void setPageNumber(int pageNumber) {
+		this.pageNumber = pageNumber;
 	}
 	
 	

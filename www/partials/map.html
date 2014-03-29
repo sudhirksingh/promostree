@@ -1,0 +1,44 @@
+<div ng-controller="MyCtrl">
+ <div class="navbar navbar-fixed-top">
+	<div class="navbar-header">
+          <button type="button" class="navbar-toggle" ng-click="goToPage('/settings')">
+		    <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+		  
+		 <div class="settings" ng-click="custom=!custom" style="font-size:23px; color:#00CCFF;"><i class="ion-ios7-gear" ></i></div>
+		  <span ng-hide="custom">
+		   <ul class="nav navbar-nav" id="tog">
+            <li><a href="">Favourite Brands</a></li>
+            <li><a href="">All From Favourite Places</a></li>
+            <li><a href="">Top Ratings First</a></li>
+			<li><a href="">Shouts Only</a></li>
+          </ul>
+       	 </span>
+        <span ng-show="custom"></span>
+    </div>
+	</div>
+	<ul  class="cssmenu">
+   <li class="first" ng-class="{active:isActive('/')}" ng-modal="clicked"><a href='#'><span>Near By </span></a></li>
+   <li ng-class="{active:isActive('/places')}"><a href="#places"><span>Search</span></a></li>
+   <li class="last" ng-class="{active:isActive('/venues')}"><a href='#venues'><span>Favourite</span></a></li>
+</ul>
+</div>
+
+		    <div class="right">
+				<div class="col-sm-6 col-md-6" style="margin-top:5px; margin-bottom:5px">
+    				<form name="form1" method="get">
+						 <div class="input-group">
+						 	<input type="text" class="controls"/>
+							 	<div class="input-group-btn" style="padding-left:7px;">
+				 					<i ng-click="custom=!custom" class="ion-location blue"></i> <i ng-controller="MyCtrl" class="ion-grid blue" ng-click="goToPage('/places')"></i>
+								</div>
+						 </div>
+					</form>
+				</div>
+				<div ng-show="custom"><input type="text" class="contr" gm-places-autocomplete ng-model="autocomplete" ng-change="locUser()"/></div>
+				  <div ng-hide="custom"></div>
+                <div id="map_canvas" ui-map="model.myMap" class="map" ui-options="mapOptions" > <div ng-repeat="marker in myMarkers" ui-map-marker="mapMarkers" ></div>
+              </div>
+           

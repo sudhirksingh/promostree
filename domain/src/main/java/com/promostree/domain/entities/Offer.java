@@ -11,40 +11,57 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-@Entity
+import javax.validation.constraints.NotNull;
+
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.hibernate.validator.constraints.NotBlank;
+@Entity(name="offer")
+@Table(name="offer")
 public class Offer {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	 @NotBlank(message =" offer subject must filled")
     private String subject;
 	private String description;
 
 	@Temporal(TemporalType.DATE)
 	private Date startingDate;
+	
 	@Temporal(TemporalType.DATE)
 	private Date EndingDate;
-	 	
-	 @ManyToOne
-	@JoinColumn(name="venueId",referencedColumnName="id",insertable=true, updatable=true)
-	private Venue venue;
 	
-	 
-	 @OneToOne(mappedBy="offer",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-	private Shout shout;
-	
-	 
-
+	 @NotNull
 		@Temporal(TemporalType.DATE)
 		private Date createdDate;
 		@Temporal(TemporalType.DATE)
 		private Date updatedDate;
 		
+		@NotBlank(message = "offer createdBy must filled")
 		private String createdBy;
 		private String updatedBy;
 		private boolean active;
 		
+		  @JsonManagedReference
+		 @OneToOne(mappedBy="offer",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+			private Shout shout;
+		
+	 	
+	 @ManyToOne
+	@JoinColumn(name="venueId",referencedColumnName="id",insertable=true, updatable=true,nullable=true)
+	 @JsonBackReference
+	private Venue venue;
+	
+	 
+	
+	
+	 
+
 	
 
 	public String getSubject() {

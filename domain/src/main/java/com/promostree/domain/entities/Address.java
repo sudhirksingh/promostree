@@ -7,20 +7,28 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-@Entity
+import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.hibernate.validator.constraints.NotBlank;
+
+@Entity(name="address")
+@Table(name="address")
 public class Address {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	private String landMark;
+	@NotBlank(message = "city must filled")
 	private String city;
 	private String state;
+	 @NotBlank(message = "country must filled")
 	private String country;
 	private String zip;
 	
 	@OneToOne(mappedBy="address",cascade=CascadeType.ALL)
+	@JsonManagedReference
 	private Location location;
 	
 	

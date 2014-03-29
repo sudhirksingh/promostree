@@ -9,19 +9,27 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.hibernate.validator.constraints.NotBlank;
 
 
 
 
-@Entity
+@Entity(name="groups")
+@Table(name="groups")
 public class Groups {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
+	private Long id; 
+	
+	@NotBlank(message =" group name must filled")
 	private String name;
 	
 	@OneToMany(mappedBy="group",cascade=CascadeType.ALL)
+	 @JsonManagedReference
 	private List<Merchant> merchants;
 	
 	

@@ -10,31 +10,43 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.validator.constraints.NotBlank;
 
 
-@Entity
+@Entity(name="shout")
+@Table(name="shout")
 public class Shout {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	@NotBlank(message = "shout subject must filled")
 	private String subject;
 
-	
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="offerId")
-	private Offer offer;
-	
-
+	@NotNull
 	@Temporal(TemporalType.DATE)
 	private Date createdDate;
 	@Temporal(TemporalType.DATE)
 	private Date updatedDate;
 	
+	@NotBlank(message = "shout createdBy must filled")
 	private String createdBy;
 	private String updatedBy;
 	private boolean active;
+	
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="offerId",nullable=true)
+    @JsonBackReference
+	private Offer offer;
+	
+
 	
 	
 	

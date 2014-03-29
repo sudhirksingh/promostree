@@ -1,0 +1,27 @@
+<div ng-controller="MyCtrl">
+ <div class="navbar navbar-fixed-top">
+	<div class="navbar-header">
+          <button type="button" class="navbar-toggle" ng-click="goToPage('/settings')">
+		    <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+		  
+		 <div class="settings" ng-click="custom=!custom" style="font-size:23px; color:#00CCFF;"><i class="ion-ios7-gear" ></i></div>
+		  <span ng-hide="custom">
+		   <ul class="nav navbar-nav" id="tog">
+            <li><a href="">Favourite Brands</a></li>
+            <li><a href="">All From Favourite Places</a></li>
+            <li><a href="">Top Ratings First</a></li>
+			<li><a href="">Shouts Only</a></li>
+          </ul>
+       	 </span>
+        <span ng-show="custom"></span>
+    </div>
+	</div>
+	<ul  class="cssmenu">
+   <li class="first" ng-class="{active:isActive('/')}" ng-modal="clicked"><a href='#'><span>Near By </span></a></li>
+   <li ng-class="{active:isActive('/places')}"><a href="#places"><span>Search</span></a></li>
+   <li class="last" ng-class="{active:isActive('/venues')}"><a href='#venues'><span>Favourite</span></a></li>
+</ul>
+</div>

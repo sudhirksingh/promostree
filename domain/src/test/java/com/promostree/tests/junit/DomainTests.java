@@ -43,7 +43,7 @@ import com.promostree.repositories.entities.VenueRepository;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:META-INF/application-context.xml")
+@ContextConfiguration(locations = "classpath:application-context.xml")
 
 public class DomainTests {
 
@@ -62,13 +62,11 @@ public class DomainTests {
 	@Autowired
 	ShoutRepository srep ;
 	
-	/*
+/*
 	@Test
 	public void save() throws ParseException
 	{
 		
-		
-	
 		Address add=new Address();
 		add.setCity("vij");
 		add.setCountry("india");
@@ -139,8 +137,7 @@ public class DomainTests {
 		
 		Shout s1=new Shout();
 		s1.setSubject("specail offer");
-		s1.setDesciption("special offer content");
-		s1.setOffer(o1);
+				s1.setOffer(o1);
 		
 		
 		s1.setActive(false);
@@ -154,8 +151,7 @@ public class DomainTests {
 		
 		Shout s2=new Shout();
 		s2.setSubject("special offer 50% off");
-		s2.setDesciption("special offer 50% off content");
-		s2.setOffer(o2);
+				s2.setOffer(o2);
 		
 		s2.setActive(false);
 		s2.setCreatedBy("visigenix");
@@ -168,7 +164,7 @@ public class DomainTests {
 			
 	}
 
-	
+
 @Test
 	public void save1() throws ParseException
 	{
@@ -257,6 +253,27 @@ public class DomainTests {
 		{
 		System.out.println(venue.getAddress().getId().toString());
 		}
-	}*/
+	}
 	
+	
+	public void deleteVenue()
+	
+	
+	
+	public void deleteVenue()
+	{
+		vrep.delete((long)1);
+		
+	}
+	
+	public void updateVenue()
+	{
+		Venue venue=vrep.findById((long)1);
+		venue.setActive(true);
+		
+		vrep.saveAndFlush(venue);
+		
+	}
+	
+	*/
 }
