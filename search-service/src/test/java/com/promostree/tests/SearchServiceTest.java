@@ -40,7 +40,7 @@ import com.promostree.service.search.SearchServiceImpl;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:application-context.xml")
+@ContextConfiguration(locations = "classpath:search-service-application-context.xml")
 public class SearchServiceTest {
 	@Autowired
 	SolrVenueRepository vrep;
@@ -52,11 +52,11 @@ public class SearchServiceTest {
 	
 		
 	User user=new User();
-	user.setLat(17.364320517794);
-	user.setLng(78.476185121817);
-	user.setRadius(1.2);
+	user.setLat(17.24154);
+	user.setLng(78.23541254);
+	user.setRadius(1000.0);
 	user.setPageNumber(0);
-	user.setSearchTerm("ice");
+	//user.setSearchTerm("ice");
 	
 		GeoLocation g=new GeoLocation(17.364320517794,78.476185121817);
 		//List<SolrVenue> venues=vrep.findByQueryAnnotation(GeoConverters.GeoLocationToStringConverter.INSTANCE.convert(new GeoLocation(17.364320517794,78.476185121817)),GeoConverters.DistanceToStringConverter.INSTANCE.convert(new Distance(100)));

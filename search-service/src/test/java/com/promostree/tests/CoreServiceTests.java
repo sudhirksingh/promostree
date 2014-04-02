@@ -44,7 +44,7 @@ import com.promostree.service.core.CoreServiceImpl;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:application-context.xml")
+@ContextConfiguration(locations = "classpath:search-service-application-context.xml")
 
 public class CoreServiceTests {
 

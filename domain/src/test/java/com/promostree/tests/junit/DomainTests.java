@@ -43,7 +43,7 @@ import com.promostree.repositories.entities.VenueRepository;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:application-context.xml")
+@ContextConfiguration(locations = "classpath:domain-application-context.xml")
 
 public class DomainTests {
 
