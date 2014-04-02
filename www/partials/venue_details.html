@@ -1,0 +1,39 @@
+<div ng-controller="detailsControl">
+	<div class="navbar navbar-fixed-top">
+		<a href="#"><img class="back" src="img/back.png" /></a>
+		<div class="settings">
+		    <i class="ion-forward forword"></i>
+          </div> 
+		  <h2> Promo Details</h2> 
+	</div>	
+
+			<div class="image"><img src="{{venue.image}}" /> </div>
+			<div class="title">{{venue.name}}</div>
+			<div class="share">
+			 	<i><img src="img/button.png" /></i>
+				<i class="ion-speakerphone black" ></i>
+			 	<i class="ion-star black"></i>
+				<i class="ion-android-share black" ></i>
+       		</div>
+			<div class="desc"><p>{{venue.offers[0].description}}<br />{{venue.offers[1].description}}</p></div>
+			<ul class="comment">
+        		<li class="list__item">
+					<img src="{{venue.image}}" /> 
+			 		<p>{{venue.offers[0].description}}</p>
+        		</li>
+			</ul>
+	<div id="footer" class="container">
+   		<nav class="navbar navbar-default navbar-fixed-bottom">
+        	<div class="navbar-inner navbar-content-center">
+				<form method="post" name="comments">
+					<div class="input-group">
+    					<input type="text" class="form-control" id="comment" placeholder="Leave a Comment"/>
+							<div class="input-group-btn">
+				 				<button type="submit" class="myButton"><span class="ion-navigate blue"></span></button>
+							</div>
+					</div>
+				</form>
+			</div>
+		</nav>
+	</div>
+</div>

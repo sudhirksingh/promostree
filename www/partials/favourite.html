@@ -1,0 +1,12 @@
+<ng-include src="'partials/app.html'"></ng-include>
+<div class="scroller">
+    <ul class="list">
+        <li ng-repeat="venue in venues" ng-init="liVisible" ng-hide="liVisible == false" class="list__item">
+		<img src="" />
+            <a href="venue.html">
+			<p>{{venue.name}}</p>
+			<p>{{venue.location.address}}</p>
+            </a>
+        </li>
+    </ul>
+</div>

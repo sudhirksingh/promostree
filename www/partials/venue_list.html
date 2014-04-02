@@ -1,0 +1,31 @@
+    <ng-include src="'partials/app.html'"></ng-include>
+			<div class="right">
+				<div class="col-sm-6 col-md-6" style="margin-top:5px; margin-bottom:5px">
+    				<form name="form1" method="get">
+						 <div class="input-group">
+    						<input type="text" class="controls" gm-places-autocomplete ng-model="autocomplete" ng-change="remove(place)" placeholder="Enter a Place"/>
+							 	<div class="input-group-btn" style="padding-left:7px;">
+				 					<i ng-click="custom=!custom" class="ion-location blue"></i> <span ng-controller="MyCtrl" ng-click="goToPage('/maps')"><i class="ion-map blue"></i></span>
+								</div>
+						 </div>
+					</form>
+				</div>
+				</div>
+				<div ng-show="custom"><input type="text" class="controll" /></div>
+				  <div ng-hide="custom"></div>
+		<div class="scroll" when-scrolled="loadMore()">
+    	<ul class="list" ng-repeat="place in places" ng-init="liVisible" ng-hide="liVisible == false">
+        	<li class="list__item" ng-show="!showActions" ng-swipe-right="showActions = true" ng-swipe-left="showActions = true" ng-click="goToPage('/details/' + place.id)" >
+				<img src="{{place.image}}" /> <span> <{{place.distance}}</span>
+             	<a href=""><h4>{{place.name}}</h4></a>
+			 	<p>{{place.category.name}}<br />
+				{{place.address.city}}</p>
+        	</li>
+			<div ng-show="showActions" ng-swipe-left="showActions = false" ng-swipe-right="showActions = false" class="shout">
+				<li><i class="ion-speakerphone blue"></i><br />2</li>
+				<li><i class="ion-ios7-chatbubble blue" ></i><br />8</li>
+				<li><i class="ion-star blue" ></i></span><br />3</li>
+				<li><i class="ion-android-share blue" ></i><br />15</li>
+       		</div>
+    	</ul>
+	</div>
