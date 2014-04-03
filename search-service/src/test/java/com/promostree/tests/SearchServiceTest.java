@@ -68,7 +68,7 @@ public class SearchServiceTest {
 		for (Venue v : venues) {
 			// vrep.save(v);
 
-			System.out.println(v.getName() + "  imange: "+v.getVerified()+ "  distance:  "+v.getDistance()+" mtrs      ::"+ ++i);
+			System.out.println(v.getName() + "  imange: "+v.getVerified()+ "  distance:  "+v.getDistance()+" kms      ::"+ ++i);
 
 		}
 	}

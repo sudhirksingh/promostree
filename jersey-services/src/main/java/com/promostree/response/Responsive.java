@@ -35,7 +35,7 @@ public class Responsive {
 		user.setRadius(radius);
 		user.setPageNumber(pageNumber);
 		user.setSearchTerm(searchTerm);
-		System.out.println(lat + "," + lng + "," + radius+"pageNo:"+pageNumber);
+	//	System.out.println(lat + "," + lng + "," + radius+"pageNo:"+pageNumber);
 		List<Venue> list = venueSearchDelegate.VenuesService(user);
 		return list;
 	}
@@ -47,9 +47,9 @@ public class Responsive {
 	public Venue getVenue(@QueryParam("venueId") long venueId) {
 	Venue venue = new Venue();
 	venue.setId(venueId);
-	System.out.println(venueId);
+	//System.out.println(venueId);
 	Venue returnVenue = venueSearchDelegate.VenueService(venue);
-	System.out.println(returnVenue.getCreatedBy()+", "+returnVenue.getOffers().get(1).getSubject()+" ,"+returnVenue.getAddress().getCity()+" ," +returnVenue.getOffers().get(1).getShout().getSubject()+returnVenue.getCategory().getName());
+	//System.out.println(returnVenue.getCreatedBy()+", "+returnVenue.getOffers().get(1).getSubject()+" ,"+returnVenue.getAddress().getCity()+" ," +returnVenue.getOffers().get(1).getShout().getSubject()+returnVenue.getCategory().getName());
 	
 	
 	return returnVenue;
@@ -66,14 +66,5 @@ public class Responsive {
 	}
 
 
-	public Responsive() {
-		super();
-		System.out.println("Responsive");
-	}
-	
-	
-	
-//	public Responsive() {
-//		System.out.println("cons");
-//	}
+
 }

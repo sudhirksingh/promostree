@@ -8,21 +8,48 @@
 <!--    http://www.qos.ch/shop/products/professionalSupport         -->
 <!--                                                                -->
 <configuration>
-  <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+  <appender name="info" class="ch.qos.logback.core.rolling.RollingFileAppender">
     <!--See also http://logback.qos.ch/manual/appenders.html#RollingFileAppender-->
     <File>logs/logging.log</File>
+    <filter.filter1.levelMin>TRACE</filter.filter1.levelMin>
+    <filter.filter1.levelMax>WARN</filter.filter1.levelMax>
+    <filter.filter1>org.apache.log4j.varia.LevelRangeFilter</filter.filter1>
     <encoder>
-      <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n</pattern>
+      <pattern>%d{dd/MM/yyyy} %d{hh:mm:ss} %5p %c{1}:%L - %m%n</pattern>
     </encoder>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>TRACE</level>
+    </filter>
     <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-      <maxIndex>1</maxIndex>
+      <maxIndex>30</maxIndex>
       <FileNamePattern>logs/logging.log.%i</FileNamePattern>
     </rollingPolicy>
     <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-      <MaxFileSize>1MB</MaxFileSize>
+      <MaxFileSize>10MB</MaxFileSize>
     </triggeringPolicy>
   </appender>
-  <root level="INFO">
-    <appender-ref ref="file"/>
+  <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!--See also http://logback.qos.ch/manual/appenders.html#RollingFileAppender-->
+    <File>logs/error.log</File>
+    <filter.filter1.levelMin>ERROR</filter.filter1.levelMin>
+    <filter.filter1>org.apache.log4j.varia.LevelRangeFilter</filter.filter1>
+    <filter.filter1.levelMax>FATAL</filter.filter1.levelMax>
+    <encoder>
+      <pattern>%d{dd/MM/yyyy} %d{hh:mm:ss} %5p %c{1}:%L - %m%n</pattern>
+    </encoder>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>ERROR</level>
+    </filter>
+    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+      <maxIndex>30</maxIndex>
+      <FileNamePattern>logs/error.log.%i</FileNamePattern>
+    </rollingPolicy>
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <MaxFileSize>10MB</MaxFileSize>
+    </triggeringPolicy>
+  </appender>
+  <root level="TRACE">
+    <appender-ref ref="info"/>
+    <appender-ref ref="error"/>
   </root>
 </configuration>

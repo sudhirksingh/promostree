@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -25,6 +27,7 @@ import com.promostree.repositories.solr.SolrVenueRepository;
 
 @Component
 public class SearchHelper {
+	private static final Logger logger = LoggerFactory.getLogger(SearchHelper.class);
 
 
 	@Autowired
@@ -34,6 +37,7 @@ public class SearchHelper {
 	SolrVenueRepository solrRepository;
 
 public List<SolrVenue> getOfferInVenue( Venue venue) {
+	logger.info("enter into getOfferInVenue( Venue venue)============================== ");
 		String searchField;
 		Shout shout;
 		List<SolrVenue> solrVenues = new ArrayList<SolrVenue>();
@@ -129,6 +133,7 @@ public List<SolrVenue> getOfferInVenue( Venue venue) {
 	}
 
 	public List<Venue> getVenuesFromSource() {
+		logger.info("enter into getVenuesFromSource()============================== ");
 		List<Venue> domainVenues = domainRepository.findAll();
 		return domainVenues;
 	}
@@ -137,7 +142,7 @@ public List<SolrVenue> getOfferInVenue( Venue venue) {
 
 	public List<Venue> toDomainVenues(List<SolrVenue> docsWithDiffId,User user) {
 
-		
+		logger.info("enter into  toDomainVenues(List<SolrVenue> docsWithDiffId,User user)============================== ");
 		// documents with same entity id
 		List<SolrVenue> docsWithSameId = new ArrayList<SolrVenue>();
 
@@ -171,6 +176,7 @@ public List<SolrVenue> getOfferInVenue( Venue venue) {
 	
 	//convert Documents to single domain venue
 	public Venue fromDocToDomainVenue(List<SolrVenue> docsWithSameId,User user) {
+		logger.info("enter into  fromDocToDomainVenue(List<SolrVenue> docsWithSameId,User user)============================== ");
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
 		Venue domainVenue = new Venue();
@@ -214,7 +220,7 @@ public List<SolrVenue> getOfferInVenue( Venue venue) {
 			try{
 			domainVenue.setCreatedDate(sdf.parse(doc.getCreated_dt()));
 			domainVenue.setUpdatedDate(sdf.parse(doc.getUpdated_dt()));
-			}catch(Exception e){System.out.println(e);}
+			}catch(Exception e){logger.error(e.toString());}
 
 			for (SolrVenue docs : docsWithSameId) {
 				Offer offer = new Offer();
@@ -227,7 +233,7 @@ public List<SolrVenue> getOfferInVenue( Venue venue) {
 				try{
 				offer.setCreatedDate(sdf.parse(doc.getOffer_created_dt()));
 				offer.setUpdatedDate(sdf.parse(doc.getOffer_updated_dt()));
-				}catch(Exception e){System.out.println(e);}
+				}catch(Exception e){logger.error(e.toString());}
 				
 				
 				offer.setDescription(docs.getOffer_desc());
@@ -236,7 +242,7 @@ public List<SolrVenue> getOfferInVenue( Venue venue) {
 					offer.setStartingDate(sdf.parse(docs.getStart_dt()));
 					offer.setEndingDate(sdf.parse(doc.getEnd_dt()));
 				} catch (Exception e) {
-					System.out.println(e);
+					logger.error(e.toString());
 				}
 				offer.setId(Long.parseLong(docs.getOffer_id()));
 
@@ -249,7 +255,7 @@ public List<SolrVenue> getOfferInVenue( Venue venue) {
 				{
 				shout.setCreatedDate(sdf.parse(docs.getShout_created_dt()));
 				shout.setUpdatedDate(sdf.parse(docs.getShout_updated_dt()));
-			}catch(Exception e){System.out.println(e);}
+			}catch(Exception e){logger.error(e.toString());}
 				
 				offer.setShout(shout);
 				domainVenue.getOffers().add(offer);
@@ -282,7 +288,7 @@ public List<SolrVenue> getOfferInVenue( Venue venue) {
 				* Math.sin(dLon / 2) * Math.cos(l1) * Math.cos(l2);
 		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 		double d = R * c;
-		return d*1000;
+		return d;
 	}
 
 	//degrees to radii convertion
