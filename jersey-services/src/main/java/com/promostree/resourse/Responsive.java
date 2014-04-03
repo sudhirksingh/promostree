@@ -1,4 +1,4 @@
-package com.promostree.response;
+package com.promostree.resourse;
 
 import java.util.ArrayList;
 import java.util.List;
