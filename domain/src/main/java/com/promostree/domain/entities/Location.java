@@ -1,5 +1,6 @@
 package com.promostree.domain.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,6 +11,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.validator.constraints.NotBlank;
 
 
@@ -25,9 +27,11 @@ public class Location {
 	@NotNull
 		private double lng;
 	
-	@OneToOne
-	@JoinColumn(name="addressId",nullable=true)
-	@JsonBackReference
+	
+	
+	
+	@OneToOne(mappedBy="location",cascade=CascadeType.ALL)
+	@JsonManagedReference
 	private Address address;
 	
 	public Address getAddress() {

@@ -1,4 +1,4 @@
-package com.promostree.tests.junit;
+package com.promostree.test;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

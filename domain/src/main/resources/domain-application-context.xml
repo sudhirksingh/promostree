@@ -11,8 +11,11 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
 	<!-- bean -->
-
+    <context:annotation-config />
 	<context:component-scan base-package="com.promostree.domain.entities" />
+	<context:component-scan base-package="com.promostree.domain.user" />
+	
+
 
 	<!-- d/b -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -34,7 +37,8 @@
 				<property name="showSql" value="${DB.showSql~~true}" />
 			</bean>
 		</property>
-		<property name="packagesToScan" value="com.promostree.domain.entities" />
+		<property name="packagesToScan" value="com.promostree.domain.entities,com.promostree.domain.user" />
+		
 	</bean>
 
 
@@ -47,7 +51,8 @@
 
 
 
-	<jpa:repositories base-package="com.promostree.repositories.entities"></jpa:repositories>
+	<jpa:repositories base-package="com.promostree.repositories"></jpa:repositories>
+
 
 	<!-- venueService -->
 
