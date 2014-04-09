@@ -67,4 +67,5 @@
   <classpathentry kind="var" path="M2_REPO/org/codehaus/jackson/jackson-core-lgpl/1.9.13/jackson-core-lgpl-1.9.13.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/codehaus/jackson/jackson-mapper-asl/1.9.13/jackson-mapper-asl-1.9.13.jar" sourcepath="M2_REPO/org/codehaus/jackson/jackson-mapper-asl/1.9.13/jackson-mapper-asl-1.9.13-sources.jar"/>
   <classpathentry kind="src" path="/domain"/>
+  <classpathentry kind="var" path="M2_REPO/com/google/code/gson/gson/2.2.2/gson-2.2.2.jar"/>
 </classpath>
