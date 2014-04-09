@@ -17,6 +17,7 @@ public class VenueSearchDelegate {
 
 	@Autowired
 	CoreService coreServices;
+	
 
 	public List<Venue> VenuesService(User user) {
 		List<Venue> venues = searchServices.nearestVenues(user);

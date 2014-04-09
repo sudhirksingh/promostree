@@ -4,7 +4,7 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.web.filter.RequestContextFilter;
 
-import com.promostree.resourse.Responsive;
+import com.promostree.resource.Responsive;
 
 public class MyApplication extends ResourceConfig {
 

@@ -150,7 +150,7 @@ public class UserTest {
 		
 		User u1=new User();
 		u1.setEmail("ananth@gmail.com");
-		u1.setPhoneNumber("9035208863");
+		u1.setPhoneNumber("9542128262");
 		urep.save(u1);
 		
 		User u2=new User();
@@ -174,13 +174,14 @@ public class UserTest {
 		//shares 
 				
 		UserShares us=new UserShares();
+		
 		us.setUser(u);
 		us.setValue("sonic");
 		us.setComment("nice..........");
 		us.setType(pt);
 		us.setCreateDate(new Date());
 		usrep.save(us);
-		
+
 		TargetUsers uu=new TargetUsers();
 		uu.setUserShares(us);
 		uu.setUsers(u1);
