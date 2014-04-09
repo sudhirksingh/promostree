@@ -1,4 +1,4 @@
-package com.promostree.resourse;
+package com.promostree.resource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import com.promostree.domain.entities.Venue;
 
 @Path("service")
 @Component
-public class Responsive {
+public class VenueResources {
 	@Autowired
 	VenueSearchDelegate venueSearchDelegate;
 	@GET

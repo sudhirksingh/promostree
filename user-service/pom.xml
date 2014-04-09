@@ -3,11 +3,11 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.promotree</groupId>
-    <artifactId>promotree</artifactId>
+    <groupId>com.promostree</groupId>
+    <artifactId>promostree</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-  <groupId>com.promotree</groupId>
+  <groupId>com.promostree</groupId>
   <artifactId>user-service</artifactId>
   <version>1.0-SNAPSHOT</version>
   <name>user-service</name>
@@ -22,5 +22,10 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+			<groupId>com.promostree</groupId>
+			<artifactId>domain</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
   </dependencies>
 </project>
