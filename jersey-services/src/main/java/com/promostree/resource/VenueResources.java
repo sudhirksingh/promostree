@@ -35,7 +35,6 @@ public class VenueResources {
 		user.setRadius(radius);
 		user.setPageNumber(pageNumber);
 		user.setSearchTerm(searchTerm);
-	//	System.out.println(lat + "," + lng + "," + radius+"pageNo:"+pageNumber);
 		List<Venue> list = venueSearchDelegate.VenuesService(user);
 		return list;
 	}
@@ -47,11 +46,9 @@ public class VenueResources {
 	public Venue getVenue(@QueryParam("venueId") long venueId) {
 	Venue venue = new Venue();
 	venue.setId(venueId);
-	//System.out.println(venueId);
 	Venue returnVenue = venueSearchDelegate.VenueService(venue);
+	//System.out.println(venueId);
 	//System.out.println(returnVenue.getCreatedBy()+", "+returnVenue.getOffers().get(1).getSubject()+" ,"+returnVenue.getAddress().getCity()+" ," +returnVenue.getOffers().get(1).getShout().getSubject()+returnVenue.getCategory().getName());
-	
-	
 	return returnVenue;
 	}
 	
@@ -61,10 +58,6 @@ public class VenueResources {
 	@Produces(MediaType.APPLICATION_JSON)
 	public boolean getIndexing() {
 	boolean result  = venueSearchDelegate.getIndexing();
-	
 	return result;
 	}
-
-
-
 }
