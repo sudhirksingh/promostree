@@ -2,11 +2,16 @@ package com.promostree.test;
 
 
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.ObjectWriter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -27,6 +32,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
 
+
+import com.google.gson.Gson;
 import com.promostree.domain.entities.Address;
 import com.promostree.domain.entities.Category;
 import com.promostree.domain.entities.Location;
@@ -62,8 +69,8 @@ public class DomainTests {
 	@Autowired
 	ShoutRepository srep ;
 	
-	
-	/*	@Test
+	/*
+		@Test
 	public void save() throws ParseException
 	{
 		
@@ -167,7 +174,7 @@ public class DomainTests {
 			
 	}
 
-	
+		/*	
 
 @Test
 	public void save1() throws ParseException
@@ -242,12 +249,35 @@ public class DomainTests {
 		Venue venue=vrep.findById((long)1);
 		
 		
-		System.out.println(venue.getAddress().getId().toString());
+		
+		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+		try{
+		String json = ow.writeValueAsString(venue);
+		
+		System.out.println(json);
+		} catch (JsonGenerationException ex) {
+
+			ex.printStackTrace();
+
+		} catch (JsonMappingException ex) {
+
+			ex.printStackTrace();
+
+		} catch (IOException ex) {
+
+			ex.printStackTrace();
+
+		}
+		
+	//  Gson gson = new Gson(); 
+		//  System.out.println(gson.toJson(venue));
+	
+	//	System.out.println(venue.getAddress().getId().toString());
 		//System.out.println(venue.getOffers().get(1).getShout());
 		
-		System.out.println(venue.getOffers().get(1).getShout());
-		Shout s=srep.findOne((long)1);
-		System.out.println(venue.getOffers().get(1).getShout());
+	//	System.out.println(venue.getOffers().get(1).getShout());
+	//	Shout s=srep.findOne((long)1);
+	//	System.out.println(venue.getOffers().get(1).getShout());
 		
 	}
 	

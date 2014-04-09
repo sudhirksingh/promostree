@@ -22,16 +22,16 @@ public class Address {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	private String landMark;
-	@NotBlank(message = "city must filled")
+	//@NotBlank(message = "city must filled")
 	private String city;
 	private String state;
-	 @NotBlank(message = "country must filled")
+	 //@NotBlank(message = "country must filled")
 	private String country;
 	private String zip;
 	
 	@OneToOne
 	@JoinColumn(name="locationId",nullable=true)
-	@JsonBackReference
+	@JsonManagedReference
 	private Location location;
 	
 	

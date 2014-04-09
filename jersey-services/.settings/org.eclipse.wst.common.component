@@ -169,6 +169,9 @@
     <dependent-module archiveName="user-service-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/com/promostree/user-service/1.0-SNAPSHOT/user-service-1.0-SNAPSHOT.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
+    <dependent-module archiveName="gson-2.2.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/com/google/code/gson/gson/2.2.2/gson-2.2.2.jar">
+      <dependency-type>uses</dependency-type>
+    </dependent-module>
     <wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/java"/>
     <wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/resources"/>
   </wb-module>

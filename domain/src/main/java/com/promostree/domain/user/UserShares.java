@@ -3,7 +3,9 @@ package com.promostree.domain.user;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,8 +14,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-@Entity(name="userShares")
-@Table(name="userShares")
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+@Entity(name="user_shares")
+@Table(name="user_shares")
 public class UserShares
 {
 	@Id
@@ -22,18 +31,23 @@ private Long id;
 	
 	@ManyToOne
 	@JoinColumn(name="userId")
+	@JsonBackReference
 	private User user;
 	
 private String comment;
+@Temporal(TemporalType.DATE)
 private Date createDate;
 
 private String value;
 
 @OneToOne
 @JoinColumn(name="typeId")
+@JsonManagedReference
 private Type type;
 
-@OneToMany(mappedBy="userShares")
+@OneToMany(mappedBy="userShares",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+@JsonManagedReference
+@Fetch(value = FetchMode.SUBSELECT)
 private List<TargetUsers> targetUsers;
 
 
