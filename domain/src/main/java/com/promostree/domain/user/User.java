@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +16,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 
 @XmlRootElement(name="user")
@@ -33,27 +39,60 @@ private String phoneNumber;
 	@XmlElement
 private String email;
 	
-	@OneToMany(mappedBy="user",cascade=CascadeType.ALL)
-	private List<UserEvent> userEvent;
+
 	
-	@OneToOne(mappedBy="user")
+	@OneToOne(mappedBy="user",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	//@JsonIgnore
+	@JsonManagedReference
 	private UserProfile userProfile; 
 	
+	@OneToMany(mappedBy="user",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonManagedReference
+	@Fetch(value = FetchMode.SUBSELECT)
+	private List<UserLocations> userLocations;
 	
-	@OneToMany(mappedBy="user")
+	
+	@OneToMany(mappedBy="user",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonManagedReference
+	@Fetch(value = FetchMode.SUBSELECT)
 	private List<UserPreferences> userPreferences;
 	
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonManagedReference
+	@Fetch(value = FetchMode.SUBSELECT)
 	private List<UserFeedback> userFeedback;
 	
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonManagedReference
+	@Fetch(value = FetchMode.SUBSELECT)
 	private List<UserShares> userShares;
 	
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonManagedReference
 	private List<UserShout> userShout;
 	
 	
+	@OneToOne(mappedBy="users")
+	@JsonIgnore
+	//@JsonBackReference
+	private TargetUsers targetUsers;
 	
+	
+	
+	
+	
+	public List<UserLocations> getUserLocations() {
+		return userLocations;
+	}
+	public void setUserLocations(List<UserLocations> userLocations) {
+		this.userLocations = userLocations;
+	}
+	public TargetUsers getTargetUsers() {
+		return targetUsers;
+	}
+	public void setTargetUsers(TargetUsers targetUsers) {
+		this.targetUsers = targetUsers;
+	}
 	public List<UserFeedback> getUserFeedback() {
 		return userFeedback;
 	}
@@ -84,12 +123,7 @@ private String email;
 	public void setUserProfile(UserProfile userProfile) {
 		this.userProfile = userProfile;
 	}
-	public List<UserEvent> getUserEvent() {
-		return userEvent;
-	}
-	public void setUserEvent(List<UserEvent> userEvent) {
-		this.userEvent = userEvent;
-	}
+	
 	public Long getId() {
 		return id;
 	}

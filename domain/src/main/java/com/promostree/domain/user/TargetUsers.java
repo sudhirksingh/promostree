@@ -2,7 +2,9 @@ package com.promostree.domain.user;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,8 +14,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-@Entity(name="targetUsers")
-@Table(name="targetUsers")
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
+@Entity(name="target_users")
+@Table(name="target_users")
 public class TargetUsers {
 	
 	@Id
@@ -22,10 +27,12 @@ public class TargetUsers {
 
 	@OneToOne
 	@JoinColumn(name="userId")
+	@JsonManagedReference
 	private User users;
 	
 	@ManyToOne
 	@JoinColumn(name="userSharesId")
+	@JsonBackReference
 		private UserShares userShares;
 
 	public Long getId() {

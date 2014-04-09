@@ -7,15 +7,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.validation.constraints.Size;
 
 
-@Entity(name="userEvent")
-@Table(name="userEvent")
+
+
+
+@Entity(name="user_event")
+@Table(name="user_event")
 public class UserEvent
 {
 
@@ -23,6 +22,7 @@ public class UserEvent
 	@GeneratedValue(strategy = GenerationType.AUTO)
 private Long id;
 
+	@Size(max=100000)
 private String data;
 
 	@ManyToOne

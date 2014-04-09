@@ -1,16 +1,19 @@
 package com.promostree.domain.user;
 
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-@Entity(name="userPreferences")
-@Table(name="userPreferences")
+
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+@Entity(name="user_preferences")
+@Table(name="user_preferences")
 public class UserPreferences
 {
 	@Id
@@ -19,11 +22,15 @@ private Long id;
 
 @OneToOne
 @JoinColumn(name="preferenceTypeId")
+@JsonManagedReference
 private Type type;
+
+
 private String value;
 
 @ManyToOne
 @JoinColumn(name="userId")
+@JsonBackReference
 private User user;
 
 

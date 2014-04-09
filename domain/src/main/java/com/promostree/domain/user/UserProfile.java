@@ -1,5 +1,7 @@
 package com.promostree.domain.user;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,16 +9,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
-import com.promostree.domain.entities.Location;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
-@Entity(name="userProfile")
-@Table(name="userProfile")
+import org.codehaus.jackson.annotate.JsonBackReference;
+
+
+@Entity(name="user_profile")
+@Table(name="user_profile")
 public class UserProfile
 {
 	@Id
@@ -25,36 +26,37 @@ private Long id;
 
 private String fristName;
 private String lastName;
-//private String homeLocationId;
-//private String officeLocationId;
+@Temporal(TemporalType.DATE)
+private Date createdDate;
+@Temporal(TemporalType.DATE)
+private Date updatedDate;
+
+
+
 private boolean isReg;
 
 @OneToOne
 @JoinColumn(name="userId")
+@JsonBackReference
 private User user;
 
-@OneToOne
-@JoinColumn(name="homeLocationId")
-private Location homeLocation;
-
-@OneToOne
-@JoinColumn(name="officeLocationId")
-private Location officeLocation;
 
 
 
 
-public Location getHomeLocation() {
-	return homeLocation;
+
+
+public Date getCreatedDate() {
+	return createdDate;
 }
-public void setHomeLocation(Location homeLocation) {
-	this.homeLocation = homeLocation;
+public void setCreatedDate(Date createdDate) {
+	this.createdDate = createdDate;
 }
-public Location getOfficeLocation() {
-	return officeLocation;
+public Date getUpdatedDate() {
+	return updatedDate;
 }
-public void setOfficeLocation(Location officeLocation) {
-	this.officeLocation = officeLocation;
+public void setUpdatedDate(Date updatedDate) {
+	this.updatedDate = updatedDate;
 }
 public User getUser() {
 	return user;

@@ -30,6 +30,8 @@ import javax.persistence.CascadeType;
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.validator.constraints.NotBlank;
+
+import com.promostree.domain.user.UserShout;
 @XmlRootElement(name="venue")
 @XmlType
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -101,10 +103,24 @@ private boolean active;
 	private Merchant merchant;
 
 	
+	@OneToOne(mappedBy = "venue", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@XmlElement
+	  @JsonBackReference
+	private UserShout userShout;
+	
+	
 	
 	
 	
 
+
+	public UserShout getUserShout() {
+		return userShout;
+	}
+
+	public void setUserShout(UserShout userShout) {
+		this.userShout = userShout;
+	}
 
 	public double getDistance() {
 		return distance;

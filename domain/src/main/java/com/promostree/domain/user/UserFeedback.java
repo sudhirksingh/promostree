@@ -10,9 +10,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-@Entity(name="userFeedback")
-@Table(name="userFeedback")
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
+@Entity(name="user_feedback")
+@Table(name="user_feedback")
 public class UserFeedback
 {
 	@Id
@@ -20,17 +25,21 @@ public class UserFeedback
 private Long id;
 
 private String comment;
+@Temporal(TemporalType.DATE)
 private Date createdDate;
+@Temporal(TemporalType.DATE)
 private Date updatedDate;
 
 private String value;
 
 @ManyToOne
 @JoinColumn(name="userId")
+@JsonBackReference
 private User user;
 
 @OneToOne
 @JoinColumn(name="typeId")
+@JsonManagedReference
 private Type type;
 
 

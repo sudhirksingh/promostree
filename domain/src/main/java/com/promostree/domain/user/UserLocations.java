@@ -7,27 +7,54 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 
 import com.promostree.domain.entities.Location;
 
-@Entity(name="userLocations")
-@Table(name="userLocations")
+@Entity(name="user_locations")
+@Table(name="user_locations")
 public class UserLocations
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 private Long id;
+	@Temporal(TemporalType.DATE)
 private Date createdDate ;
 
-@OneToOne
+@ManyToOne
 @JoinColumn(name="userId")
+@JsonBackReference
 private User user;
 
 @OneToOne
+@JoinColumn(name="locationTypeId")
+@JsonManagedReference
+private LocationType locationType;
+
+@OneToOne
 @JoinColumn(name="locationId")
+@JsonManagedReference
 private Location location;
+
+
+
+
+
+public LocationType getLocationType() {
+	return locationType;
+}
+
+public void setLocationType(LocationType locationType) {
+	this.locationType = locationType;
+}
+
 
 public Long getId() {
 	return id;

@@ -1,9 +1,14 @@
 package com.promostree.test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.ObjectWriter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.promostree.domain.entities.Location;
 import com.promostree.domain.entities.Venue;
+import com.promostree.domain.user.LocationType;
 import com.promostree.domain.user.TargetUsers;
 import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
@@ -26,6 +32,7 @@ import com.promostree.domain.user.UserShout;
 
 import com.promostree.repositories.entities.LocationRepository;
 import com.promostree.repositories.entities.VenueRepository;
+import com.promostree.repositories.user.LocationTypeRepository;
 import com.promostree.repositories.user.TargetUsersRepository;
 import com.promostree.repositories.user.TypeRepository;
 import com.promostree.repositories.user.UserEventRepository;
@@ -76,7 +83,11 @@ public class UserTest {
 	
 	@Autowired
 	VenueRepository vrep ;
-
+	
+	@Autowired
+	LocationTypeRepository ltrep ;
+	
+	/*
 	@Test
 	public void create()
 	{
@@ -101,6 +112,19 @@ public class UserTest {
 		Type pt4=new Type();
 		pt4.setName("shout");
 		ptrep.save(pt4);
+		
+		
+		LocationType lt=new LocationType();
+		lt.setName("home");
+		ltrep.save(lt);
+		
+		LocationType lt1=new LocationType();
+		lt1.setName("office");
+		ltrep.save(lt1);
+		
+		LocationType lt2=new LocationType();
+		lt2.setName("current");
+		ltrep.save(lt2);
 		
 		
 		//location
@@ -139,7 +163,7 @@ public class UserTest {
 		//user shout
 		
 		UserShout uss=new UserShout();
-		uss.setComment("dfdfd");
+		uss.setComment("nice............");
 		uss.setCreatedDate(new Date());
 		uss.setUser(u);
 		Venue v=vrep.findById((long)1);
@@ -152,7 +176,7 @@ public class UserTest {
 		UserShares us=new UserShares();
 		us.setUser(u);
 		us.setValue("sonic");
-		us.setComment("nicwe");
+		us.setComment("nice..........");
 		us.setType(pt);
 		us.setCreateDate(new Date());
 		usrep.save(us);
@@ -210,8 +234,16 @@ public class UserTest {
 		UserLocations ul=new UserLocations();
 		ul.setCreatedDate(new Date());
 		ul.setLocation(l1);
+		ul.setLocationType(lt);
 		ul.setUser(u);
 		ulrep.save(ul);
+		
+		UserLocations ul1=new UserLocations();
+		ul1.setCreatedDate(new Date());
+		ul1.setLocation(l2);
+		ul1.setLocationType(lt1);
+		ul1.setUser(u);
+		ulrep.save(ul1);
 		
 		//userProfile
 		
@@ -219,32 +251,69 @@ public class UserTest {
 		up.setFristName("kkk");
 		up.setLastName("swaroop");
 		up.setReg(true);
+		up.setCreatedDate(new Date());
 		up.setUser(u);
-		up.setHomeLocation(l1);
-		up.setOfficeLocation(l2);
+		
 		
 		uprep.save(up);
 		
       //user event
 		
 		UserEvent ue=new UserEvent();
-		ue.setData("gdgdg");
+		Venue vv=vrep.findById((long)1);
+		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+		try{
+		String json = ow.writeValueAsString(vv);
+		
+		ue.setData(json);
+		} catch (JsonGenerationException ex) {
+
+			ex.printStackTrace();
+
+		} catch (JsonMappingException ex) {
+
+			ex.printStackTrace();
+
+		} catch (IOException ex) {
+
+			ex.printStackTrace();
+
+		}
+		
+		
 		ue.setUser(u);
 		uErep.save(ue);
-		
-		
-		
-		
-		
-	}
+		}
+	*/
+	
+	
 	
 	@Test
 	public void read()
 	{
 		User u=urep.findById((long)1);
 		
-		System.out.println(u.getPhoneNumber()+ "  "+u.getEmail());
+
+		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+		try{
+		String json = ow.writeValueAsString(u);
 		
-	}
+		System.out.println(json);
+		} catch (JsonGenerationException ex) {
+
+			ex.printStackTrace();
+
+		} catch (JsonMappingException ex) {
+
+			ex.printStackTrace();
+
+		} catch (IOException ex) {
+
+			ex.printStackTrace();
+
+		}
+		}
+	
+	
 	
 }

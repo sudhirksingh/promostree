@@ -1,10 +1,16 @@
 package com.promostree.domain.user;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 
 @Entity(name="preferenceType")
 @Table(name="preferenceType")
@@ -14,6 +20,48 @@ public  class Type
 	@GeneratedValue(strategy = GenerationType.AUTO)
 private Long id;
 private String name;
+
+
+@OneToOne(mappedBy="type",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+@JsonBackReference
+private UserPreferences userPreferences;
+
+@OneToOne(mappedBy="type",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+@JsonBackReference
+private UserFeedback userFeedback;
+
+@OneToOne(mappedBy="type",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+@JsonBackReference
+private UserShares userShares;
+
+public UserFeedback getUserFeedback() {
+	return userFeedback;
+}
+public void setUserFeedback(UserFeedback userFeedback) {
+	this.userFeedback = userFeedback;
+}
+public UserShares getUserShares() {
+	return userShares;
+}
+public void setUserShares(UserShares userShares) {
+	this.userShares = userShares;
+}
+
+
+
+
+
+
+
+
+
+public UserPreferences getUserPreferences() {
+	return userPreferences;
+}
+public void setUserPreferences(UserPreferences userPreferences) {
+	this.userPreferences = userPreferences;
+}
+
 public Long getId() {
 	return id;
 }

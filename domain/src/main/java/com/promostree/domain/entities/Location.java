@@ -2,6 +2,7 @@ package com.promostree.domain.entities;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +14,10 @@ import javax.validation.constraints.NotNull;
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.validator.constraints.NotBlank;
+
+import com.promostree.domain.user.UserLocations;
+import com.promostree.domain.user.UserPreferences;
+import com.promostree.domain.user.UserProfile;
 
 
 @Entity(name="location")
@@ -30,10 +35,29 @@ public class Location {
 	
 	
 	
-	@OneToOne(mappedBy="location",cascade=CascadeType.ALL)
-	@JsonManagedReference
+	@OneToOne(mappedBy="location",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@JsonBackReference
 	private Address address;
 	
+	
+	@OneToOne(mappedBy="location",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonBackReference
+	private UserLocations userLocations;
+	
+	
+	
+	
+	
+	
+
+	public UserLocations getUserLocations() {
+		return userLocations;
+	}
+
+	public void setUserLocations(UserLocations userLocations) {
+		this.userLocations = userLocations;
+	}
+
 	public Address getAddress() {
 		return address;
 	}
