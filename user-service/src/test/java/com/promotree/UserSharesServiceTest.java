@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -14,14 +15,14 @@ import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserShares;
 import com.promostree.repositories.user.TypeRepository;
-import com.promotree.user.service.UserSharesServiceImpl;
+import com.promotree.user.service.UserServiceImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations ="classpath:user-service-application-context.xml")
 public class UserSharesServiceTest
 {
-   @Autowired
-   UserSharesServiceImpl userSharesServiceImpl;
+   @Autowired(required=true)
+   UserServiceImpl userSharesServiceImpl;
    /*  @Autowired
    UserShares userShares;
    @Autowired

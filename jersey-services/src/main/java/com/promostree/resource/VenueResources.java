@@ -51,8 +51,6 @@ public class VenueResources {
 	//System.out.println(returnVenue.getCreatedBy()+", "+returnVenue.getOffers().get(1).getSubject()+" ,"+returnVenue.getAddress().getCity()+" ," +returnVenue.getOffers().get(1).getShout().getSubject()+returnVenue.getCategory().getName());
 	return returnVenue;
 	}
-	
-	
 	@GET
 	@Path("/indexing")
 	@Produces(MediaType.APPLICATION_JSON)
