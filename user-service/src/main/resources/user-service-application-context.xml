@@ -11,8 +11,5 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
 	<import resource="classpath:domain-application-context.xml" />
-
-	<!-- bean -->
-	<context:component-scan base-package="com.promostree.user.service" />
-
+	<context:component-scan base-package="com.promostree.user.service" /> 
 </beans>
