@@ -21,7 +21,8 @@ import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-
+import org.springframework.stereotype.Component;
+@Component
 @Entity(name = "user_shares")
 @Table(name = "user_shares")
 public class UserShares {
@@ -40,9 +41,9 @@ public class UserShares {
 
 	private String value;
 
-	@OneToOne
+	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name = "typeId")
-	@JsonManagedReference
+	@JsonBackReference
 	private Type type;
 
 	@OneToMany(mappedBy = "userShares", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

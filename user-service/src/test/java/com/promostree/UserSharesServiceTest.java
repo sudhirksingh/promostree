@@ -25,10 +25,6 @@ public class UserSharesServiceTest
    @Autowired
    UserServices userService;
    @Autowired
-   UserShares userShares;
-   @Autowired
-   TargetUser targetUsers;
-   @Autowired
    TypeRepository typeRepository;
    @Test
    public  void SharesTest()
@@ -40,12 +36,15 @@ public class UserSharesServiceTest
    @Test
     public  void saveUserSharesTest()
     {
-    	Type pt=new Type();
-		pt.setName("brand");
-		User user=new User();
-		user.setEmail("ananth@gmail.com");
-		user.setPhoneNumber("9542128262");
-    	userShares.setComment("it's pretty good..");
+    	Type pt = new Type();
+    	pt.setId(1L);
+		//pt.setName("brand");
+		User user = new User();
+		user.setId(1L);
+	//	user.setEmail("ananth@gmail.com");
+	//	user.setPhoneNumber("9542128262");
+    	UserShares userShares = new UserShares();
+		userShares.setComment("it's pretty good..");
     	userShares.setCreateDate(new Date()); 	
     	userShares.setType(pt);
     	userShares.setUser(user);

@@ -58,4 +58,5 @@ public class VenueResources {
 	boolean result  = venueSearchDelegate.getIndexing();
 	return result;
 	}
+	
 }
