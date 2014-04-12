@@ -16,14 +16,14 @@ public interface UserServices {
 	
 public boolean saveUserShares(UserShares userShares);
 public List<UserShares> readPostedUserShares(long userId); 
-public List<UserShares> readRecievedUserShares(long userId); 
+public List<UserShares> readRecievedUserShares(Long userId); 
 
-public boolean saveUserCredentials(User user);
-public boolean saveUserProfile(UserProfile userProfile);
-public boolean saveUserPreferences(UserPreferences userPreferences);
-public boolean saveUserLocations(UserLocations userLocations);
+public User saveUserCredentials(User user);
+public UserProfile saveUserProfile(UserProfile userProfile);
+public UserPreferences saveUserPreferences(UserPreferences userPreferences);
+public UserLocations saveUserLocations(UserLocations userLocations);
 public boolean saveLocationType(LocationType locationType); 
-public boolean saveLocation(Location location); 
+public Location saveLocation(Location location); 
 public boolean saveUserFeedback(UserFeedback userFeedback);
 public boolean saveUserShout(UserShout userShout);
 	

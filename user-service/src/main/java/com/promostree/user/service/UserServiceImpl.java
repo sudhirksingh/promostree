@@ -1,5 +1,6 @@
 package com.promostree.user.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -51,78 +52,73 @@ public class UserServiceImpl implements UserServices {
 	UserFeedbackRepository userFeedbackRepository;
 	@Autowired
 	UserShoutRepository userShoutRepository;
+	private List<UserShares> userShares;
 
 	// to post shares
 	@Override
 	public boolean saveUserShares(UserShares userShares) {
-
 		UserShares userShares1 = userSharesRepository.save(userShares);
 		if (userShares1.equals(userShares))
 			return true;
 		else
 			return false;
 	}
-
 	// to get shares which i posted
 	@Override
 	public List<UserShares> readPostedUserShares(long userId) {
-
 		return userSharesRepository.findByUserId(userId);
-
 	}
-
 	// to get shares which i received from different users
 	@Override
-	public List<UserShares> readRecievedUserShares(long userId) {
-		Set<UserShares> userShares = null;
-		List<TargetUser> targetUsers = targetUsersRepository
-				.findByUserId(userId);
+	public List<UserShares> readRecievedUserShares(Long userId) {
+		userShares = new ArrayList<UserShares>();
+		List<TargetUser> targetUsers = targetUsersRepository.findByUserId(userId);
 		for (TargetUser targetUser : targetUsers) {
+			System.out.println(targetUser.getId());
 			userShares.add(targetUser.getUserShares());
 		}
-		return (List<UserShares>) userShares;
+		return userShares;
 	}
-
 	@Override
-	public boolean saveUserCredentials(User user) {
-
+	public User saveUserCredentials(User user) {
 		User u = userRepository.findByPhoneNumber(user.getPhoneNumber());
 		if (u.equals(null)) {
 			userRepository.save(user);
-			return true;
-		} else {
-			return false;
+			return null;
 		}
+		return user;
 	}
 
 	@Override
-	public boolean saveUserProfile(UserProfile userProfile) {
-		UserProfile userProfile1 = userProfileRepository.save(userProfile);
-		if (userProfile1.equals(userProfile)) {
+	public boolean saveUserShout(UserShout userShout) {
+		UserShout usershout = userShoutRepository.save(userShout);
+		if (usershout.equals(userShout))
 			return true;
-		} else
+		else
 			return false;
 	}
 
 	@Override
-	public boolean saveUserPreferences(UserPreferences userPreferences) {
+	public UserProfile saveUserProfile(UserProfile userProfile) {
+		UserProfile userProfile1 = userProfileRepository.save(userProfile);
+
+		return userProfile1;
+	}
+
+	@Override
+	public UserPreferences saveUserPreferences(UserPreferences userPreferences) {
 		UserPreferences userPreferences1 = userPreferencesRepository
 				.save(userPreferences);
-		if (userPreferences1.equals(userPreferences))
-			return true;
-		else
-			return false;
+
+		return userPreferences1;
 
 	}
 
 	@Override
-	public boolean saveUserLocations(UserLocations userLocations) {
+	public UserLocations saveUserLocations(UserLocations userLocations) {
 		UserLocations userLocations1 = userLocationsRepository
 				.save(userLocations);
-		if (userLocations1.equals(userLocations))
-			return true;
-		else
-			return false;
+		return userLocations1;
 	}
 
 	@Override
@@ -135,12 +131,9 @@ public class UserServiceImpl implements UserServices {
 	}
 
 	@Override
-	public boolean saveLocation(Location location) {
+	public Location saveLocation(Location location) {
 		Location location1 = locationRepository.save(location);
-		if (location1.equals(location))
-			return true;
-		else
-			return false;
+		return location1;
 	}
 
 	@Override
@@ -152,12 +145,4 @@ public class UserServiceImpl implements UserServices {
 			return false;
 	}
 
-	@Override
-	public boolean saveUserShout(UserShout userShout) {
-		UserShout usershout = userShoutRepository.save(userShout);
-		if (usershout.equals(userShout))
-			return true;
-		else
-			return false;
-	}
 }
