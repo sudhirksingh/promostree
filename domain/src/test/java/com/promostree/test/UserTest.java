@@ -19,7 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.promostree.domain.entities.Location;
 import com.promostree.domain.entities.Venue;
 import com.promostree.domain.user.LocationType;
-import com.promostree.domain.user.TargetUsers;
+import com.promostree.domain.user.TargetUser;
 import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserEvent;
@@ -86,6 +86,8 @@ public class UserTest {
 	
 	@Autowired
 	LocationTypeRepository ltrep ;
+	@Autowired
+	UserSharesRepository userSharesRep;
 	
 	/*
 	@Test
@@ -287,9 +289,14 @@ public class UserTest {
 		}
 	*/
 	
-	
-	
 	@Test
+	public void reading(){
+		List<UserShares> userShares=userSharesRep.findByUserId((long)1);
+		for(UserShares us:userShares){
+			System.out.println(us.getId());		
+	}
+	
+	/*@Test
 	public void read()
 	{
 		User u=urep.findById((long)1);
@@ -312,7 +319,7 @@ public class UserTest {
 
 			ex.printStackTrace();
 
-		}
+		}*/
 		}
 	
 	

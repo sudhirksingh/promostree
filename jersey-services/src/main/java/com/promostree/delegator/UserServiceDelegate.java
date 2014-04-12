@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserShares;
-import com.promotree.user.service.UserServices;
+import com.promostree.user.service.UserServices;
 
 @Component
 public class UserServiceDelegate {

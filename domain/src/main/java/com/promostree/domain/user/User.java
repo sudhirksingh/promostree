@@ -22,124 +22,132 @@ import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-
-@XmlRootElement(name="user")
+@XmlRootElement(name = "user")
 @XmlType
 @XmlAccessorType(XmlAccessType.FIELD)
-@Entity(name="user")
-@Table(name="user")
-public class User
-{
+@Entity(name = "user")
+@Table(name = "user")
+public class User {
 	@XmlElement
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-private Long id;
+	private Long id;
 	@XmlElement
-private String phoneNumber;
+	private String phoneNumber;
 	@XmlElement
-private String email;
-	
+	private String email;
 
-	
-	@OneToOne(mappedBy="user",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	//@JsonIgnore
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	// @JsonIgnore
 	@JsonManagedReference
-	private UserProfile userProfile; 
-	
-	@OneToMany(mappedBy="user",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private UserProfile userProfile;
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonManagedReference
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<UserLocations> userLocations;
-	
-	
-	@OneToMany(mappedBy="user",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonManagedReference
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<UserPreferences> userPreferences;
-	
-	@OneToMany(mappedBy="user",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonManagedReference
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<UserFeedback> userFeedback;
-	
-	@OneToMany(mappedBy="user",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonManagedReference
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<UserShares> userShares;
-	
-	@OneToMany(mappedBy="user",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonManagedReference
 	private List<UserShout> userShout;
-	
-	
-	@OneToOne(mappedBy="users")
+
+	@OneToOne(mappedBy = "user")
 	@JsonIgnore
-	//@JsonBackReference
-	private TargetUsers targetUsers;
-	
-	
-	
-	
-	
+	// @JsonBackReference
+	private TargetUser targetUsers;
+
 	public List<UserLocations> getUserLocations() {
 		return userLocations;
 	}
+
 	public void setUserLocations(List<UserLocations> userLocations) {
 		this.userLocations = userLocations;
 	}
-	public TargetUsers getTargetUsers() {
+
+	public TargetUser getTargetUsers() {
 		return targetUsers;
 	}
-	public void setTargetUsers(TargetUsers targetUsers) {
+
+	public void setTargetUsers(TargetUser targetUsers) {
 		this.targetUsers = targetUsers;
 	}
+
 	public List<UserFeedback> getUserFeedback() {
 		return userFeedback;
 	}
+
 	public void setUserFeedback(List<UserFeedback> userFeedback) {
 		this.userFeedback = userFeedback;
 	}
+
 	public List<UserShares> getUserShares() {
 		return userShares;
 	}
+
 	public void setUserShares(List<UserShares> userShares) {
 		this.userShares = userShares;
 	}
+
 	public List<UserShout> getUserShout() {
 		return userShout;
 	}
+
 	public void setUserShout(List<UserShout> userShout) {
 		this.userShout = userShout;
 	}
+
 	public List<UserPreferences> getUserPreferences() {
 		return userPreferences;
 	}
+
 	public void setUserPreferences(List<UserPreferences> userPreferences) {
 		this.userPreferences = userPreferences;
 	}
+
 	public UserProfile getUserProfile() {
 		return userProfile;
 	}
+
 	public void setUserProfile(UserProfile userProfile) {
 		this.userProfile = userProfile;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
+
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	}
+}

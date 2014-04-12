@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.promostree.domain.user.TargetUsers;
+import com.promostree.domain.user.TargetUser;
 
-public interface TargetUsersRepository extends JpaRepository<TargetUsers, Long> {
+public interface TargetUsersRepository extends JpaRepository<TargetUser, Long> {
 	
-	@Query("userId:?0")
-	List<TargetUsers> findByUserId(long userId);
+	//@Query("TargetUser.User.id:?0")
+	List<TargetUser> findByUserId(Long userId);
 
 }
