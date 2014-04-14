@@ -1,5 +1,6 @@
 package com.promostree.test;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -8,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.promostree.domain.entities.Venue;
 import com.promostree.domain.user.TargetUser;
 import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserPreference;
+import com.promostree.domain.user.UserShout;
 import com.promostree.repositories.entities.LocationRepository;
 import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.user.LocationTypeRepository;
@@ -61,7 +64,7 @@ public class UserRepositoryTest {
 		System.out.println(user.getPhoneNumber());
 		List<TargetUser> trs=targetUserRep.findByUserId(2L);
 		for(TargetUser tr:trs){
-			System.out.println(tr.getUserShares().getComment());
+			System.out.println("user  :: "+tr.getUserShares().getComment());
 		}
 	}
 	/*@Test
@@ -78,12 +81,31 @@ public class UserRepositoryTest {
 	public void readPreferenceTest(){
 		List<UserPreference> userPreferences = userPreferencesRep.findByUserId(1L);
 		for(UserPreference userPre:userPreferences){
-			System.out.println(userPre.getId());
+			System.out.println("preference :: "+userPre.getId());
 		}
 	}
 	@Test
+	public void saveShout(){
+		UserShout userShout=new UserShout();
+		userShout.setComment("its good ..");
+		userShout.setCreatedDate(new Date());
+		User user=userRep.findById(1L);
+		Venue venue=venueRep.findById(1L);
+		userShout.setUser(user);
+		userShout.setVenue(venue);
+		UserShout userShout1=userShoutRep.save(userShout);
+				
+	}
+	@Test
+	public void readShouts(){
+		List<UserShout> userShouts=userShoutRep.findByUserId(1L);
+		for(UserShout userShout:userShouts){
+			System.out.println("shout.."+userShout.getComment());
+		}
+	}
+	/*@Test
 	public void deletePreferenceTest(){
 		UserPreference userPref=userPreferencesRep.findOne(1L);
 		userPreferencesRep.delete(userPref);
-	}
+	}*/
 }

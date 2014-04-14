@@ -21,6 +21,7 @@ import com.promostree.domain.user.UserPreference;
 import com.promostree.domain.user.UserPreference;
 import com.promostree.domain.user.UserShare;
 import com.promostree.domain.user.UserShout;
+import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.user.TypeRepository;
 import com.promostree.repositories.user.UserPreferencesRepository;
 import com.promostree.repositories.user.UserRepository;
@@ -32,6 +33,8 @@ import com.promostree.user.service.UserServices;
 public class UserServiceTest {
 	@Autowired
 	UserServices userService;
+	@Autowired
+	VenueRepository venueRepository;
 	@Autowired
 	TypeRepository typeRepository;
 	@Autowired
@@ -47,19 +50,21 @@ public class UserServiceTest {
 	 * userPreference.setValue("pepe");
 	 * userService.saveUserPreferences(userPreference); }
 	 */
-@Test
-public void readUserPreferencesTest(){
-	User user=userRepository.findById(2L);
-	List<UserPreference> userPreferences=userService.readUserPreferences(user);
-	for(UserPreference userPre:userPreferences){
-		System.out.println(userPre.getValue());
+	@Test
+	public void readUserPreferencesTest() {
+		User user = userRepository.findById(2L);
+		List<UserPreference> userPreferences = userService
+				.readUserPreferences(user);
+		for (UserPreference userPre : userPreferences) {
+			System.out.println(userPre.getValue());
+		}
 	}
-}
-/*@Test
-public void deleteUserPreferences(){
-	UserPreference userPreferences=userPreferencesRepository.findOne(1L);
-	userService.deleteUserPreferences(userPreferences);
-}*/
+
+	/*
+	 * @Test public void deleteUserPreferences(){ UserPreference
+	 * userPreferences=userPreferencesRepository.findOne(1L);
+	 * userService.deleteUserPreferences(userPreferences); }
+	 */
 	/*
 	 * @Test public void saveUserSharesTest() { Type pt = new Type();
 	 * pt.setId(1L); //pt.setName("brand"); User user = new User();
@@ -71,14 +76,14 @@ public void deleteUserPreferences(){
 	 * userService.saveUserShares(userShares); Assert.assertTrue(b); }
 	 */
 
-	/*
-	 * @Test public void readUserSharesTest() { // to get shares which i posted
-	 * List<UserShares> us = userService.readPostedUserShares(1L); for
-	 * (UserShares u : us) { System.out.println(u.getComment()); } // to get
-	 * shares which i received from different users List<UserShares> uss = null;
-	 * uss = userService.readRecievedUserShares(2L); for (UserShares u : uss) {
-	 * System.out.println(u.getComment()); } }
-	 */
+	@Test 
+	public void readUserSharesTest() { // to get shares which i posted
+	  List<UserShare> us = userService.readPostedUserShares(1L); for
+	  (UserShare u : us) { System.out.println(u.getComment()); } 
+	  // to ge shares which i received from different users 
+	  List<UserShare> uss = null;
+	  uss = userService.readRecievedUserShares(2L); for (UserShare u : uss) {
+	  System.out.println(u.getComment()); } }
 
 	@Test
 	public void IntialRegistration() {
@@ -89,7 +94,30 @@ public void deleteUserPreferences(){
 		System.out.println(user1);
 	}
 
+/*	 @Test
+	 public void saveUserShout()
+	 {
+		 UserShout userShout=new UserShout();
+			userShout.setComment("its good ..");
+			userShout.setCreatedDate(new Date());
+			User user=userRepository.findById(1L);
+			Venue venue=venueRepository.findById(1L);
+			userShout.setUser(user);
+			userShout.setVenue(venue);
+		 
+		 boolean saved=userService.saveUserShout(userShout);
 	
+	 }*/
+	@Test
+	public void readShouts()
+	{
+		User user=new User();
+		user.setId(1L);
+		List<UserShout> userShouts=userService.readUserShout(user);
+		for(UserShout shout:userShouts){
+			System.out.println("read shouts ::  "+shout.getComment());
+		}
+	}
 	// @Test
 	// public void savelocation(Location location)
 	// {
@@ -126,34 +154,6 @@ public void deleteUserPreferences(){
 	// userService.saveUserFeedback(feedback);
 	// }
 
-	// @Test
-	// public void userShout()
-	// {
-	// UserShout ushout = new UserShout();
-	// ushout.setComment("niceproduct");
-	// ushout.setCreatedDate(new Date());
-	// User user = new User();
-	// user.setEmail("ananth@gmail.com");
-	// user.setPhoneNumber("9035208863");
-	// ushout.setUser(user);
-	// Venue venue = new Venue();
-	// venue.setActive(true);
-	// Address a = new Address();
-	// a.setCity("ramanthapur");
-	// a.setCountry("india");
-	// a.setLandMark("kuki");
-	// a.setState("andhrapradesh");
-	// a.setZip("500013");
-	// venue.setAddress(a);
-	// Category c = new Category();
-	// c.setName("food");
-	//
-	// venue.setCategory(c);
-	// venue.setCreatedBy("visi");
-	// venue.setCreatedDate(new Date());
-	// ushout.setVenue(venue);
-	// userService.saveUserShout(ushout);
-	// }
-	//
+	
 
 }
