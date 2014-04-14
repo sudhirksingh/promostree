@@ -113,6 +113,11 @@ public class UserServiceImpl implements UserServices {
 		return userPreferences1;
 
 	}
+	@Override
+	public List<UserPreferences> readUserPreferences(User user){
+		return userPreferencesRepository.findByUserId(user.getId());
+		
+	}
 
 	@Override
 	public UserLocations saveUserLocations(UserLocations userLocations) {

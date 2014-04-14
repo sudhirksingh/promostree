@@ -64,8 +64,8 @@ public class UserRepositoryTest {
 			System.out.println(tr.getUserShares().getComment());
 		}
 	}
-	@Test
-	public void savePreference(){
+	/*@Test
+	public void savePreferenceTest(){
 		UserPreferences userPreference=new UserPreferences();
 		Type type=typeRep.findOne(1L);
 		User u1=userRep.findById(2L);
@@ -73,5 +73,12 @@ public class UserRepositoryTest {
 		userPreference.setUser(u1);
 		userPreference.setValue("pepe");
 		userPreferencesRep.save(userPreference);
+	}*/
+	@Test
+	public void readPreferenceTest(){
+		List<UserPreferences> userPreferences = userPreferencesRep.findByUserId(1L);
+		for(UserPreferences userPre:userPreferences){
+			System.out.println(userPre.getId());
+		}
 	}
 }
