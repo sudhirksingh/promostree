@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.promostree.delegator.UserServiceDelegate;
 import com.promostree.domain.user.User;
+import com.promostree.domain.user.UserPreference;
 import com.promostree.domain.user.UserShare;
 
 @Path("/userservice")
@@ -20,9 +21,10 @@ public class UserResources {
 	@Autowired
 	UserServiceDelegate userServiceDelegate;
 
+	// to save user share
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String shares(UserShare userShares) {
+	public String share(UserShare userShares) {
 
 		boolean save = userServiceDelegate.saveUserShares(userShares);
 		if (save)
@@ -31,22 +33,39 @@ public class UserResources {
 			return "failed..";
 	}
 
+	// to read shares which are posted
 	@GET
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
 	@Path("/postedShares/{userId}")
-	public List<UserShare> postedShares(long userId) {
+	public List<UserShare> readPostedShares(long userId) {
 
 		return userServiceDelegate.readPostedUserShares(userId);
-
 	}
 
+	// to read share which are received
 	@GET
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
 	@Path("/receivedShares/{userId}")
-	public List<UserShare> receivedShares(long userId) {
+	public List<UserShare> readReceivedShares(long userId) {
 
 		return userServiceDelegate.readReceivedUserShares(userId);
 
+	}
+
+	// to save user preference
+	@POST
+	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+	@Path("/savePreference")
+	public UserPreference saveUserPreference(UserPreference userPreference) {
+		return userServiceDelegate.saveUserPreference(userPreference);
+	}
+
+	// to read user preference
+	@POST
+	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+	@Path("/readPreference")
+	public List<UserPreference> readUserPreference(User user) {
+		return userServiceDelegate.readUserPreference(user);
 	}
 
 	@POST
