@@ -15,8 +15,8 @@ import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.promostree.domain.user.UserLocations;
-import com.promostree.domain.user.UserPreferences;
+import com.promostree.domain.user.UserLocation;
+import com.promostree.domain.user.UserPreference;
 import com.promostree.domain.user.UserProfile;
 
 
@@ -42,7 +42,7 @@ public class Location {
 	
 	@OneToOne(mappedBy="location",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonBackReference
-	private UserLocations userLocations;
+	private UserLocation userLocations;
 	
 	
 	
@@ -50,11 +50,11 @@ public class Location {
 	
 	
 
-	public UserLocations getUserLocations() {
+	public UserLocation getUserLocations() {
 		return userLocations;
 	}
 
-	public void setUserLocations(UserLocations userLocations) {
+	public void setUserLocations(UserLocation userLocations) {
 		this.userLocations = userLocations;
 	}
 

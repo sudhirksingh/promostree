@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.promostree.delegator.UserServiceDelegate;
 import com.promostree.domain.user.User;
-import com.promostree.domain.user.UserShares;
+import com.promostree.domain.user.UserShare;
 
 @Path("/userservice")
 public class UserResources {
@@ -22,7 +22,7 @@ public class UserResources {
 
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String shares(UserShares userShares) {
+	public String shares(UserShare userShares) {
 
 		boolean save = userServiceDelegate.saveUserShares(userShares);
 		if (save)
@@ -34,7 +34,7 @@ public class UserResources {
 	@GET
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
 	@Path("/postedShares/{userId}")
-	public List<UserShares> postedShares(long userId) {
+	public List<UserShare> postedShares(long userId) {
 
 		return userServiceDelegate.readPostedUserShares(userId);
 
@@ -43,7 +43,7 @@ public class UserResources {
 	@GET
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
 	@Path("/receivedShares/{userId}")
-	public List<UserShares> receivedShares(long userId) {
+	public List<UserShare> receivedShares(long userId) {
 
 		return userServiceDelegate.readReceivedUserShares(userId);
 

@@ -24,10 +24,10 @@ import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserEvent;
 import com.promostree.domain.user.UserFeedback;
-import com.promostree.domain.user.UserLocations;
-import com.promostree.domain.user.UserPreferences;
+import com.promostree.domain.user.UserLocation;
+import com.promostree.domain.user.UserPreference;
 import com.promostree.domain.user.UserProfile;
-import com.promostree.domain.user.UserShares;
+import com.promostree.domain.user.UserShare;
 import com.promostree.domain.user.UserShout;
 
 import com.promostree.repositories.entities.LocationRepository;
@@ -89,8 +89,8 @@ public class UserTest {
 	@Autowired
 	UserSharesRepository userSharesRep;
 	
-	/*
-	@Test
+	
+	/*@Test
 	public void create()
 	{
 		// for types
@@ -175,7 +175,7 @@ public class UserTest {
 		
 		//shares 
 				
-		UserShares us=new UserShares();
+		UserShare us=new UserShare();
 		
 		us.setUser(u);
 		us.setValue("sonic");
@@ -184,13 +184,13 @@ public class UserTest {
 		us.setCreateDate(new Date());
 		usrep.save(us);
 
-		TargetUsers uu=new TargetUsers();
+		TargetUser uu=new TargetUser();
 		uu.setUserShares(us);
 		uu.setUsers(u1);
 		turep.save(uu);
 		
 		
-		TargetUsers uu1=new TargetUsers();
+		TargetUser uu1=new TargetUser();
 		uu1.setUserShares(us);
 		uu1.setUsers(u2);
 		turep.save(uu1);
@@ -220,13 +220,13 @@ public class UserTest {
 		
 		//preferences
 		
-		UserPreferences ups=new UserPreferences();
+		UserPreference ups=new UserPreference();
 		ups.setType(pt);
 		ups.setValue("lg");
 		ups.setUser(u);
 		upsrep.save(ups);
 				
-		UserPreferences ups1=new UserPreferences();
+		UserPreference ups1=new UserPreference();
 		ups1.setType(pt1);
 		ups1.setValue("hcl");
 		ups1.setUser(u);
@@ -234,14 +234,14 @@ public class UserTest {
 		
 		//userLocation
 		
-		UserLocations ul=new UserLocations();
+		UserLocation ul=new UserLocation();
 		ul.setCreatedDate(new Date());
 		ul.setLocation(l1);
 		ul.setLocationType(lt);
 		ul.setUser(u);
 		ulrep.save(ul);
 		
-		UserLocations ul1=new UserLocations();
+		UserLocation ul1=new UserLocation();
 		ul1.setCreatedDate(new Date());
 		ul1.setLocation(l2);
 		ul1.setLocationType(lt1);
@@ -286,13 +286,13 @@ public class UserTest {
 		
 		ue.setUser(u);
 		uErep.save(ue);
-		}
-	*/
+		}*/
+	
 	
 	@Test
 	public void reading(){
-		List<UserShares> userShares=userSharesRep.findByUserId((long)1);
-		for(UserShares us:userShares){
+		List<UserShare> userShares=userSharesRep.findByUserId((long)1);
+		for(UserShare us:userShares){
 			System.out.println(us.getId());		
 	}
 	

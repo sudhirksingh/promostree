@@ -13,10 +13,10 @@ import com.promostree.domain.user.LocationType;
 import com.promostree.domain.user.TargetUser;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserFeedback;
-import com.promostree.domain.user.UserLocations;
-import com.promostree.domain.user.UserPreferences;
+import com.promostree.domain.user.UserLocation;
+import com.promostree.domain.user.UserPreference;
 import com.promostree.domain.user.UserProfile;
-import com.promostree.domain.user.UserShares;
+import com.promostree.domain.user.UserShare;
 import com.promostree.domain.user.UserShout;
 import com.promostree.repositories.entities.LocationRepository;
 import com.promostree.repositories.user.LocationTypeRepository;
@@ -52,12 +52,12 @@ public class UserServiceImpl implements UserServices {
 	UserFeedbackRepository userFeedbackRepository;
 	@Autowired
 	UserShoutRepository userShoutRepository;
-	private List<UserShares> userShares;
+	private List<UserShare> userShares;
 
 	// to post shares
 	@Override
-	public boolean saveUserShares(UserShares userShares) {
-		UserShares userShares1 = userSharesRepository.save(userShares);
+	public boolean saveUserShares(UserShare userShares) {
+		UserShare userShares1 = userSharesRepository.save(userShares);
 		if (userShares1.equals(userShares))
 			return true;
 		else
@@ -65,13 +65,13 @@ public class UserServiceImpl implements UserServices {
 	}
 	// to get shares which i posted
 	@Override
-	public List<UserShares> readPostedUserShares(long userId) {
+	public List<UserShare> readPostedUserShares(long userId) {
 		return userSharesRepository.findByUserId(userId);
 	}
 	// to get shares which i received from different users
 	@Override
-	public List<UserShares> readRecievedUserShares(Long userId) {
-		userShares = new ArrayList<UserShares>();
+	public List<UserShare> readRecievedUserShares(Long userId) {
+		userShares = new ArrayList<UserShare>();
 		List<TargetUser> targetUsers = targetUsersRepository.findByUserId(userId);
 		for (TargetUser targetUser : targetUsers) {
 			System.out.println(targetUser.getId());
@@ -106,8 +106,8 @@ public class UserServiceImpl implements UserServices {
 	}
 
 	@Override
-	public UserPreferences saveUserPreferences(UserPreferences userPreferences) {
-		UserPreferences userPreferences1 = userPreferencesRepository
+	public UserPreference saveUserPreferences(UserPreference userPreferences) {
+		UserPreference userPreferences1 = userPreferencesRepository
 				.save(userPreferences);
 
 		return userPreferences1;
@@ -115,8 +115,8 @@ public class UserServiceImpl implements UserServices {
 	}
 
 	@Override
-	public UserLocations saveUserLocations(UserLocations userLocations) {
-		UserLocations userLocations1 = userLocationsRepository
+	public UserLocation saveUserLocations(UserLocation userLocations) {
+		UserLocation userLocations1 = userLocationsRepository
 				.save(userLocations);
 		return userLocations1;
 	}

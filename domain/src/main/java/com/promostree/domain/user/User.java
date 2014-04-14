@@ -45,12 +45,12 @@ public class User {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonManagedReference
 	@Fetch(value = FetchMode.SUBSELECT)
-	private List<UserLocations> userLocations;
+	private List<UserLocation> userLocations;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonManagedReference
 	@Fetch(value = FetchMode.SUBSELECT)
-	private List<UserPreferences> userPreferences;
+	private List<UserPreference> userPreferences;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonManagedReference
@@ -60,7 +60,7 @@ public class User {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonManagedReference
 	@Fetch(value = FetchMode.SUBSELECT)
-	private List<UserShares> userShares;
+	private List<UserShare> userShares;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonManagedReference
@@ -71,11 +71,11 @@ public class User {
 	// @JsonBackReference
 	private TargetUser targetUsers;
 
-	public List<UserLocations> getUserLocations() {
+	public List<UserLocation> getUserLocations() {
 		return userLocations;
 	}
 
-	public void setUserLocations(List<UserLocations> userLocations) {
+	public void setUserLocations(List<UserLocation> userLocations) {
 		this.userLocations = userLocations;
 	}
 
@@ -95,11 +95,11 @@ public class User {
 		this.userFeedback = userFeedback;
 	}
 
-	public List<UserShares> getUserShares() {
+	public List<UserShare> getUserShares() {
 		return userShares;
 	}
 
-	public void setUserShares(List<UserShares> userShares) {
+	public void setUserShares(List<UserShare> userShares) {
 		this.userShares = userShares;
 	}
 
@@ -111,11 +111,11 @@ public class User {
 		this.userShout = userShout;
 	}
 
-	public List<UserPreferences> getUserPreferences() {
+	public List<UserPreference> getUserPreferences() {
 		return userPreferences;
 	}
 
-	public void setUserPreferences(List<UserPreferences> userPreferences) {
+	public void setUserPreferences(List<UserPreference> userPreferences) {
 		this.userPreferences = userPreferences;
 	}
 
