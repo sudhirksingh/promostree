@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.promostree.domain.user.UserShares;
+import com.promostree.domain.user.UserShare;
 
-public interface UserSharesRepository extends JpaRepository<UserShares, Long> {
+public interface UserSharesRepository extends JpaRepository<UserShare, Long> {
 
 	//@Query("user.id:?0")
-	List<UserShares> findByUserId(Long userId);
+	List<UserShare> findByUserId(Long userId);
 	
 }

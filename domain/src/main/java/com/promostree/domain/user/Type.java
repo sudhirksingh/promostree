@@ -12,8 +12,8 @@ import javax.persistence.Table;
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 
-@Entity(name="preferenceType")
-@Table(name="preferenceType")
+@Entity(name="type")
+@Table(name="type")
 public  class Type
 {
 	@Id
@@ -24,7 +24,7 @@ private String name;
 
 @OneToOne(mappedBy="type",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 @JsonBackReference
-private UserPreferences userPreferences;
+private UserPreference userPreferences;
 
 @OneToOne(mappedBy="type",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 @JsonBackReference
@@ -32,7 +32,7 @@ private UserFeedback userFeedback;
 
 @OneToOne(mappedBy="type",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 @JsonBackReference
-private UserShares userShares;
+private UserShare userShares;
 
 public UserFeedback getUserFeedback() {
 	return userFeedback;
@@ -40,10 +40,10 @@ public UserFeedback getUserFeedback() {
 public void setUserFeedback(UserFeedback userFeedback) {
 	this.userFeedback = userFeedback;
 }
-public UserShares getUserShares() {
+public UserShare getUserShares() {
 	return userShares;
 }
-public void setUserShares(UserShares userShares) {
+public void setUserShares(UserShare userShares) {
 	this.userShares = userShares;
 }
 
@@ -55,10 +55,10 @@ public void setUserShares(UserShares userShares) {
 
 
 
-public UserPreferences getUserPreferences() {
+public UserPreference getUserPreferences() {
 	return userPreferences;
 }
-public void setUserPreferences(UserPreferences userPreferences) {
+public void setUserPreferences(UserPreference userPreferences) {
 	this.userPreferences = userPreferences;
 }
 

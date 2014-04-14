@@ -19,7 +19,7 @@ import com.promostree.domain.user.TargetUser;
 import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserFeedback;
-import com.promostree.domain.user.UserShares;
+import com.promostree.domain.user.UserShare;
 import com.promostree.domain.user.UserShout;
 import com.promostree.repositories.user.TypeRepository;
 import com.promostree.user.service.UserServiceImpl;

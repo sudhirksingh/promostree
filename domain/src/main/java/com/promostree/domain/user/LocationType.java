@@ -22,14 +22,14 @@ private String name;
 
 @OneToOne(mappedBy="locationType",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 @JsonBackReference
-private UserLocations userLocations;
+private UserLocation userLocations;
 
 
 
-public UserLocations getUserLocations() {
+public UserLocation getUserLocations() {
 	return userLocations;
 }
-public void setUserLocations(UserLocations userLocations) {
+public void setUserLocations(UserLocation userLocations) {
 	this.userLocations = userLocations;
 }
 public Long getId() {

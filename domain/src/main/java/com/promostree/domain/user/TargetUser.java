@@ -17,8 +17,8 @@ import javax.persistence.Table;
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 
-@Entity(name = "target_users")
-@Table(name = "target_users")
+@Entity(name = "target_user")
+@Table(name = "target_user")
 public class TargetUser {
 
 	@Id
@@ -33,7 +33,7 @@ public class TargetUser {
 	@ManyToOne
 	@JoinColumn(name = "userSharesId")
 	@JsonBackReference
-	private UserShares userShares;
+	private UserShare userShares;
 
 	public Long getId() {
 		return id;
@@ -51,11 +51,11 @@ public class TargetUser {
 		this.user = users;
 	}
 
-	public UserShares getUserShares() {
+	public UserShare getUserShares() {
 		return userShares;
 	}
 
-	public void setUserShares(UserShares userShares) {
+	public void setUserShares(UserShare userShares) {
 		this.userShares = userShares;
 	}
 

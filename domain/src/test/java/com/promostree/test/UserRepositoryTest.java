@@ -13,7 +13,7 @@ import com.promostree.domain.entities.Venue;
 import com.promostree.domain.user.TargetUser;
 import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
-import com.promostree.domain.user.UserPreferences;
+import com.promostree.domain.user.UserPreference;
 import com.promostree.domain.user.UserShout;
 import com.promostree.repositories.entities.LocationRepository;
 import com.promostree.repositories.entities.VenueRepository;
