@@ -9,7 +9,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.promostree.domain.user.TargetUser;
+import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
+import com.promostree.domain.user.UserPreferences;
 import com.promostree.repositories.entities.LocationRepository;
 import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.user.LocationTypeRepository;
@@ -53,6 +55,7 @@ public class UserRepositoryTest {
 	VenueRepository venueRep;
 	@Autowired
 	LocationTypeRepository locationRep;
+
 //	@Test
 //	public void read(){
 //		List<TargetUser> trs=targetUserRep.findByUserId(2L);
@@ -66,4 +69,17 @@ public class UserRepositoryTest {
     	 User user=userRep.findByPhoneNumberOrEmail("9000208863","swaroopkasaraneni@gmail.com");
   		System.out.println(user.getPhoneNumber()+"  "+user.getEmail());
       }
+
+	
+	@Test
+	public void savePreference(){
+		UserPreferences userPreference=new UserPreferences();
+		Type type=typeRep.findOne(1L);
+		User u1=userRep.findById(2L);
+		userPreference.setType(type);
+		userPreference.setUser(u1);
+		userPreference.setValue("pepe");
+		userPreferencesRep.save(userPreference);
+	}
+
 }

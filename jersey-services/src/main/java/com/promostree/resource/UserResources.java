@@ -63,6 +63,17 @@ public class UserResources {
 
 	}
 
-	
+	@POST
+	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+	@Path("/login")
+	public String receivedShares(User user) {
+
+		User save = userServiceDelegate.saveUserCredentials(user);
+		if (save.equals(user))
+			return "registered successfully...";
+		else
+			return "conflict ...";
+	}
+
 
 }

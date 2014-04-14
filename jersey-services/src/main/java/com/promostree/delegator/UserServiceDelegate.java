@@ -31,6 +31,8 @@ public class UserServiceDelegate {
 	public List<UserShares> readPostedUserShares(long userId){
 		return userServices.readPostedUserShares(userId);
 	}
+
 	
+
 	
 }
