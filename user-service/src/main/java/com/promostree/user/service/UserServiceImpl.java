@@ -97,6 +97,10 @@ public class UserServiceImpl implements UserServices {
 		else
 			return false;
 	}
+	@Override
+	public List<UserShout> readUserShout(User user){
+	return	userShoutRepository.findByUserId(user.getId());
+	}
 
 	@Override
 	public UserProfile saveUserProfile(UserProfile userProfile) {
