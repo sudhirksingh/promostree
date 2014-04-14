@@ -27,7 +27,7 @@ import com.promostree.user.service.UserServices;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations ="classpath:user-service-application-context.xml")
-public class UserSharesServiceTest
+public class UserServiceTests
 {
    @Autowired
    UserServices userService;
@@ -74,10 +74,10 @@ public class UserSharesServiceTest
   public void  IntialRegistration()
   {
 	  User user = new User();
-	  user.setEmail("ananth@gmail.com");
-	  user.setPhoneNumber("9035208863");
+//	  user.setEmail("mallikarjun0535@gmail.com");
+//	  user.setPhoneNumber("9951510535");
       User user1 =  userService.saveUserCredentials(user);
-	  System.out.println(user1);  
+	  System.out.println(user1.getEmail());  
   }
   
 //  @Test 

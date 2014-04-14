@@ -54,6 +54,20 @@ public class UserServiceImpl implements UserServices {
 	UserShoutRepository userShoutRepository;
 	private List<UserShares> userShares;
 
+	// for user Registration
+	@Override
+	public User saveUserCredentials(User user) {
+		User u = null;
+		if (user != null) {
+			u = userRepository.findByPhoneNumberOrEmail(user.getPhoneNumber(),user.getEmail());
+		}
+		if (u == null) {
+			User use = userRepository.save(user);
+			return use;
+		}
+		return user;
+	}
+
 	// to post shares
 	@Override
 	public boolean saveUserShares(UserShares userShares) {
@@ -63,30 +77,24 @@ public class UserServiceImpl implements UserServices {
 		else
 			return false;
 	}
+
 	// to get shares which i posted
 	@Override
 	public List<UserShares> readPostedUserShares(long userId) {
 		return userSharesRepository.findByUserId(userId);
 	}
+
 	// to get shares which i received from different users
 	@Override
 	public List<UserShares> readRecievedUserShares(Long userId) {
 		userShares = new ArrayList<UserShares>();
-		List<TargetUser> targetUsers = targetUsersRepository.findByUserId(userId);
+		List<TargetUser> targetUsers = targetUsersRepository
+				.findByUserId(userId);
 		for (TargetUser targetUser : targetUsers) {
 			System.out.println(targetUser.getId());
 			userShares.add(targetUser.getUserShares());
 		}
 		return userShares;
-	}
-	@Override
-	public User saveUserCredentials(User user) {
-		User u = userRepository.findByPhoneNumber(user.getPhoneNumber());
-		if (u.equals(null)) {
-			userRepository.save(user);
-			return null;
-		}
-		return user;
 	}
 
 	@Override

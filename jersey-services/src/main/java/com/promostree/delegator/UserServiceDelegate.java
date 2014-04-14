@@ -13,6 +13,11 @@ import com.promostree.user.service.UserServices;
 public class UserServiceDelegate {
 	@Autowired
 	UserServices userServices;
+	//to  Registration
+	public User saveUserCredentials(User user){
+	User  use=userServices.saveUserCredentials(user);
+	return use;
+	}
 	//to share 
 	public boolean saveUserShares(UserShares userShares){
 	Boolean save=	userServices.saveUserShares(userShares);
@@ -26,8 +31,6 @@ public class UserServiceDelegate {
 	public List<UserShares> readPostedUserShares(long userId){
 		return userServices.readPostedUserShares(userId);
 	}
-	public boolean saveUserCredentials(User user){
-		return userServices.saveUserCredentials(user);
-	}
+	
 	
 }

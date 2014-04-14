@@ -53,14 +53,17 @@ public class UserRepositoryTest {
 	VenueRepository venueRep;
 	@Autowired
 	LocationTypeRepository locationRep;
-	@Test
-	public void read(){
-		User user=userRep.findByPhoneNumber("9000208863");
-		System.out.println(user.getPhoneNumber());
-		List<TargetUser> trs=targetUserRep.findByUserId(2L);
-		for(TargetUser tr:trs){
-			System.out.println(tr.getUserShares().getComment());
-		}
-	}
-	
+//	@Test
+//	public void read(){
+//		List<TargetUser> trs=targetUserRep.findByUserId(2L);
+//		for(TargetUser tr:trs){
+//			System.out.println(tr.getUserShares().getComment());
+//		}
+//		}
+      @Test
+      public void  userLoginTest()
+      {
+    	 User user=userRep.findByPhoneNumberOrEmail("9000208863","swaroopkasaraneni@gmail.com");
+  		System.out.println(user.getPhoneNumber()+"  "+user.getEmail());
+      }
 }
