@@ -26,7 +26,7 @@ public class UserServiceDelegate {
 	public List<UserShares> readPostedUserShares(long userId){
 		return userServices.readPostedUserShares(userId);
 	}
-	public boolean saveUserCredentials(User user){
+	public User saveUserCredentials(User user){
 		return userServices.saveUserCredentials(user);
 	}
 	
