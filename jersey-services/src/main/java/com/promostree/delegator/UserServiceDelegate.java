@@ -26,8 +26,13 @@ public class UserServiceDelegate {
 	public List<UserShare> readPostedUserShares(long userId){
 		return userServices.readPostedUserShares(userId);
 	}
+<<<<<<< HEAD
 	public boolean saveUserCredentials(User user){
 		return true;
+=======
+	public User saveUserCredentials(User user){
+		return userServices.saveUserCredentials(user);
+>>>>>>> 773d4ec26d61cd46b0dc2735f620de67c24d8eb6
 	}
 	
 }

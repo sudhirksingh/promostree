@@ -54,8 +54,8 @@ public class UserResources {
 	@Path("/login")
 	public String receivedShares(User user) {
 
-		boolean save = userServiceDelegate.saveUserCredentials(user);
-		if (save)
+		User save = userServiceDelegate.saveUserCredentials(user);
+		if (save.equals(user))
 			return "registered successfully...";
 		else
 			return "conflict ...";
