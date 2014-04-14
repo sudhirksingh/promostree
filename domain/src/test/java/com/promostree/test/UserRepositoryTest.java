@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.promostree.domain.user.TargetUser;
 import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
-import com.promostree.domain.user.UserPreferences;
+import com.promostree.domain.user.UserPreference;
 import com.promostree.repositories.entities.LocationRepository;
 import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.user.LocationTypeRepository;
@@ -76,14 +76,14 @@ public class UserRepositoryTest {
 	}*/
 	@Test
 	public void readPreferenceTest(){
-		List<UserPreferences> userPreferences = userPreferencesRep.findByUserId(1L);
-		for(UserPreferences userPre:userPreferences){
+		List<UserPreference> userPreferences = userPreferencesRep.findByUserId(1L);
+		for(UserPreference userPre:userPreferences){
 			System.out.println(userPre.getId());
 		}
 	}
 	@Test
 	public void deletePreferenceTest(){
-		UserPreferences userPref=userPreferencesRep.findOne(1L);
+		UserPreference userPref=userPreferencesRep.findOne(1L);
 		userPreferencesRep.delete(userPref);
 	}
 }

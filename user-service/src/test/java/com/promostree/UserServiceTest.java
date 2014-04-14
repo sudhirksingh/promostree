@@ -11,16 +11,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.promostree.domain.entities.Address;
-import com.promostree.domain.entities.Category;
 import com.promostree.domain.entities.Location;
 import com.promostree.domain.entities.Venue;
 import com.promostree.domain.user.TargetUser;
 import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserFeedback;
-import com.promostree.domain.user.UserPreferences;
-import com.promostree.domain.user.UserShares;
+import com.promostree.domain.user.UserPreference;
+import com.promostree.domain.user.UserPreference;
+import com.promostree.domain.user.UserShare;
 import com.promostree.domain.user.UserShout;
 import com.promostree.repositories.user.TypeRepository;
 import com.promostree.repositories.user.UserPreferencesRepository;
@@ -51,16 +50,16 @@ public class UserServiceTest {
 @Test
 public void readUserPreferencesTest(){
 	User user=userRepository.findById(2L);
-	List<UserPreferences> userPreferences=userService.readUserPreferences(user);
-	for(UserPreferences userPre:userPreferences){
+	List<UserPreference> userPreferences=userService.readUserPreferences(user);
+	for(UserPreference userPre:userPreferences){
 		System.out.println(userPre.getValue());
 	}
 }
-@Test
+/*@Test
 public void deleteUserPreferences(){
-	UserPreferences userPreferences=userPreferencesRepository.findOne(1L);
+	UserPreference userPreferences=userPreferencesRepository.findOne(1L);
 	userService.deleteUserPreferences(userPreferences);
-}
+}*/
 	/*
 	 * @Test public void saveUserSharesTest() { Type pt = new Type();
 	 * pt.setId(1L); //pt.setName("brand"); User user = new User();

@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.promostree.domain.user.UserPreferences;
+import com.promostree.domain.user.UserPreference;
 
 public interface UserPreferencesRepository extends
-		JpaRepository<UserPreferences, Long> {
+		JpaRepository<UserPreference, Long> {
 
-	List<UserPreferences> findByUserId(Long userId);
+	List<UserPreference> findByUserId(Long userId);
 	
 }

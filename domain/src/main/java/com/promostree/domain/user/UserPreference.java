@@ -12,9 +12,9 @@ import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonManagedReference;
-@Entity(name="user_preferences")
-@Table(name="user_preferences")
-public class UserPreferences
+@Entity(name="user_preference")
+@Table(name="user_preference")
+public class UserPreference
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

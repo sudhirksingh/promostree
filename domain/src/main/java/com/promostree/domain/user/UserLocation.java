@@ -18,9 +18,9 @@ import org.codehaus.jackson.annotate.JsonManagedReference;
 
 import com.promostree.domain.entities.Location;
 
-@Entity(name="user_locations")
-@Table(name="user_locations")
-public class UserLocations
+@Entity(name="user_location")
+@Table(name="user_location")
+public class UserLocation
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
