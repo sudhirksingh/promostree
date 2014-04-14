@@ -20,12 +20,23 @@ public List<UserShare> readRecievedUserShares(Long userId);
 
 public User saveUserCredentials(User user);
 public UserProfile saveUserProfile(UserProfile userProfile);
-public UserPreference saveUserPreferences(UserPreference userPreferences);
+
+
+public UserPreference saveUserPreference(UserPreference userPreferences);
+public List<UserPreference> readUserPreferences(User user);
+//public UserPreference deleteUserPreferences(UserPreference userPreferences);
+
 public UserLocation saveUserLocations(UserLocation userLocations);
+
+
 public boolean saveLocationType(LocationType locationType); 
 public Location saveLocation(Location location); 
 public boolean saveUserFeedback(UserFeedback userFeedback);
+
 public String saveUserShout(UserShout userShout);
-	
+
+
+public List<UserShout> readUserShout(User user);	
+
 
 }

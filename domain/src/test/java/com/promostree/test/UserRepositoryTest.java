@@ -14,7 +14,9 @@ import com.promostree.domain.user.TargetUser;
 import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserPreference;
+
 import com.promostree.domain.user.UserShout;
+
 import com.promostree.repositories.entities.LocationRepository;
 import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.user.LocationTypeRepository;
@@ -58,6 +60,7 @@ public class UserRepositoryTest {
 	VenueRepository venueRep;
 	@Autowired
 	LocationTypeRepository locationRep;
+
 
 //	@Test
 //	public void read(){
@@ -117,5 +120,29 @@ public class UserRepositoryTest {
 //		userPreference.setValue("pepe");
 //		userPreferencesRep.save(userPreference);
 //	}
+
+
+	/*@Test
+	public void savePreferenceTest(){
+		UserPreferences userPreference=new UserPreferences();
+		Type type=typeRep.findOne(1L);
+		User u1=userRep.findById(2L);
+		userPreference.setType(type);
+		userPreference.setUser(u1);
+		userPreference.setValue("pepe");
+		userPreferencesRep.save(userPreference);
+	}*/
+	@Test
+	public void readPreferenceTest(){
+		List<UserPreference> userPreferences = userPreferencesRep.findByUserId(1L);
+		for(UserPreference userPre:userPreferences){
+			System.out.println(userPre.getId());
+		}
+	}
+	@Test
+	public void deletePreferenceTest(){
+		UserPreference userPref=userPreferencesRep.findOne(1L);
+		userPreferencesRep.delete(userPref);
+	}
 
 }

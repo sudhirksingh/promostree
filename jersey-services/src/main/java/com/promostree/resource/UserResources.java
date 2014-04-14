@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.promostree.delegator.UserServiceDelegate;
 import com.promostree.domain.user.User;
+import com.promostree.domain.user.UserPreference;
 import com.promostree.domain.user.UserShare;
 
 @Path("/userservice")
@@ -47,9 +48,10 @@ public class UserResources {
 //	}
 	// for user Shares 
 
+	// to save user share
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String shares(UserShare userShares) {
+	public String share(UserShare userShares) {
 
 		boolean save = userServiceDelegate.saveUserShares(userShares);
 		if (save)
@@ -58,25 +60,57 @@ public class UserResources {
 			return "failed..";
 	}
 
+	// to read shares which are posted
 	@GET
 	@Path("/postedShares/{userId}")
+<<<<<<< HEAD
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
 	public List<UserShare> postedShares(@PathParam("userId") Long userId) {
 
+=======
+	public List<UserShare> readPostedShares(long userId) {
+>>>>>>> ffa3bd65c1462b4e3339d8c544b00e130ee01c73
 
 		return userServiceDelegate.readPostedUserShares(userId);
-
 	}
 
+	// to read share which are received
 	@GET
 	@Path("/receivedShares/{userId}")
+<<<<<<< HEAD
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
 	public List<UserShare> receivedShares(@PathParam("userId") Long userId) {
+=======
+	public List<UserShare> readReceivedShares(long userId) {
+>>>>>>> ffa3bd65c1462b4e3339d8c544b00e130ee01c73
 
 		return userServiceDelegate.readReceivedUserShares(userId);
 	}
 
+<<<<<<< HEAD
 	
+=======
+	// to save user preference
+	@POST
+	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+	@Path("/savePreference")
+	public UserPreference saveUserPreference(UserPreference userPreference) {
+		return userServiceDelegate.saveUserPreference(userPreference);
+	}
+
+	// to read user preference
+	@POST
+	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+	@Path("/readPreference")
+	public List<UserPreference> readUserPreference(User user) {
+		return userServiceDelegate.readUserPreference(user);
+	}
+
+	@POST
+	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+	@Path("/login")
+	public String receivedShares(User user) {
+>>>>>>> ffa3bd65c1462b4e3339d8c544b00e130ee01c73
 
 
 }

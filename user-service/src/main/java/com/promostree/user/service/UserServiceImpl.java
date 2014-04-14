@@ -104,7 +104,16 @@ public class UserServiceImpl implements UserServices {
 		}
 		return userShares;
 	}
+
+
+
 	@Override
+	public List<UserShout> readUserShout(User user){
+	return	userShoutRepository.findByUserId(user.getId());
+	}
+
+	@Override
+
 	public UserProfile saveUserProfile(UserProfile userProfile) {
 		UserProfile userProfile1 = userProfileRepository.save(userProfile);
 
@@ -112,12 +121,21 @@ public class UserServiceImpl implements UserServices {
 	}
 
 	@Override
-	public UserPreference saveUserPreferences(UserPreference userPreferences) {
+	public UserPreference saveUserPreference(UserPreference userPreferences) {
 		UserPreference userPreferences1 = userPreferencesRepository
 				.save(userPreferences);
 
 		return userPreferences1;
-
+	}
+/*	@Override
+	public UserPreference deleteUserPreferences(UserPreference userPreferences){
+		userPreferencesRepository.delete(userPreferences);
+		return userPreferences;
+	}*/
+	@Override
+	public List<UserPreference> readUserPreferences(User user){
+		return userPreferencesRepository.findByUserId(user.getId());
+		
 	}
 
 	@Override
@@ -150,5 +168,7 @@ public class UserServiceImpl implements UserServices {
 		else
 			return false;
 	}
+	
+	
 
 }
