@@ -18,6 +18,12 @@ public class UserServiceDelegate {
 	User  use=userServices.saveUserCredentials(user);
 	return use;
 	}
+	// to savetheusershout
+	public  boolean saveUserShout()
+	{
+		return false;
+		
+	}
 	//to share 
 	public boolean saveUserShares(UserShares userShares){
 	Boolean save=	userServices.saveUserShares(userShares);

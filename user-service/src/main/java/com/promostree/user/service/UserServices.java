@@ -25,7 +25,7 @@ public UserLocations saveUserLocations(UserLocations userLocations);
 public boolean saveLocationType(LocationType locationType); 
 public Location saveLocation(Location location); 
 public boolean saveUserFeedback(UserFeedback userFeedback);
-public boolean saveUserShout(UserShout userShout);
+public String saveUserShout(UserShout userShout);
 	
 
 }

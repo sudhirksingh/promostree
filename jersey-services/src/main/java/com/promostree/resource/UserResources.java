@@ -1,11 +1,11 @@
 package com.promostree.resource;
 
 import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -19,9 +19,12 @@ import com.promostree.domain.user.UserShares;
 
 @Path("/userservice")
 public class UserResources {
+	
 	@Autowired
 	UserServiceDelegate userServiceDelegate;
+	
 	//initial Registration of new user 
+	
 	@POST
 	@Path("/login")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -32,6 +35,16 @@ public class UserResources {
      return builder.entity(use).build();
 	}
 	
+	//
+//	@POST
+//	@Path("/shout")
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	public Response AudituingUserShot(User user)
+//	{
+//	 User use	= userServiceDelegate.saveUserShout();
+//	 ResponseBuilder builder=Response.ok();
+//     return builder.entity(use).build();
+//	}
 	// for user Shares 
 
 	@POST
@@ -46,34 +59,21 @@ public class UserResources {
 	}
 
 	@GET
-	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
 	@Path("/postedShares/{userId}")
-	public List<UserShares> postedShares(long userId) {
-
+	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+	public List<UserShares> postedShares(@PathParam("userId") Long userId) {
 		return userServiceDelegate.readPostedUserShares(userId);
 
 	}
 
 	@GET
-	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
 	@Path("/receivedShares/{userId}")
-	public List<UserShares> receivedShares(long userId) {
-
-		return userServiceDelegate.readReceivedUserShares(userId);
-
-	}
-
-	@POST
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	@Path("/login")
-	public String receivedShares(User user) {
-
-		User save = userServiceDelegate.saveUserCredentials(user);
-		if (save.equals(user))
-			return "registered successfully...";
-		else
-			return "conflict ...";
+	public List<UserShares> receivedShares(@PathParam("userId") Long userId) {
+		return userServiceDelegate.readReceivedUserShares(userId);
 	}
+
+	
 
 
 }

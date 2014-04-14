@@ -67,6 +67,16 @@ public class UserServiceImpl implements UserServices {
 		}
 		return user;
 	}
+	// for stroing the user shout
+	@Override
+	public String saveUserShout(UserShout userShout) {
+		UserShout usershout = userShoutRepository.save(userShout);
+		if (usershout.equals(userShout))
+			return  "stored successfully......";
+		else
+			return "not stored";
+	}
+	
 
 	// to post shares
 	@Override
@@ -96,16 +106,6 @@ public class UserServiceImpl implements UserServices {
 		}
 		return userShares;
 	}
-
-	@Override
-	public boolean saveUserShout(UserShout userShout) {
-		UserShout usershout = userShoutRepository.save(userShout);
-		if (usershout.equals(userShout))
-			return true;
-		else
-			return false;
-	}
-
 	@Override
 	public UserProfile saveUserProfile(UserProfile userProfile) {
 		UserProfile userProfile1 = userProfileRepository.save(userProfile);
