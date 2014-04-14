@@ -81,4 +81,9 @@ public class UserRepositoryTest {
 			System.out.println(userPre.getId());
 		}
 	}
+	@Test
+	public void deletePreferenceTest(){
+		UserPreferences userPref=userPreferencesRep.findOne(1L);
+		userPreferencesRep.delete(userPref);
+	}
 }

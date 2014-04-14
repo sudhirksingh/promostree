@@ -37,6 +37,8 @@ public class UserServiceTest {
 	TypeRepository typeRepository;
 	@Autowired
 	UserRepository userRepository;
+	@Autowired
+	UserPreferencesRepository userPreferencesRepository;
 
 	/*
 	 * @Test public void saveUserPreferencesTest(){ UserPreferences
@@ -53,6 +55,11 @@ public void readUserPreferencesTest(){
 	for(UserPreferences userPre:userPreferences){
 		System.out.println(userPre.getValue());
 	}
+}
+@Test
+public void deleteUserPreferences(){
+	UserPreferences userPreferences=userPreferencesRepository.findOne(1L);
+	userService.deleteUserPreferences(userPreferences);
 }
 	/*
 	 * @Test public void saveUserSharesTest() { Type pt = new Type();
@@ -83,6 +90,7 @@ public void readUserPreferencesTest(){
 		System.out.println(user1);
 	}
 
+	
 	// @Test
 	// public void savelocation(Location location)
 	// {

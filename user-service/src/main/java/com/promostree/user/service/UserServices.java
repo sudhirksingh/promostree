@@ -23,6 +23,7 @@ public UserProfile saveUserProfile(UserProfile userProfile);
 
 public UserPreferences saveUserPreferences(UserPreferences userPreferences);
 public List<UserPreferences> readUserPreferences(User user);
+UserPreferences deleteUserPreferences(UserPreferences userPreferences);
 
 public UserLocations saveUserLocations(UserLocations userLocations);
 public boolean saveLocationType(LocationType locationType); 

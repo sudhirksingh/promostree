@@ -111,7 +111,11 @@ public class UserServiceImpl implements UserServices {
 				.save(userPreferences);
 
 		return userPreferences1;
-
+	}
+	@Override
+	public UserPreferences deleteUserPreferences(UserPreferences userPreferences){
+		userPreferencesRepository.delete(userPreferences);
+		return userPreferences;
 	}
 	@Override
 	public List<UserPreferences> readUserPreferences(User user){
