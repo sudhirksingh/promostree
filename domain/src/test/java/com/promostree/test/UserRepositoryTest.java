@@ -1,6 +1,7 @@
 package com.promostree.test;
 
 import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +17,12 @@ import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserFeedback;
 import com.promostree.domain.user.UserPreference;
+
+
 import com.promostree.domain.user.UserShout;
+
+
+
 import com.promostree.repositories.entities.LocationRepository;
 import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.user.LocationTypeRepository;
@@ -60,6 +66,49 @@ public class UserRepositoryTest {
 	VenueRepository venueRep;
 	@Autowired
 	LocationTypeRepository locationRep;
+
+
+
+//	@Test
+//	public void read(){
+//		List<TargetUser> trs=targetUserRep.findByUserId(2L);
+//		for(TargetUser tr:trs){
+//			System.out.println(tr.getUserShares().getComment());
+//		}
+//		}
+      @Test
+      public void  userLoginTest()
+      {
+    	User user=userRep.findByPhoneNumberOrEmail("9000208863","swaroopkasaraneni@gmail.com");
+  		System.out.println(user.getPhoneNumber()+"  "+user.getEmail());
+      }
+      @Test
+      public void usershoutTest()
+      {
+    	  UserShout ushout= new UserShout();
+    	  ushout.setComment("nice product");
+    	  ushout.setCreatedDate(new Date());
+    	  User use= userRep.findById(1L);
+    	  ushout.setUser(use);
+    	   Venue ven = venueRep.findById(1L);
+    	   ushout.setVenue(ven);
+    	   UserShout ushout1=userShoutRep.save(ushout);
+   
+      }
+//	
+//	@Test
+//	public void savePreference(){
+//		UserPreferences userPreference=new UserPreferences();
+//		Type type=typeRep.findOne(1L);
+//		User u1=userRep.findById(2L);
+//		userPreference.setType(type);
+//		userPreference.setUser(u1);
+//		userPreference.setValue("pepe");
+//		userPreferencesRep.save(userPreference);
+//	}
+
+
+
 	@Test
 	public void read(){
 		User user=userRep.findByPhoneNumber("9000208863");
@@ -69,6 +118,7 @@ public class UserRepositoryTest {
 			System.out.println("user  :: "+tr.getUserShares().getComment());
 		}
 	}
+
 	/*@Test
 	public void savePreferenceTest(){
 	List<UserPreference> userPreferences=new ArrayList<UserPreference>();
@@ -81,6 +131,20 @@ public class UserRepositoryTest {
 		userPreferences.add(userPreference);
 		userPreferencesRep.save(userPreferences);
 	}*/
+
+//	@Test
+//	public void readPreferenceTest(){
+//		List<UserPreference> userPreferences = userPreferencesRep.findByUserId(1L);
+//		for(UserPreference userPre:userPreferences){
+//			System.out.println(userPre.getId());
+//		}
+//	}
+//	@Test
+//	public void deletePreferenceTest(){
+//		UserPreference userPref=userPreferencesRep.findOne(1L);
+//		userPreferencesRep.delete(userPref);
+//	}
+
 	@Test
 	public void readPreferenceTest(){
 		List<UserPreference> userPreferences = userPreferencesRep.findByUserId(1L);
@@ -120,4 +184,5 @@ UserFeedback userFeedback=userFeedbackRep.findOne(1L);
 		UserPreference userPref=userPreferencesRep.findOne(1L);
 		userPreferencesRep.delete(userPref);
 	}*/
+
 }

@@ -21,8 +21,10 @@ import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserFeedback;
 import com.promostree.domain.user.UserPreference;
 import com.promostree.domain.user.UserPreference;
+import com.promostree.domain.user.UserProfile;
 import com.promostree.domain.user.UserShare;
 import com.promostree.domain.user.UserShout;
+
 import com.promostree.repositories.entities.AddressRepository;
 import com.promostree.repositories.entities.LocationRepository;
 import com.promostree.repositories.entities.VenueRepository;
@@ -34,7 +36,7 @@ import com.promostree.user.service.UserServices;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:user-service-application-context.xml")
-public class UserServiceTest {
+public class UserServiceTests {
 	@Autowired
 	UserServices userService;
 	@Autowired
@@ -49,6 +51,7 @@ public class UserServiceTest {
 	AddressRepository addressRepository;
 	@Autowired
 	UserPreferencesRepository userPreferencesRepository;
+	
 
 /*	@Test
 	public void saveUserPreferencesTest() {
@@ -78,6 +81,20 @@ public class UserServiceTest {
 	 * userPreferences=userPreferencesRepository.findOne(1L);
 	 * userService.deleteUserPreferences(userPreferences); }
 	 */
+//@Test
+//public void readUserPreferencesTest(){
+//	User user=userRepository.findById(2L);
+//	List<UserPreference> userPreferences=userService.readUserPreferences(user);
+//	for(UserPreference userPre:userPreferences){
+//		System.out.println(userPre.getValue());
+//	}
+//}
+/*@Test
+public void deleteUserPreferences(){
+	UserPreference userPreferences=userPreferencesRepository.findOne(1L);
+	userService.deleteUserPreferences(userPreferences);
+}*/
+
 	/*
 	 * @Test public void saveUserSharesTest() { Type pt = new Type();
 	 * pt.setId(1L); //pt.setName("brand"); User user = new User();
@@ -106,11 +123,12 @@ public class UserServiceTest {
 	/*@Test
 	public void IntialRegistration() {
 		User user = new User();
-		user.setEmail("ananth@gmail.com");
-		user.setPhoneNumber("9035208863");
-		User user1 = userService.saveUserCredentials(user);
-		System.out.println(user1);
-	}*/
+		user.setEmail("anant@gmail.com");
+		user.setPhoneNumber("903520886");
+		UserProfile uprofile = userService.saveUserCredentials(user);
+		System.out.println(uprofile);
+	}
+		
 
 	/*
 	 * @Test public void saveUserShout() { UserShout userShout=new UserShout();
@@ -154,6 +172,20 @@ public class UserServiceTest {
 		addressRepository.save(a);
 	}*/
 
+	 @Test
+	 public void userShout()
+	 {
+	 UserShout ushout = new UserShout();
+	 ushout.setComment("niceproduct");
+	 ushout.setCreatedDate(new Date());
+	 User us=null;
+	 User use =userRepository.findById(1L);
+	 ushout.setUser(use);
+	 Venue  venue=null;
+	 Venue ven=venueRepository.findById(1L);
+	 ushout.setVenue(ven);
+	 userService.saveUserShout(ushout);
+	 }
 /*	 @Test
 	 public void saveFeedback()
 	 {

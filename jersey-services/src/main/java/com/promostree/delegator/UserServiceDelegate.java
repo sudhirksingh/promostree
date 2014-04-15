@@ -7,13 +7,26 @@ import org.springframework.stereotype.Component;
 
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserPreference;
+import com.promostree.domain.user.UserProfile;
 import com.promostree.domain.user.UserShare;
+import com.promostree.domain.user.UserShout;
 import com.promostree.user.service.UserServices;
 
 @Component
 public class UserServiceDelegate {
 	@Autowired
 	UserServices userServices;
+	//to  Registration
+	public UserProfile saveUserCredentials(User user){
+	UserProfile  use=userServices.saveUserCredentials(user);
+	return use;
+	}
+	// to savetheusershout
+	public  String saveUserShout(UserShout userShout)
+	{
+      String ushout	= userServices.saveUserShout(userShout);
+		return "userShout";
+	}
 	//to share 
 	public boolean saveUserShares(UserShare userShares){
 	Boolean save=	userServices.saveUserShares(userShares);
@@ -27,6 +40,7 @@ public class UserServiceDelegate {
 	public List<UserShare> readPostedUserShares(long userId){
 		return userServices.readPostedUserShares(userId);
 	}
+
 	//to save user preference
 	public List<UserPreference> saveUserPreference(List<UserPreference> userPreference){
 		return userServices.saveUserPreference(userPreference);
@@ -36,9 +50,4 @@ public class UserServiceDelegate {
 		return userServices.readUserPreferences(user);
 	}
 
-	public User saveUserCredentials(User user){
-		return userServices.saveUserCredentials(user);
-
-	}
-	
 }

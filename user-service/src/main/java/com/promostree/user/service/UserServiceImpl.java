@@ -2,10 +2,8 @@ package com.promostree.user.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 import com.promostree.domain.entities.Location;
@@ -55,11 +53,39 @@ public class UserServiceImpl implements UserServices {
 	UserShoutRepository userShoutRepository;
 	private List<UserShare> userShares;
 
-	// to post shares
+	// for user Registration
+	@Override
+	public UserProfile saveUserCredentials(User user) {
+		User u = null;
+		UserProfile uprofile = null;
+		if (user != null) {
+			u = userRepository.findByPhoneNumberOrEmail(user.getPhoneNumber(),
+					user.getEmail());
+			if (u == null) {
+				User use = userRepository.save(user);
+				uprofile = userProfileRepository.findOne(use.getId());
+				return uprofile;
+			} else
+				uprofile = userProfileRepository.findOne(u.getId());
+		}
+		return uprofile;
+	}
+
+	// for storeing the user shout
+	@Override
+	public String saveUserShout(UserShout userShout) {
+		UserShout usershout = userShoutRepository.save(userShout);
+		if (usershout.equals(userShout))
+			return "stored successfully......";
+		else
+			return "not stored";
+	}
+
+	// to save user share
 	@Override
 	public boolean saveUserShares(UserShare userShares) {
-		UserShare userShares1 = userSharesRepository.save(userShares);
-		if (userShares1.equals(userShares))
+		UserShare userShare = userSharesRepository.save(userShares);
+		if (userShare.equals(userShare))
 			return true;
 		else
 			return false;
@@ -85,25 +111,6 @@ public class UserServiceImpl implements UserServices {
 	}
 
 	@Override
-	public User saveUserCredentials(User user) {
-		User u = userRepository.findByPhoneNumber(user.getPhoneNumber());
-		if (u.equals(null)) {
-			userRepository.save(user);
-			return null;
-		}
-		return user;
-	}
- 
-	@Override
-	public boolean saveUserShout(UserShout userShout) {
-		UserShout usershout = userShoutRepository.save(userShout);
-		if (usershout.equals(userShout))
-			return true;
-		else
-			return false;
-	}
-  
-	@Override
 	public List<UserShout> readUserShout(User user) {
 		return userShoutRepository.findByUserId(user.getId());
 	}
@@ -127,7 +134,9 @@ public class UserServiceImpl implements UserServices {
 	 * userPreferences){ userPreferencesRepository.delete(userPreferences);
 	 * return userPreferences; }
 	 */
+
 	// to read user Preferences
+
 	@Override
 	public List<UserPreference> readUserPreferences(User user) {
 		return userPreferencesRepository.findByUserId(user.getId());
@@ -164,7 +173,5 @@ public class UserServiceImpl implements UserServices {
 		else
 			return false;
 	}
-	
-	
 
 }
