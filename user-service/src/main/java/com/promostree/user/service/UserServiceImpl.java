@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.promostree.domain.entities.Location;
+import com.promostree.domain.entities.Venue;
 import com.promostree.domain.user.LocationType;
 import com.promostree.domain.user.TargetUser;
 import com.promostree.domain.user.User;
@@ -70,7 +71,7 @@ public class UserServiceImpl implements UserServices {
 		return uprofile;
 	}
 
-	// for stroing the user shout
+	// for storeing the user shout
 	@Override
 	public String saveUserShout(UserShout userShout) {
 		UserShout usershout = userShoutRepository.save(userShout);
@@ -78,16 +79,6 @@ public class UserServiceImpl implements UserServices {
 			return "stored successfully......";
 		else
 			return "not stored";
-	}
-
-	// to post shares
-	@Override
-	public boolean saveUserShares(UserShare userShares) {
-		UserShare userShares1 = userSharesRepository.save(userShares);
-		if (userShares1.equals(userShares))
-			return true;
-		else
-			return false;
 	}
 
 	// to get shares which i posted
@@ -109,7 +100,11 @@ public class UserServiceImpl implements UserServices {
 		return userShares;
 	}
 
+
+
+  
 	@Override
+
 	public List<UserShout> readUserShout(User user) {
 		return userShoutRepository.findByUserId(user.getId());
 	}
@@ -121,12 +116,10 @@ public class UserServiceImpl implements UserServices {
 		return userProfile1;
 	}
 
+	// to save user preferences
 	@Override
-	public UserPreference saveUserPreference(UserPreference userPreferences) {
-		UserPreference userPreferences1 = userPreferencesRepository
-				.save(userPreferences);
-
-		return userPreferences1;
+	public List<UserPreference> saveUserPreference(List<UserPreference> userPreferences) {
+		return userPreferencesRepository.save(userPreferences);
 	}
 
 	/*
@@ -134,6 +127,9 @@ public class UserServiceImpl implements UserServices {
 	 * userPreferences){ userPreferencesRepository.delete(userPreferences);
 	 * return userPreferences; }
 	 */
+
+	// to read user Preferences
+
 	@Override
 	public List<UserPreference> readUserPreferences(User user) {
 		return userPreferencesRepository.findByUserId(user.getId());
@@ -170,5 +166,14 @@ public class UserServiceImpl implements UserServices {
 		else
 			return false;
 	}
+
+	@Override
+	public boolean saveUserShares(UserShare userShares) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+
 
 }

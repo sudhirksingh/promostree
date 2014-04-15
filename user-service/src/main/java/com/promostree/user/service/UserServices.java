@@ -19,7 +19,8 @@ public boolean saveUserShares(UserShare userShares);
 public List<UserShare> readPostedUserShares(long userId); 
 public List<UserShare> readRecievedUserShares(Long userId); 
 public UserProfile saveUserProfile(UserProfile userProfile);
-public UserPreference saveUserPreference(UserPreference userPreferences);
+
+public List<UserPreference> saveUserPreference(List<UserPreference> userPreferences);
 public List<UserPreference> readUserPreferences(User user);
 //public UserPreference deleteUserPreferences(UserPreference userPreferences);
 public UserLocation saveUserLocations(UserLocation userLocations);

@@ -42,7 +42,7 @@ public class UserServiceDelegate {
 	}
 
 	//to save user preference
-	public UserPreference saveUserPreference(UserPreference userPreference){
+	public List<UserPreference> saveUserPreference(List<UserPreference> userPreference){
 		return userServices.saveUserPreference(userPreference);
 	}
 	//to read user preferences
