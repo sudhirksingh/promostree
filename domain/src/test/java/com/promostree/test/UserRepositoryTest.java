@@ -1,5 +1,6 @@
 package com.promostree.test;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -69,13 +70,15 @@ public class UserRepositoryTest {
 	}
 	/*@Test
 	public void savePreferenceTest(){
-		UserPreferences userPreference=new UserPreferences();
+	List<UserPreference> userPreferences=new ArrayList<UserPreference>();
+		UserPreference userPreference=new UserPreference();
 		Type type=typeRep.findOne(1L);
 		User u1=userRep.findById(2L);
 		userPreference.setType(type);
 		userPreference.setUser(u1);
 		userPreference.setValue("pepe");
-		userPreferencesRep.save(userPreference);
+		userPreferences.add(userPreference);
+		userPreferencesRep.save(userPreferences);
 	}*/
 	@Test
 	public void readPreferenceTest(){

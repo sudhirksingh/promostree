@@ -56,7 +56,7 @@ public class UserResources {
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
 	@Path("/savePreference")
-	public UserPreference saveUserPreference(UserPreference userPreference) {
+	public List<UserPreference> saveUserPreference(List<UserPreference> userPreference) {
 		return userServiceDelegate.saveUserPreference(userPreference);
 	}
 

@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 import com.promostree.domain.entities.Location;
+import com.promostree.domain.entities.Venue;
 import com.promostree.domain.user.LocationType;
 import com.promostree.domain.user.TargetUser;
 import com.promostree.domain.user.User;
@@ -63,22 +64,26 @@ public class UserServiceImpl implements UserServices {
 		else
 			return false;
 	}
+
 	// to get shares which i posted
 	@Override
 	public List<UserShare> readPostedUserShares(long userId) {
 		return userSharesRepository.findByUserId(userId);
 	}
+
 	// to get shares which i received from different users
 	@Override
 	public List<UserShare> readRecievedUserShares(Long userId) {
 		userShares = new ArrayList<UserShare>();
-		List<TargetUser> targetUsers = targetUsersRepository.findByUserId(userId);
+		List<TargetUser> targetUsers = targetUsersRepository
+				.findByUserId(userId);
 		for (TargetUser targetUser : targetUsers) {
 			System.out.println(targetUser.getId());
 			userShares.add(targetUser.getUserShares());
 		}
 		return userShares;
 	}
+
 	@Override
 	public User saveUserCredentials(User user) {
 		User u = userRepository.findByPhoneNumber(user.getPhoneNumber());
@@ -88,7 +93,7 @@ public class UserServiceImpl implements UserServices {
 		}
 		return user;
 	}
-
+ 
 	@Override
 	public boolean saveUserShout(UserShout userShout) {
 		UserShout usershout = userShoutRepository.save(userShout);
@@ -97,9 +102,10 @@ public class UserServiceImpl implements UserServices {
 		else
 			return false;
 	}
+  
 	@Override
-	public List<UserShout> readUserShout(User user){
-	return	userShoutRepository.findByUserId(user.getId());
+	public List<UserShout> readUserShout(User user) {
+		return userShoutRepository.findByUserId(user.getId());
 	}
 
 	@Override
@@ -109,22 +115,23 @@ public class UserServiceImpl implements UserServices {
 		return userProfile1;
 	}
 
+	// to save user preferences
 	@Override
-	public UserPreference saveUserPreference(UserPreference userPreferences) {
-		UserPreference userPreferences1 = userPreferencesRepository
-				.save(userPreferences);
-
-		return userPreferences1;
+	public List<UserPreference> saveUserPreference(
+			List<UserPreference> userPreferences) {
+		return userPreferencesRepository.save(userPreferences);
 	}
-/*	@Override
-	public UserPreference deleteUserPreferences(UserPreference userPreferences){
-		userPreferencesRepository.delete(userPreferences);
-		return userPreferences;
-	}*/
+
+	/*
+	 * @Override public UserPreference deleteUserPreferences(UserPreference
+	 * userPreferences){ userPreferencesRepository.delete(userPreferences);
+	 * return userPreferences; }
+	 */
+	// to read user Preferences
 	@Override
-	public List<UserPreference> readUserPreferences(User user){
+	public List<UserPreference> readUserPreferences(User user) {
 		return userPreferencesRepository.findByUserId(user.getId());
-		
+
 	}
 
 	@Override
@@ -157,7 +164,6 @@ public class UserServiceImpl implements UserServices {
 		else
 			return false;
 	}
-	
 	
 
 }

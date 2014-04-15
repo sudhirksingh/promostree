@@ -22,7 +22,7 @@ public User saveUserCredentials(User user);
 public UserProfile saveUserProfile(UserProfile userProfile);
 
 
-public UserPreference saveUserPreference(UserPreference userPreferences);
+public List<UserPreference> saveUserPreference(List<UserPreference> userPreferences);
 public List<UserPreference> readUserPreferences(User user);
 //public UserPreference deleteUserPreferences(UserPreference userPreferences);
 
