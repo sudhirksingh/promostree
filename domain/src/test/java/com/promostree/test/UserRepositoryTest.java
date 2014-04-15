@@ -14,6 +14,7 @@ import com.promostree.domain.entities.Venue;
 import com.promostree.domain.user.TargetUser;
 import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
+import com.promostree.domain.user.UserFeedback;
 import com.promostree.domain.user.UserPreference;
 import com.promostree.domain.user.UserShout;
 import com.promostree.repositories.entities.LocationRepository;
@@ -87,7 +88,7 @@ public class UserRepositoryTest {
 			System.out.println("preference :: "+userPre.getId());
 		}
 	}
-	@Test
+/*@Test
 	public void saveShout(){
 		UserShout userShout=new UserShout();
 		userShout.setComment("its good ..");
@@ -98,7 +99,7 @@ public class UserRepositoryTest {
 		userShout.setVenue(venue);
 		UserShout userShout1=userShoutRep.save(userShout);
 				
-	}
+	}*/
 	@Test
 	public void readShouts(){
 		List<UserShout> userShouts=userShoutRep.findByUserId(1L);
@@ -106,6 +107,14 @@ public class UserRepositoryTest {
 			System.out.println("shout.."+userShout.getComment());
 		}
 	}
+	/*@Test
+	public void readUserFeedbackOfVenue(){
+		
+UserFeedback userFeedback=userFeedbackRep.findOne(1L);
+		
+			System.out.println("feedback on venue :: "+userFeedback.getComment());
+		
+	}*/
 	/*@Test
 	public void deletePreferenceTest(){
 		UserPreference userPref=userPreferencesRep.findOne(1L);

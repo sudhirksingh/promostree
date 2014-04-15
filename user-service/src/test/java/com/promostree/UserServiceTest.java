@@ -168,5 +168,8 @@ public class UserServiceTest {
 	 feedback.setType(t);
 	 userService.saveUserFeedback(feedback);
 	 }*/
-
+@Test
+public void readFeedback(){
+	
+}
 }
