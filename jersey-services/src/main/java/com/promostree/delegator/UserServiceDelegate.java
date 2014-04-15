@@ -7,7 +7,9 @@ import org.springframework.stereotype.Component;
 
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserPreference;
+import com.promostree.domain.user.UserProfile;
 import com.promostree.domain.user.UserShare;
+import com.promostree.domain.user.UserShout;
 import com.promostree.user.service.UserServices;
 
 @Component
@@ -15,15 +17,15 @@ public class UserServiceDelegate {
 	@Autowired
 	UserServices userServices;
 	//to  Registration
-	public User saveUserCredentials(User user){
-	User  use=userServices.saveUserCredentials(user);
+	public UserProfile saveUserCredentials(User user){
+	UserProfile  use=userServices.saveUserCredentials(user);
 	return use;
 	}
 	// to savetheusershout
-	public  boolean saveUserShout()
+	public  String saveUserShout(UserShout userShout)
 	{
-		return false;
-		
+      String ushout	= userServices.saveUserShout(userShout);
+		return "userShout";
 	}
 	//to share 
 	public boolean saveUserShares(UserShare userShares){

@@ -54,27 +54,31 @@ public class UserServiceImpl implements UserServices {
 
 	// for user Registration
 	@Override
-	public User saveUserCredentials(User user) {
+	public UserProfile saveUserCredentials(User user) {
 		User u = null;
+		UserProfile uprofile = null;
 		if (user != null) {
-			u = userRepository.findByPhoneNumberOrEmail(user.getPhoneNumber(),user.getEmail());
+			u = userRepository.findByPhoneNumberOrEmail(user.getPhoneNumber(),
+					user.getEmail());
+			if (u == null) {
+				User use = userRepository.save(user);
+				uprofile = userProfileRepository.findOne(use.getId());
+				return uprofile;
+			} else
+				uprofile = userProfileRepository.findOne(u.getId());
 		}
-		if (u == null) {
-			User use = userRepository.save(user);
-			return use;
-		}
-		return user;
+		return uprofile;
 	}
+
 	// for stroing the user shout
 	@Override
 	public String saveUserShout(UserShout userShout) {
 		UserShout usershout = userShoutRepository.save(userShout);
 		if (usershout.equals(userShout))
-			return  "stored successfully......";
+			return "stored successfully......";
 		else
 			return "not stored";
 	}
-	
 
 	// to post shares
 	@Override
@@ -94,10 +98,10 @@ public class UserServiceImpl implements UserServices {
 
 	// to get shares which i received from different users
 	@Override
-
 	public List<UserShare> readRecievedUserShares(Long userId) {
 		userShares = new ArrayList<UserShare>();
-		List<TargetUser> targetUsers = targetUsersRepository.findByUserId(userId);
+		List<TargetUser> targetUsers = targetUsersRepository
+				.findByUserId(userId);
 		for (TargetUser targetUser : targetUsers) {
 			System.out.println(targetUser.getId());
 			userShares.add(targetUser.getUserShares());
@@ -105,15 +109,12 @@ public class UserServiceImpl implements UserServices {
 		return userShares;
 	}
 
-
-
 	@Override
-	public List<UserShout> readUserShout(User user){
-	return	userShoutRepository.findByUserId(user.getId());
+	public List<UserShout> readUserShout(User user) {
+		return userShoutRepository.findByUserId(user.getId());
 	}
 
 	@Override
-
 	public UserProfile saveUserProfile(UserProfile userProfile) {
 		UserProfile userProfile1 = userProfileRepository.save(userProfile);
 
@@ -127,15 +128,16 @@ public class UserServiceImpl implements UserServices {
 
 		return userPreferences1;
 	}
-/*	@Override
-	public UserPreference deleteUserPreferences(UserPreference userPreferences){
-		userPreferencesRepository.delete(userPreferences);
-		return userPreferences;
-	}*/
+
+	/*
+	 * @Override public UserPreference deleteUserPreferences(UserPreference
+	 * userPreferences){ userPreferencesRepository.delete(userPreferences);
+	 * return userPreferences; }
+	 */
 	@Override
-	public List<UserPreference> readUserPreferences(User user){
+	public List<UserPreference> readUserPreferences(User user) {
 		return userPreferencesRepository.findByUserId(user.getId());
-		
+
 	}
 
 	@Override
@@ -168,7 +170,5 @@ public class UserServiceImpl implements UserServices {
 		else
 			return false;
 	}
-	
-	
 
 }
