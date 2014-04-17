@@ -51,20 +51,16 @@ public class UserServiceTests {
 	AddressRepository addressRepository;
 	@Autowired
 	UserPreferencesRepository userPreferencesRepository;
-	
 
-/*	@Test
-	public void saveUserPreferencesTest() {
-		List<UserPreference> userPreferences=new ArrayList<UserPreference>();
-		UserPreference userPreference = new UserPreference();
-		Type type = typeRepository.findOne(1L);
-		User u1 = userRepository.findById(2L);
-		userPreference.setType(type);
-		userPreference.setUser(u1);
-		userPreference.setValue("pepe");
-		userPreferences.add(userPreference);
-		userService.saveUserPreference(userPreferences);
-	}*/
+	/*
+	 * @Test public void saveUserPreferencesTest() { List<UserPreference>
+	 * userPreferences=new ArrayList<UserPreference>(); UserPreference
+	 * userPreference = new UserPreference(); Type type =
+	 * typeRepository.findOne(1L); User u1 = userRepository.findById(2L);
+	 * userPreference.setType(type); userPreference.setUser(u1);
+	 * userPreference.setValue("pepe"); userPreferences.add(userPreference);
+	 * userService.saveUserPreference(userPreferences); }
+	 */
 
 	@Test
 	public void readUserPreferencesTest() {
@@ -81,19 +77,20 @@ public class UserServiceTests {
 	 * userPreferences=userPreferencesRepository.findOne(1L);
 	 * userService.deleteUserPreferences(userPreferences); }
 	 */
-//@Test
-//public void readUserPreferencesTest(){
-//	User user=userRepository.findById(2L);
-//	List<UserPreference> userPreferences=userService.readUserPreferences(user);
-//	for(UserPreference userPre:userPreferences){
-//		System.out.println(userPre.getValue());
-//	}
-//}
-/*@Test
-public void deleteUserPreferences(){
-	UserPreference userPreferences=userPreferencesRepository.findOne(1L);
-	userService.deleteUserPreferences(userPreferences);
-}*/
+	// @Test
+	// public void readUserPreferencesTest(){
+	// User user=userRepository.findById(2L);
+	// List<UserPreference>
+	// userPreferences=userService.readUserPreferences(user);
+	// for(UserPreference userPre:userPreferences){
+	// System.out.println(userPre.getValue());
+	// }
+	// }
+	/*
+	 * @Test public void deleteUserPreferences(){ UserPreference
+	 * userPreferences=userPreferencesRepository.findOne(1L);
+	 * userService.deleteUserPreferences(userPreferences); }
+	 */
 
 	/*
 	 * @Test public void saveUserSharesTest() { Type pt = new Type();
@@ -108,7 +105,7 @@ public void deleteUserPreferences(){
 
 	@Test
 	public void readUserSharesTest() { // to get shares which i posted
-		User user=new User();
+		User user = new User();
 		user.setId(1L);
 		List<UserShare> us = userService.readPostedUserShares(user);
 		for (UserShare u : us) {
@@ -123,7 +120,7 @@ public void deleteUserPreferences(){
 		}
 	}
 
-	/*@Test
+	@Test
 	public void IntialRegistration() {
 		User user = new User();
 		user.setEmail("anant@gmail.com");
@@ -131,19 +128,8 @@ public void deleteUserPreferences(){
 		UserProfile uprofile = userService.saveUserCredentials(user);
 		System.out.println(uprofile);
 	}
-		
 
-	/*
-	 * @Test public void saveUserShout() { UserShout userShout=new UserShout();
-	 * userShout.setComment("its good .."); userShout.setCreatedDate(new
-	 * Date()); User user=userRepository.findById(1L); Venue
-	 * venue=venueRepository.findById(1L); userShout.setUser(user);
-	 * userShout.setVenue(venue);
-	 * 
-	 * boolean saved=userService.saveUserShout(userShout);
-	 * 
-	 * }
-	 */
+
 	@Test
 	public void readShouts() {
 		User user = new User();
@@ -153,58 +139,43 @@ public void deleteUserPreferences(){
 			System.out.println("read shouts ::  " + shout.getComment());
 		}
 	}
-   
-	/*@Test
-	public void savelocation() {
-		Location loca = new Location();
-		loca.setLat(17.2451);
-		loca.setLng(78.21452);
-		locationRepository.save(loca);
-	}*/
 
-	/*@Test
-	public void saveAddress() {
-		Location l = locationRepository.findOne(1L);
-		Address a = new Address();
-		a.setCity("ramanthapur");
-		a.setCountry("india");
-		a.setLandMark("kuki");
-		a.setState("andhrapradesh");
-		a.setZip("500013");
-		a.setLocation(l);
-		addressRepository.save(a);
-	}*/
+	/*
+	 * @Test public void savelocation() { Location loca = new Location();
+	 * loca.setLat(17.2451); loca.setLng(78.21452);
+	 * locationRepository.save(loca); }
+	 */
 
-	 @Test
-	 public void userShout()
-	 {
-	 UserShout ushout = new UserShout();
-	 ushout.setComment("niceproduct");
-	 ushout.setCreatedDate(new Date());
-	 User us=null;
-	 User use =userRepository.findById(1L);
-	 ushout.setUser(use);
-	 Venue  venue=null;
-	 Venue ven=venueRepository.findById(1L);
-	 ushout.setVenue(ven);
-	 userService.saveUserShout(ushout);
-	 }
-/*	 @Test
-	 public void saveFeedback()
-	 {
-	 UserFeedback feedback = new UserFeedback();
-	 feedback.setComment("nice product...");
-	 feedback.setCreatedDate(new Date());
-	 feedback.setUpdatedDate(new Date());
-	 User user = userRepository.findById(2L);
-	 feedback.setUser(user);
-	 feedback.setValue("showroom");
-	 Type t =typeRepository.findOne(1L);	 
-	 feedback.setType(t);
-	 userService.saveUserFeedback(feedback);
-	 }*/
-@Test
-public void readFeedback(){
-	
-}
+	/*
+	 * @Test public void saveAddress() { Location l =
+	 * locationRepository.findOne(1L); Address a = new Address();
+	 * a.setCity("ramanthapur"); a.setCountry("india"); a.setLandMark("kuki");
+	 * a.setState("andhrapradesh"); a.setZip("500013"); a.setLocation(l);
+	 * addressRepository.save(a); }
+	 */
+
+	@Test
+	public void userShout() {
+		UserShout ushout = new UserShout();
+		ushout.setComment("niceproduct");
+		ushout.setCreatedDate(new Date());
+		User use = userRepository.findById(1L);
+		ushout.setUser(use);
+		Venue ven = venueRepository.findById(1L);
+		ushout.setVenue(ven);
+		userService.saveUserShout(ushout);
+	}
+
+	/*
+	 * @Test public void saveFeedback() { UserFeedback feedback = new
+	 * UserFeedback(); feedback.setComment("nice product...");
+	 * feedback.setCreatedDate(new Date()); feedback.setUpdatedDate(new Date());
+	 * User user = userRepository.findById(2L); feedback.setUser(user);
+	 * feedback.setValue("showroom"); Type t =typeRepository.findOne(1L);
+	 * feedback.setType(t); userService.saveUserFeedback(feedback); }
+	 */
+	@Test
+	public void readFeedback() {
+
+	}
 }
