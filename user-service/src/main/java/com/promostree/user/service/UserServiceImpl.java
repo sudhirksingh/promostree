@@ -109,7 +109,7 @@ public class UserServiceImpl implements UserServices {
 				.findByUserId(user.getId());
 		for (TargetUser targetUser : targetUsers) {
 			System.out.println(targetUser.getId());
-			userShares.add(targetUser.getUserShares());
+			userShares.add(userSharesRepository.findOne(targetUser.getId()));
 		}
 		return userShares;
 	}
