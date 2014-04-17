@@ -33,12 +33,16 @@ public class UserServiceDelegate {
 		return save;
 	}
 	//to read shares which i got
-	public List<UserShare> readReceivedUserShares(long userId){
-		return userServices.readRecievedUserShares(userId);
+	public List<UserShare> readReceivedUserShares(Long userId){
+		User user=new User();
+		user.setId(userId);
+		return userServices.readRecievedUserShares(user);
 	}
 	//to read shares which i posted
-	public List<UserShare> readPostedUserShares(long userId){
-		return userServices.readPostedUserShares(userId);
+	public List<UserShare> readPostedUserShares(Long userId){
+		User user=new User();
+		user.setId(userId);
+		return userServices.readPostedUserShares(user);
 	}
 
 	//to save user preference
@@ -49,5 +53,6 @@ public class UserServiceDelegate {
 	public List<UserPreference> readUserPreference(User user){
 		return userServices.readUserPreferences(user);
 	}
+
 
 }

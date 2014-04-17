@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserServices {
 		return uprofile;
 	}
 
-	// for storeing the user shout
+	// for storing the user shout
 	@Override
 	public String saveUserShout(UserShout userShout) {
 		UserShout usershout = userShoutRepository.save(userShout);
@@ -80,7 +80,11 @@ public class UserServiceImpl implements UserServices {
 		else
 			return "not stored";
 	}
-
+	@Override
+	public List<UserShout> readUserShout(User user) {
+		return userShoutRepository.findByUserId(user.getId());
+	}
+	
 	// to save user share
 	@Override
 	public boolean saveUserShares(UserShare userShares) {
@@ -93,16 +97,16 @@ public class UserServiceImpl implements UserServices {
 
 	// to get shares which i posted
 	@Override
-	public List<UserShare> readPostedUserShares(long userId) {
-		return userSharesRepository.findByUserId(userId);
+	public List<UserShare> readPostedUserShares(User user) {
+		return userSharesRepository.findByUserId(user.getId());
 	}
 
 	// to get shares which i received from different users
 	@Override
-	public List<UserShare> readRecievedUserShares(Long userId) {
+	public List<UserShare> readRecievedUserShares(User user) {
 		userShares = new ArrayList<UserShare>();
 		List<TargetUser> targetUsers = targetUsersRepository
-				.findByUserId(userId);
+				.findByUserId(user.getId());
 		for (TargetUser targetUser : targetUsers) {
 			System.out.println(targetUser.getId());
 			userShares.add(targetUser.getUserShares());
@@ -110,10 +114,7 @@ public class UserServiceImpl implements UserServices {
 		return userShares;
 	}
 
-	@Override
-	public List<UserShout> readUserShout(User user) {
-		return userShoutRepository.findByUserId(user.getId());
-	}
+
 
 	@Override
 	public UserProfile saveUserProfile(UserProfile userProfile) {

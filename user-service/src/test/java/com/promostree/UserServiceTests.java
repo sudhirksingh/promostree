@@ -108,13 +108,16 @@ public void deleteUserPreferences(){
 
 	@Test
 	public void readUserSharesTest() { // to get shares which i posted
-		List<UserShare> us = userService.readPostedUserShares(1L);
+		User user=new User();
+		user.setId(1L);
+		List<UserShare> us = userService.readPostedUserShares(user);
 		for (UserShare u : us) {
 			System.out.println(u.getComment());
 		}
 		// to ge shares which i received from different users
 		List<UserShare> uss = null;
-		uss = userService.readRecievedUserShares(2L);
+		user.setId(2L);
+		uss = userService.readRecievedUserShares(user);
 		for (UserShare u : uss) {
 			System.out.println(u.getComment());
 		}
