@@ -30,7 +30,7 @@ private Date createdDate;
 @Temporal(TemporalType.DATE)
 private Date updatedDate;
 
-private String value;
+private Long value;
 
 @ManyToOne
 @JoinColumn(name="userId")
@@ -44,11 +44,12 @@ private Type type;
 
 
 
-public String getValue() {
+
+public Long getValue() {
 	return value;
 }
 
-public void setValue(String value) {
+public void setValue(Long value) {
 	this.value = value;
 }
 

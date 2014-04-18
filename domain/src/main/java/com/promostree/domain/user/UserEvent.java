@@ -6,12 +6,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
-
-
-
+import org.codehaus.jackson.annotate.JsonManagedReference;
 
 @Entity(name="user_event")
 @Table(name="user_event")
@@ -24,6 +23,11 @@ private Long id;
 
 	@Size(max=100000)
 private String data;
+	
+	@JoinColumn(name="eventTypeId")
+	@OneToOne
+	private EventType type;
+	
 
 	@ManyToOne
 	@JoinColumn(name="userId")
@@ -31,6 +35,12 @@ private String data;
 	
 	
 	
+	public EventType getType() {
+		return type;
+	}
+	public void setType(EventType type) {
+		this.type = type;
+	}
 	public User getUser() {
 		return user;
 	}

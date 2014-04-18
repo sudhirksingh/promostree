@@ -1,6 +1,8 @@
 package com.promostree.domain.user;
 
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonManagedReference;
@@ -21,12 +25,15 @@ public class UserPreference
 private Long id;
 
 @OneToOne
-@JoinColumn(name="preferenceTypeId")
+@JoinColumn(name="typeId")
 @JsonManagedReference
 private Type type;
 
+@Temporal(TemporalType.DATE)
+private Date createdDate;
 
-private String value;
+
+private Long value;
 
 @ManyToOne
 @JoinColumn(name="userId")
@@ -34,6 +41,12 @@ private String value;
 private User user;
 
 
+public Date getCreatedDate() {
+	return createdDate;
+}
+public void setCreatedDate(Date createdDate) {
+	this.createdDate = createdDate;
+}
 public User getUser() {
 	return user;
 }
@@ -55,10 +68,10 @@ public Type getType() {
 public void setType(Type type) {
 	this.type = type;
 }
-public String getValue() {
+public Long getValue() {
 	return value;
 }
-public void setValue(String value) {
+public void setValue(Long value) {
 	this.value = value;
 }
 

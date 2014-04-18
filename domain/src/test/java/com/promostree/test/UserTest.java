@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -18,6 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.promostree.domain.entities.Location;
 import com.promostree.domain.entities.Venue;
+import com.promostree.domain.user.EventType;
 import com.promostree.domain.user.LocationType;
 import com.promostree.domain.user.TargetUser;
 import com.promostree.domain.user.Type;
@@ -32,6 +34,7 @@ import com.promostree.domain.user.UserShout;
 
 import com.promostree.repositories.entities.LocationRepository;
 import com.promostree.repositories.entities.VenueRepository;
+import com.promostree.repositories.user.EventTypeRepository;
 import com.promostree.repositories.user.LocationTypeRepository;
 import com.promostree.repositories.user.TargetUsersRepository;
 import com.promostree.repositories.user.TypeRepository;
@@ -89,15 +92,18 @@ public class UserTest {
 	@Autowired
 	UserSharesRepository userSharesRep;
 	
+	@Autowired
+	EventTypeRepository 	etrep;
 	
-	/*@Test
+	
+	@Test
 	public void create()
 	{
 		// for types
 		
-		Type pt=new Type();
+		/*Type pt=new Type();
 		pt.setName("brand");
-		ptrep.save(pt);
+		ptrep.save(pt);*/
 		
 		Type pt1=new Type();
 		pt1.setName("venue");
@@ -178,9 +184,11 @@ public class UserTest {
 		UserShare us=new UserShare();
 		
 		us.setUser(u);
-		us.setValue("sonic");
+		Venue venue=vrep.findById((long)1);
+		
+		us.setValue(venue.getId());
 		us.setComment("nice..........");
-		us.setType(pt);
+		us.setType(pt1);
 		us.setCreateDate(new Date());
 		usrep.save(us);
 
@@ -205,30 +213,31 @@ public class UserTest {
 		ufb1.setUser(u);	
 		ufb1.setComment("nice");
 		ufb1.setCreatedDate(new Date());
-		ufb1.setType(pt);
-		ufb1.setValue("lg");
+		ufb1.setType(pt3);
+		ufb1.setValue(venue.getOffers().get(0).getId());
 		ufbrep.save(ufb1);
 		
 		UserFeedback ufb2=new UserFeedback();
 		ufb2.setUser(u);	
 		ufb2.setComment("worst");
 		ufb2.setCreatedDate(new Date());
-		ufb2.setType(pt2);
-		ufb1.setValue("hp");
+		ufb2.setType(pt3);
+		ufb1.setValue(venue.getOffers().get(1).getId());
 		ufbrep.save(ufb2);
 		
 		
 		//preferences
 		
 		UserPreference ups=new UserPreference();
-		ups.setType(pt);
-		ups.setValue("lg");
+		ups.setType(pt4);
+		ups.setValue(venue.getOffers().get(0).getShout().getId());
+		ups.setCreatedDate(new Date());
 		ups.setUser(u);
 		upsrep.save(ups);
 				
 		UserPreference ups1=new UserPreference();
 		ups1.setType(pt1);
-		ups1.setValue("hcl");
+		ups1.setValue(venue.getId());
 		ups1.setUser(u);
 		upsrep.save(ups1);
 		
@@ -260,6 +269,13 @@ public class UserTest {
 		
 		uprep.save(up);
 		
+		
+		//event Type
+		
+		EventType et=new EventType();
+		et.setName("user");
+		etrep.save(et);
+		
       //user event
 		
 		UserEvent ue=new UserEvent();
@@ -283,17 +299,27 @@ public class UserTest {
 
 		}
 		
-		
+		ue.setType(et);
 		ue.setUser(u);
 		uErep.save(ue);
-		}*/
+		}
 	
 	
 	@Test
 	public void reading(){
 		List<UserShare> userShares=userSharesRep.findByUserId((long)1);
 		for(UserShare us:userShares){
-			System.out.println(us.getId());		
+			System.out.println(us.getId());	
+			/*
+			Object v=new Venue();
+			String ss=v.getClass().getName();
+			String last = ss.substring(ss.lastIndexOf('.') + 1);
+			EventType e=etrep.findByName(last.toLowerCase());
+			System.out.println(e);*/
+			
+			User u=urep.findByPhoneNumberAndEmail("9000208863","swaroopkasaraneni@gmail.com");
+			System.out.println(u);
+			
 	}
 	
 	/*@Test

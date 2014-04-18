@@ -11,7 +11,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.promostree.domain.user.TargetUser;
 import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
-import com.promostree.domain.user.UserPreferences;
+import com.promostree.domain.user.UserPreference;
+
 import com.promostree.repositories.entities.LocationRepository;
 import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.user.LocationTypeRepository;
@@ -66,12 +67,14 @@ public class UserRepositoryTest {
 	}
 	@Test
 	public void savePreference(){
-		UserPreferences userPreference=new UserPreferences();
+		UserPreference userPreference=new UserPreference();
 		Type type=typeRep.findOne(1L);
 		User u1=userRep.findById(2L);
 		userPreference.setType(type);
 		userPreference.setUser(u1);
-		userPreference.setValue("pepe");
+		
+		
+		//userPreference.setValue();
 		userPreferencesRep.save(userPreference);
 	}
 }
