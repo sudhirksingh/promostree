@@ -175,7 +175,7 @@
     <dependent-module archiveName="jettison-1.3.3.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/codehaus/jettison/jettison/1.3.3/jettison-1.3.3.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
-    <dependent-module archiveName="search-service.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/search-service/search-service">
+    <dependent-module archiveName="search-service-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/com/promostree/search-service/1.0-SNAPSHOT/search-service-1.0-SNAPSHOT.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
     <dependent-module archiveName="spring-data-jpa-1.4.3.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/springframework/data/spring-data-jpa/1.4.3.RELEASE/spring-data-jpa-1.4.3.RELEASE.jar">
@@ -319,13 +319,13 @@
     <dependent-module archiveName="jackson-core-lgpl-1.9.13.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/codehaus/jackson/jackson-core-lgpl/1.9.13/jackson-core-lgpl-1.9.13.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
-    <dependent-module archiveName="domain.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/domain/domain">
+    <dependent-module archiveName="domain-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/com/promostree/domain/1.0-SNAPSHOT/domain-1.0-SNAPSHOT.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
     <dependent-module archiveName="gson-2.2.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/com/google/code/gson/gson/2.2.2/gson-2.2.2.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
-    <dependent-module archiveName="user-service.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/user-service/user-service">
+    <dependent-module archiveName="user-service-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/com/promostree/user-service/1.0-SNAPSHOT/user-service-1.0-SNAPSHOT.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
     <wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/java"/>
