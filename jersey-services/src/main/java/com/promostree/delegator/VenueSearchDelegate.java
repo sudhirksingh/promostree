@@ -5,8 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.promostree.domain.entities.User;
+
 import com.promostree.domain.entities.Venue;
+import com.promostree.domain.user.User;
 import com.promostree.service.core.CoreService;
 import com.promostree.service.search.SearchServices;
 
