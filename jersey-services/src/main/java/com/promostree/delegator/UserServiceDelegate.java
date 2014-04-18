@@ -27,6 +27,12 @@ public class UserServiceDelegate {
       String ushout	= userServices.saveUserShout(userShout);
 		return "userShout";
 	}
+	//tor read userShouts
+	public  List<UserShout>  readUserShout(User user)
+	{
+    List<UserShout> userShout	= userServices.readUserShout(user);
+		return userShout;
+	}
 	//to share 
 	public boolean saveUserShares(UserShare userShares){
 	Boolean save=	userServices.saveUserShares(userShares);

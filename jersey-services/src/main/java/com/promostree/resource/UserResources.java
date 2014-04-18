@@ -44,8 +44,18 @@ public class UserResources {
 	 ResponseBuilder builder=Response.ok();
      return builder.entity(use).build();
 	}
+	// to read shares which are posted
+		@GET
+		@Path("/postedShouts/{userId}")
+		@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+		public List<UserShout> readShouts(@PathParam("userId") Long userId) {
+			User user=new User();
+			user.setId(userId);
+			return userServiceDelegate.readUserShout(user);
+		}
 	//to save the user shares
 	@POST
+	@Path("/share")
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
 	public String share(UserShare userShares) {
 		boolean save = userServiceDelegate.saveUserShares(userShares);
@@ -77,12 +87,15 @@ public class UserResources {
 		return userServiceDelegate.saveUserPreference(userPreference);
 	}
 	// to read user preference
-	@POST
-	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	@Path("/readPreference")
-	public List<UserPreference> readUserPreference(User user) {
+	@GET
+	@Path("/readPreference/{userId}")
+	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+	public List<UserPreference> readUserPreference(@PathParam("userId") Long userId) {
+		User user=new User();
+		user.setId(userId);
 		return userServiceDelegate.readUserPreference(user);
 	}
+	
 }
 
 
