@@ -14,8 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.promostree.domain.entities.Venue;
+import com.promostree.domain.user.EventType;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserEvent;
+import com.promostree.repositories.user.EventTypeRepository;
 import com.promostree.repositories.user.UserEventRepository;
 import com.promostree.repositories.user.UserRepository;
 
@@ -32,22 +35,41 @@ public class UserEventTest {
 	
 	@Autowired
 	UserEventRepository uerep;
+	
+	@Autowired
+	EventTypeRepository etrep;
 
+	
+	
+	/*@Test
+	public void read()
+	{
+		User uu=urep.findById((long)1);
+		EventType et=etrep.findByName("user");
+		
+List<UserEvent> ues=uerep.findByUserAndType(uu,et);
+		
+
+		
+for(UserEvent ue:ues)
+	System.out.println(ue);
+		
+	
+	
+	
+	}*/
 	
 	
 	@Test
-	public void read()
+	public void toJson()
 	{
-		List<UserEvent> ue=uerep.findByUserId((long)1);
+		UserEvent ue=uerep.findOne((long)1);
+		ObjectMapper mapper = new ObjectMapper();
 		
-
-		
-
-		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-		try{
-		String json = ow.writeValueAsString(ue.get(0));
-		
-		System.out.println(json);
+		try
+		{
+		User user = mapper.readValue(ue.getData(), User.class);
+		System.out.println(user);
 		} catch (JsonGenerationException ex) {
 
 			ex.printStackTrace();
@@ -61,7 +83,38 @@ public class UserEventTest {
 			ex.printStackTrace();
 
 		}
+	
+	}
+	
+	
+	@Test
+	public void toJson1()
+	{
+		UserEvent ue=uerep.findOne((long)3);
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try
+		{
+		Venue user = mapper.readValue(ue.getData(), Venue.class);
+		System.out.println(user);
+		} catch (JsonGenerationException ex) {
+
+			ex.printStackTrace();
+
+		} catch (JsonMappingException ex) {
+
+			ex.printStackTrace();
+
+		} catch (IOException ex) {
+
+			ex.printStackTrace();
+
 		}
+		
+		
+	}
+	
+	
 	
 	
 	

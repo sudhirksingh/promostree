@@ -39,7 +39,7 @@ public class UserShare {
 	@Temporal(TemporalType.DATE)
 	private Date createDate;
 
-	private String value;
+	private Long value;
 
 	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name = "typeId")
@@ -51,11 +51,12 @@ public class UserShare {
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<TargetUser> targetUsers;
 
-	public String getValue() {
+
+	public Long getValue() {
 		return value;
 	}
 
-	public void setValue(String value) {
+	public void setValue(Long value) {
 		this.value = value;
 	}
 

@@ -15,6 +15,10 @@ import com.promostree.domain.entities.Venue;
 import com.promostree.domain.user.TargetUser;
 import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
+<<<<<<< HEAD
+import com.promostree.domain.user.UserPreference;
+
+=======
 import com.promostree.domain.user.UserFeedback;
 import com.promostree.domain.user.UserPreference;
 
@@ -23,6 +27,7 @@ import com.promostree.domain.user.UserShout;
 
 
 
+>>>>>>> 83e8485faa8ba273f4e70a6805a2d0d0cdce2548
 import com.promostree.repositories.entities.LocationRepository;
 import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.user.LocationTypeRepository;
@@ -118,15 +123,26 @@ public class UserRepositoryTest {
 			System.out.println("user  :: "+tr.getUserShares().getComment());
 		}
 	}
+<<<<<<< HEAD
+	@Test
+	public void savePreference(){
+=======
 
 	/*@Test
 	public void savePreferenceTest(){
 	List<UserPreference> userPreferences=new ArrayList<UserPreference>();
+>>>>>>> 83e8485faa8ba273f4e70a6805a2d0d0cdce2548
 		UserPreference userPreference=new UserPreference();
 		Type type=typeRep.findOne(1L);
 		User u1=userRep.findById(2L);
 		userPreference.setType(type);
 		userPreference.setUser(u1);
+<<<<<<< HEAD
+		
+		
+		//userPreference.setValue();
+		userPreferencesRep.save(userPreference);
+=======
 		userPreference.setValue("pepe");
 		userPreferences.add(userPreference);
 		userPreferencesRep.save(userPreferences);
@@ -170,6 +186,7 @@ public class UserRepositoryTest {
 		for(UserShout userShout:userShouts){
 			System.out.println("shout.."+userShout.getComment());
 		}
+>>>>>>> 83e8485faa8ba273f4e70a6805a2d0d0cdce2548
 	}
 	/*@Test
 	public void readUserFeedbackOfVenue(){

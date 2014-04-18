@@ -69,7 +69,7 @@ public class DomainTests {
 	@Autowired
 	ShoutRepository srep ;
 	
-	/*
+	
 		@Test
 	public void save() throws ParseException
 	{
