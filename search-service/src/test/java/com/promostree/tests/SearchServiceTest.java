@@ -56,7 +56,7 @@ public class SearchServiceTest {
 	user.setLng(78.23541254);
 	user.setRadius(1000.0);
 	user.setPageNumber(0);
-	//user.setSearchTerm("ice");
+	user.setSearchTerm("wine");
 	
 		GeoLocation g=new GeoLocation(17.364320517794,78.476185121817);
 		//List<SolrVenue> venues=vrep.findByQueryAnnotation(GeoConverters.GeoLocationToStringConverter.INSTANCE.convert(new GeoLocation(17.364320517794,78.476185121817)),GeoConverters.DistanceToStringConverter.INSTANCE.convert(new Distance(100)));

@@ -2,13 +2,12 @@ package com.promostree.user.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 import com.promostree.domain.entities.Location;
+import com.promostree.domain.entities.Venue;
 import com.promostree.domain.user.LocationType;
 import com.promostree.domain.user.TargetUser;
 import com.promostree.domain.user.User;
@@ -54,49 +53,68 @@ public class UserServiceImpl implements UserServices {
 	UserShoutRepository userShoutRepository;
 	private List<UserShare> userShares;
 
-	// to post shares
+	// for user Registration
+	@Override
+	public UserProfile saveUserCredentials(User user) {
+		User u = null;
+		UserProfile uprofile = null;
+		if (user != null) {
+			u = userRepository.findByPhoneNumberOrEmail(user.getPhoneNumber(),
+					user.getEmail());
+			if (u == null) {
+				User use = userRepository.save(user);
+				uprofile = userProfileRepository.findOne(use.getId());
+				return uprofile;
+			} else
+				uprofile = userProfileRepository.findOne(u.getId());
+		}
+		return uprofile;
+	}
+
+	// for storing the user shout
+	@Override
+	public String saveUserShout(UserShout userShout) {
+		UserShout usershout = userShoutRepository.save(userShout);
+		if (usershout.equals(userShout))
+			return "stored successfully......";
+		else
+			return "not stored";
+	}
+	@Override
+	public List<UserShout> readUserShout(User user) {
+		return userShoutRepository.findByUserId(user.getId());
+	}
+	
+	// to save user share
 	@Override
 	public boolean saveUserShares(UserShare userShares) {
-		UserShare userShares1 = userSharesRepository.save(userShares);
-		if (userShares1.equals(userShares))
+		UserShare userShare = userSharesRepository.save(userShares);
+		if (userShare.equals(userShare))
 			return true;
 		else
 			return false;
 	}
+
 	// to get shares which i posted
 	@Override
-	public List<UserShare> readPostedUserShares(long userId) {
-		return userSharesRepository.findByUserId(userId);
+	public List<UserShare> readPostedUserShares(User user) {
+		return userSharesRepository.findByUserId(user.getId());
 	}
+
 	// to get shares which i received from different users
 	@Override
-	public List<UserShare> readRecievedUserShares(Long userId) {
+	public List<UserShare> readRecievedUserShares(User user) {
 		userShares = new ArrayList<UserShare>();
-		List<TargetUser> targetUsers = targetUsersRepository.findByUserId(userId);
+		List<TargetUser> targetUsers = targetUsersRepository
+				.findByUserId(user.getId());
 		for (TargetUser targetUser : targetUsers) {
 			System.out.println(targetUser.getId());
-			userShares.add(targetUser.getUserShares());
+			userShares.add(userSharesRepository.findOne(targetUser.getId()));
 		}
 		return userShares;
 	}
-	@Override
-	public User saveUserCredentials(User user) {
-		User u = userRepository.findByPhoneNumber(user.getPhoneNumber());
-		if (u.equals(null)) {
-			userRepository.save(user);
-			return null;
-		}
-		return user;
-	}
 
-	@Override
-	public boolean saveUserShout(UserShout userShout) {
-		UserShout usershout = userShoutRepository.save(userShout);
-		if (usershout.equals(userShout))
-			return true;
-		else
-			return false;
-	}
+
 
 	@Override
 	public UserProfile saveUserProfile(UserProfile userProfile) {
@@ -105,12 +123,24 @@ public class UserServiceImpl implements UserServices {
 		return userProfile1;
 	}
 
+	// to save user preferences
 	@Override
-	public UserPreference saveUserPreferences(UserPreference userPreferences) {
-		UserPreference userPreferences1 = userPreferencesRepository
-				.save(userPreferences);
+	public List<UserPreference> saveUserPreference(
+			List<UserPreference> userPreferences) {
+		return userPreferencesRepository.save(userPreferences);
+	}
 
-		return userPreferences1;
+	/*
+	 * @Override public UserPreference deleteUserPreferences(UserPreference
+	 * userPreferences){ userPreferencesRepository.delete(userPreferences);
+	 * return userPreferences; }
+	 */
+
+	// to read user Preferences
+
+	@Override
+	public List<UserPreference> readUserPreferences(User user) {
+		return userPreferencesRepository.findByUserId(user.getId());
 
 	}
 
