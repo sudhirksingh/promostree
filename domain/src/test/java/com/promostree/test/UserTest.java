@@ -95,15 +95,15 @@ public class UserTest {
 	@Autowired
 	EventTypeRepository 	etrep;
 	
-	
+	/*
 	@Test
 	public void create()
 	{
 		// for types
 		
-		/*Type pt=new Type();
+		Type pt=new Type();
 		pt.setName("brand");
-		ptrep.save(pt);*/
+		ptrep.save(pt);
 		
 		Type pt1=new Type();
 		pt1.setName("venue");
@@ -302,8 +302,8 @@ public class UserTest {
 		ue.setType(et);
 		ue.setUser(u);
 		uErep.save(ue);
-		}
-	
+		}*/
+	/*
 	
 	@Test
 	public void reading(){
@@ -317,15 +317,15 @@ public class UserTest {
 			EventType e=etrep.findByName(last.toLowerCase());
 			System.out.println(e);*/
 			
-			User u=urep.findByPhoneNumberAndEmail("9000208863","swaroopkasaraneni@gmail.com");
-			System.out.println(u);
+			//User u=urep.findByPhoneNumberAndEmail("9000208863","swaroopkasaraneni@gmail.com");
+			//System.out.println(u);
 			
-	}
+	//}*/
 	
-	/*@Test
+	@Test
 	public void read()
 	{
-		User u=urep.findById((long)1);
+		UserShare u=usrep.findOne((long)1);
 		
 
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
@@ -345,7 +345,7 @@ public class UserTest {
 
 			ex.printStackTrace();
 
-		}*/
+		}
 		}
 	
 	

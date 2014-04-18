@@ -43,7 +43,7 @@ public class UserShare {
 
 	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name = "typeId")
-	@JsonBackReference
+	@JsonManagedReference
 	private Type type;
 
 	@OneToMany(mappedBy = "userShares", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

@@ -12,9 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.promostree.domain.entities.User;
+
+
 import com.promostree.domain.entities.Venue;
+
 import com.promostree.domain.solr.SolrVenue;
+import com.promostree.domain.user.User;
 import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.solr.SolrVenueRepository;
 
