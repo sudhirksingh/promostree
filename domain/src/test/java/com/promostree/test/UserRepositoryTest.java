@@ -12,7 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.promostree.domain.entities.Venue;
-import com.promostree.domain.user.TargetUser;
+import com.promostree.domain.user.Notification;
 import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
 
@@ -27,7 +27,7 @@ import com.promostree.domain.user.UserShout;
 import com.promostree.repositories.entities.LocationRepository;
 import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.user.LocationTypeRepository;
-import com.promostree.repositories.user.TargetUsersRepository;
+import com.promostree.repositories.user.NotificationRepository;
 import com.promostree.repositories.user.TypeRepository;
 import com.promostree.repositories.user.UserEventRepository;
 import com.promostree.repositories.user.UserFeedbackRepository;
@@ -60,7 +60,7 @@ public class UserRepositoryTest {
 	@Autowired
 	UserSharesRepository userSharesRep;
 	@Autowired
-	TargetUsersRepository targetUserRep;
+	NotificationRepository targetUserRep;
 	@Autowired
 	UserShoutRepository userShoutRep;
 	@Autowired
@@ -114,10 +114,10 @@ public class UserRepositoryTest {
 	public void read(){
 		User user=userRep.findByPhoneNumber("9000208863");
 		System.out.println(user.getPhoneNumber());
-		List<TargetUser> trs=targetUserRep.findByUserId(2L);
-		for(TargetUser tr:trs){
-			System.out.println("user  :: "+tr.getUserShares().getComment());
-		}
+		/*List<Notification> trs=targetUserRep.findOne(arg0)(2L);
+		for(Notification tr:trs){
+		//	System.out.println("user  :: "+tr.getUserShares().getComment());
+		}*/
 	}
 
 

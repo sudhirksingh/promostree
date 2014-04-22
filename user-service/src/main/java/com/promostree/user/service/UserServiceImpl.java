@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import com.promostree.domain.entities.Location;
 import com.promostree.domain.entities.Venue;
 import com.promostree.domain.user.LocationType;
-import com.promostree.domain.user.TargetUser;
+import com.promostree.domain.user.Notification;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserFeedback;
 import com.promostree.domain.user.UserLocation;
@@ -19,7 +19,7 @@ import com.promostree.domain.user.UserShare;
 import com.promostree.domain.user.UserShout;
 import com.promostree.repositories.entities.LocationRepository;
 import com.promostree.repositories.user.LocationTypeRepository;
-import com.promostree.repositories.user.TargetUsersRepository;
+import com.promostree.repositories.user.NotificationRepository;
 import com.promostree.repositories.user.UserFeedbackRepository;
 import com.promostree.repositories.user.UserLocationsRepository;
 import com.promostree.repositories.user.UserPreferencesRepository;
@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserServices {
 	@Autowired
 	UserSharesRepository userSharesRepository;
 	@Autowired
-	TargetUsersRepository targetUsersRepository;
+	NotificationRepository targetUsersRepository;
 	@Autowired
 	UserRepository userRepository;
 	@Autowired
@@ -105,9 +105,9 @@ public class UserServiceImpl implements UserServices {
 	@Override
 	public List<UserShare> readRecievedUserShares(User user) {
 		userShares = new ArrayList<UserShare>();
-		List<TargetUser> targetUsers = targetUsersRepository
+		List<Notification> targetUsers = targetUsersRepository
 				.findByUserId(user.getId());
-		for (TargetUser targetUser : targetUsers) {
+		for (Notification targetUser : targetUsers) {
 			System.out.println(targetUser.getId());
 			userShares.add(userSharesRepository.findOne(targetUser.getId()));
 		}

@@ -30,7 +30,7 @@ private Date createdDate ;
 
 @ManyToOne
 @JoinColumn(name="userId")
-@JsonBackReference
+@JsonBackReference(value="user-userLocations")
 private User user;
 
 @OneToOne
@@ -86,7 +86,65 @@ public Location getLocation() {
 
 public void setLocation(Location location) {
 	this.location = location;
-} 
+}
+
+@Override
+public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result
+			+ ((createdDate == null) ? 0 : createdDate.hashCode());
+	result = prime * result + ((id == null) ? 0 : id.hashCode());
+	result = prime * result + ((location == null) ? 0 : location.hashCode());
+	result = prime * result
+			+ ((locationType == null) ? 0 : locationType.hashCode());
+	result = prime * result + ((user == null) ? 0 : user.hashCode());
+	return result;
+}
+
+@Override
+public boolean equals(Object obj) {
+	if (this == obj)
+		return true;
+	if (obj == null)
+		return false;
+	if (getClass() != obj.getClass())
+		return false;
+	UserLocation other = (UserLocation) obj;
+	if (createdDate == null) {
+		if (other.createdDate != null)
+			return false;
+	} else if (!createdDate.equals(other.createdDate))
+		return false;
+	if (id == null) {
+		if (other.id != null)
+			return false;
+	} else if (!id.equals(other.id))
+		return false;
+	if (location == null) {
+		if (other.location != null)
+			return false;
+	} else if (!location.equals(other.location))
+		return false;
+	if (locationType == null) {
+		if (other.locationType != null)
+			return false;
+	} else if (!locationType.equals(other.locationType))
+		return false;
+	if (user == null) {
+		if (other.user != null)
+			return false;
+	} else if (!user.equals(other.user))
+		return false;
+	return true;
+}
+
+/*@Override
+public String toString() {
+	return "UserLocation [id=" + id + ", createdDate=" + createdDate
+			+ ", user=" + user + ", locationType=" + locationType
+			+ ", location=" + location + "]";
+} */
 
 
 

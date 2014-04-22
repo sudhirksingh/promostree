@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.promostree.domain.entities.Address;
 import com.promostree.domain.entities.Location;
 import com.promostree.domain.entities.Venue;
-import com.promostree.domain.user.TargetUser;
+import com.promostree.domain.user.Notification;
 import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserFeedback;

@@ -32,7 +32,7 @@ public class UserProfile {
 
 	@OneToOne
 	@JoinColumn(name = "userId")
-	@JsonBackReference
+	@JsonBackReference(value="user-userProfile")
 	private User user;
 
 	public Date getCreatedDate() {
@@ -90,5 +90,75 @@ public class UserProfile {
 	public void setReg(boolean isReg) {
 		this.isReg = isReg;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((createdDate == null) ? 0 : createdDate.hashCode());
+		result = prime * result
+				+ ((fristName == null) ? 0 : fristName.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + (isReg ? 1231 : 1237);
+		result = prime * result
+				+ ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result
+				+ ((updatedDate == null) ? 0 : updatedDate.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserProfile other = (UserProfile) obj;
+		if (createdDate == null) {
+			if (other.createdDate != null)
+				return false;
+		} else if (!createdDate.equals(other.createdDate))
+			return false;
+		if (fristName == null) {
+			if (other.fristName != null)
+				return false;
+		} else if (!fristName.equals(other.fristName))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (isReg != other.isReg)
+			return false;
+		if (lastName == null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!lastName.equals(other.lastName))
+			return false;
+		if (updatedDate == null) {
+			if (other.updatedDate != null)
+				return false;
+		} else if (!updatedDate.equals(other.updatedDate))
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
+		return true;
+	}
+
+	/*@Override
+	public String toString() {
+		return "UserProfile [id=" + id + ", fristName=" + fristName
+				+ ", lastName=" + lastName + ", createdDate=" + createdDate
+				+ ", updatedDate=" + updatedDate + ", isReg=" + isReg
+				+ ", user=" + user + "]";
+	}*/
 
 }

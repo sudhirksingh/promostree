@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -29,30 +31,29 @@ import javax.persistence.CascadeType;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.promostree.domain.tenant.Tenant;
 import com.promostree.domain.user.UserShout;
-@XmlRootElement(name="venue")
-@XmlType
-@XmlAccessorType(XmlAccessType.FIELD)
+
 @Entity(name="venue")
 @Table(name="venue")
 public class Venue {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@XmlElement
-	private Long id;
+		private Long id;
 
 	@NotBlank(message = " vname must filled")
-	@XmlElement
-	//@Pattern(regexp = "[a-z-A-Z]*", message = "First name has invalid ")
+		//@Pattern(regexp = "[a-z-A-Z]*", message = "First name has invalid ")
 	private String name;
-@XmlElement
+
 	private String image;
-@XmlElement
+
 	private String verified;
-@XmlElement
+
 	private String fourSquareId;
 
 @Transient
@@ -61,51 +62,61 @@ private double distance;
 
 @Temporal(TemporalType.DATE)
 @NotNull
-@XmlElement
 private Date createdDate;
 
 @Temporal(TemporalType.DATE)
-@XmlElement
 private Date updatedDate;
 
 
 @NotBlank(message = " createdBy must filled")
-@XmlElement
 private String createdBy;
 
-@XmlElement
+
 private String updatedBy;
 
-@XmlElement
+
 private boolean active;
+
+private int shareCount;
+private int feedBackCount;
+
+@ManyToMany(fetch = FetchType.EAGER)
+@JoinTable(name="venues_brands",
+joinColumns={@JoinColumn(name="venue_id", referencedColumnName="id")},
+inverseJoinColumns={@JoinColumn(name="brand_id", referencedColumnName="id")}
+)
+@JsonManagedReference
+@Fetch(value = FetchMode.SUBSELECT)
+private  List<Brand> brands;
 
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "categoryId")
-	@XmlElement
 	private Category category;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "tenantId")
+	@JsonBackReference
+	private Tenant tenant;
 
 	
 	@OneToMany(mappedBy = "venue", cascade = CascadeType.ALL, fetch = FetchType.EAGER,targetEntity = com.promostree.domain.entities.Offer.class)
-	@XmlElement
 	@JsonManagedReference
 	private List<Offer> offers = new ArrayList<Offer>();
 
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "addressId")
-	@XmlElement
 	private Address address;
 	
-	@OneToOne(mappedBy = "venue", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@XmlElement
-	  @JsonManagedReference
+	@OneToOne
+	@JoinColumn(name="merchantId")
+	@JsonBackReference
 	private Merchant merchant;
 
 	
 	@OneToOne(mappedBy = "venue", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@XmlElement
-	  @JsonBackReference
+		  @JsonBackReference
 	private UserShout userShout;
 	
 	
@@ -255,6 +266,178 @@ private boolean active;
 
 	public void setVerified(String verified) {
 		this.verified = verified;
+	}
+
+	public int getShareCount() {
+		return shareCount;
+	}
+
+	public void setShareCount(int shareCount) {
+		this.shareCount = shareCount;
+	}
+
+	public int getFeedBackCount() {
+		return feedBackCount;
+	}
+
+	public void setFeedBackCount(int feedBackCount) {
+		this.feedBackCount = feedBackCount;
+	}
+
+	public Tenant getTenant() {
+		return tenant;
+	}
+
+	public void setTenant(Tenant tenant) {
+		this.tenant = tenant;
+	}
+
+	public List<Brand> getBrands() {
+		return brands;
+	}
+
+	public void setBrands(List<Brand> brands) {
+		this.brands = brands;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (active ? 1231 : 1237);
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((brands == null) ? 0 : brands.hashCode());
+		result = prime * result
+				+ ((category == null) ? 0 : category.hashCode());
+		result = prime * result
+				+ ((createdBy == null) ? 0 : createdBy.hashCode());
+		result = prime * result
+				+ ((createdDate == null) ? 0 : createdDate.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(distance);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + feedBackCount;
+		result = prime * result
+				+ ((fourSquareId == null) ? 0 : fourSquareId.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((image == null) ? 0 : image.hashCode());
+		result = prime * result
+				+ ((merchant == null) ? 0 : merchant.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((offers == null) ? 0 : offers.hashCode());
+		result = prime * result + shareCount;
+		result = prime * result
+				+ ((updatedBy == null) ? 0 : updatedBy.hashCode());
+		result = prime * result
+				+ ((updatedDate == null) ? 0 : updatedDate.hashCode());
+		result = prime * result
+				+ ((verified == null) ? 0 : verified.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Venue other = (Venue) obj;
+		if (active != other.active)
+			return false;
+		if (address == null) {
+			if (other.address != null)
+				return false;
+		} else if (!address.equals(other.address))
+			return false;
+		if (brands == null) {
+			if (other.brands != null)
+				return false;
+		} else if (!brands.equals(other.brands))
+			return false;
+		if (category == null) {
+			if (other.category != null)
+				return false;
+		} else if (!category.equals(other.category))
+			return false;
+		if (createdBy == null) {
+			if (other.createdBy != null)
+				return false;
+		} else if (!createdBy.equals(other.createdBy))
+			return false;
+		if (createdDate == null) {
+			if (other.createdDate != null)
+				return false;
+		} else if (!createdDate.equals(other.createdDate))
+			return false;
+		if (Double.doubleToLongBits(distance) != Double
+				.doubleToLongBits(other.distance))
+			return false;
+		if (feedBackCount != other.feedBackCount)
+			return false;
+		if (fourSquareId == null) {
+			if (other.fourSquareId != null)
+				return false;
+		} else if (!fourSquareId.equals(other.fourSquareId))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (image == null) {
+			if (other.image != null)
+				return false;
+		} else if (!image.equals(other.image))
+			return false;
+		if (merchant == null) {
+			if (other.merchant != null)
+				return false;
+		} else if (!merchant.equals(other.merchant))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (offers == null) {
+			if (other.offers != null)
+				return false;
+		} else if (!offers.equals(other.offers))
+			return false;
+		if (shareCount != other.shareCount)
+			return false;
+		if (updatedBy == null) {
+			if (other.updatedBy != null)
+				return false;
+		} else if (!updatedBy.equals(other.updatedBy))
+			return false;
+		if (updatedDate == null) {
+			if (other.updatedDate != null)
+				return false;
+		} else if (!updatedDate.equals(other.updatedDate))
+			return false;
+		if (verified == null) {
+			if (other.verified != null)
+				return false;
+		} else if (!verified.equals(other.verified))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Venue [id=" + id + ", name=" + name + ", image=" + image
+				+ ", verified=" + verified + ", fourSquareId=" + fourSquareId
+				+ ", distance=" + distance + ", createdDate=" + createdDate
+				+ ", updatedDate=" + updatedDate + ", createdBy=" + createdBy
+				+ ", updatedBy=" + updatedBy + ", active=" + active
+				+ ", shareCount=" + shareCount + ", feedBackCount="
+				+ feedBackCount + ", brands=" + brands + ", category="
+				+ category + ", tenant=" + tenant + ", offers=" + offers
+				+ ", address=" + address + ", merchant=" + merchant
+				+ ", userShout=" + userShout + "]";
 	}
 
 }
