@@ -39,7 +39,7 @@ public class SearchServiceImpl implements SearchServices {
 	
 	
 	// indexing
-	@Override
+
 	public boolean indexing() {
 		logger.info("enter into indexing ()");
 		List<Venue> domainVenues = searchServiceHelper.getVenuesFromSource();	
@@ -47,7 +47,7 @@ public class SearchServiceImpl implements SearchServices {
 		
 	}
 	
-	@Override
+	
 	public boolean indexing(List<Venue> venues) {
 		logger.info("enter into indexing(List<Venue> venues)");
 		boolean result = false;
@@ -62,7 +62,7 @@ public class SearchServiceImpl implements SearchServices {
 
 	
 	// search on nearest venues based on lat,lng
-		@Override
+		
 		public List<Venue> nearestVenues(User user) {
 			
 			logger.info("enter into nearestVenues(User user) ");

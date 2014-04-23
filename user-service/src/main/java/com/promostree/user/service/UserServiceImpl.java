@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserServices {
 	@Autowired
 	UserSharesRepository userSharesRepository;
 	@Autowired
-	NotificationRepository targetUsersRepository;
+	NotificationRepository notificationRepository;
 	@Autowired
 	UserRepository userRepository;
 	@Autowired
@@ -51,10 +51,9 @@ public class UserServiceImpl implements UserServices {
 	UserFeedbackRepository userFeedbackRepository;
 	@Autowired
 	UserShoutRepository userShoutRepository;
-	private List<UserShare> userShares;
+	
 
 	// for user Registration
-	@Override
 	public UserProfile saveUserCredentials(User user) {
 		User u = null;
 		UserProfile uprofile = null;
@@ -72,7 +71,7 @@ public class UserServiceImpl implements UserServices {
 	}
 
 	// for storing the user shout
-	@Override
+	
 	public String saveUserShout(UserShout userShout) {
 		UserShout usershout = userShoutRepository.save(userShout);
 		if (usershout.equals(userShout))
@@ -80,13 +79,12 @@ public class UserServiceImpl implements UserServices {
 		else
 			return "not stored";
 	}
-	@Override
+	//read user shouts
 	public List<UserShout> readUserShout(User user) {
 		return userShoutRepository.findByUserId(user.getId());
 	}
 	
 	// to save user share
-	@Override
 	public boolean saveUserShares(UserShare userShares) {
 		UserShare userShare = userSharesRepository.save(userShares);
 		if (userShare.equals(userShare))
@@ -96,27 +94,20 @@ public class UserServiceImpl implements UserServices {
 	}
 
 	// to get shares which i posted
-	@Override
 	public List<UserShare> readPostedUserShares(User user) {
 		return userSharesRepository.findByUserId(user.getId());
 	}
 
 	// to get shares which i received from different users
-	@Override
+	
 	public List<UserShare> readRecievedUserShares(User user) {
-		userShares = new ArrayList<UserShare>();
-		List<Notification> targetUsers = targetUsersRepository
-				.findByUserId(user.getId());
-		for (Notification targetUser : targetUsers) {
-			System.out.println(targetUser.getId());
-			userShares.add(userSharesRepository.findOne(targetUser.getId()));
-		}
-		return userShares;
+	
+		return null;
 	}
 
 
 
-	@Override
+	
 	public UserProfile saveUserProfile(UserProfile userProfile) {
 		UserProfile userProfile1 = userProfileRepository.save(userProfile);
 
@@ -124,7 +115,7 @@ public class UserServiceImpl implements UserServices {
 	}
 
 	// to save user preferences
-	@Override
+	
 	public List<UserPreference> saveUserPreference(
 			List<UserPreference> userPreferences) {
 		return userPreferencesRepository.save(userPreferences);
@@ -138,20 +129,20 @@ public class UserServiceImpl implements UserServices {
 
 	// to read user Preferences
 
-	@Override
+	
 	public List<UserPreference> readUserPreferences(User user) {
 		return userPreferencesRepository.findByUserId(user.getId());
 
 	}
 
-	@Override
+	
 	public UserLocation saveUserLocations(UserLocation userLocations) {
 		UserLocation userLocations1 = userLocationsRepository
 				.save(userLocations);
 		return userLocations1;
 	}
 
-	@Override
+	
 	public boolean saveLocationType(LocationType locationType) {
 		LocationType locationType1 = locationTypeRepository.save(locationType);
 		if (locationType1.equals(locationType))
@@ -160,13 +151,13 @@ public class UserServiceImpl implements UserServices {
 			return false;
 	}
 
-	@Override
+	
 	public Location saveLocation(Location location) {
 		Location location1 = locationRepository.save(location);
 		return location1;
 	}
 
-	@Override
+	
 	public boolean saveUserFeedback(UserFeedback userFeedback) {
 		UserFeedback userfeedback = userFeedbackRepository.save(userFeedback);
 		if (userfeedback.equals(userFeedback))

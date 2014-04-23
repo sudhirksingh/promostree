@@ -13,6 +13,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
 
 @Entity(name = "user_profile")
 @Table(name = "user_profile")
@@ -32,7 +34,7 @@ public class UserProfile {
 
 	@OneToOne
 	@JoinColumn(name = "userId")
-	@JsonBackReference(value="user-userProfile")
+	@JsonManagedReference(value="user-userProfile")
 	private User user;
 
 	public Date getCreatedDate() {

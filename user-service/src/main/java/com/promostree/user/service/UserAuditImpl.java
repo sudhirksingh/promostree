@@ -28,7 +28,6 @@ public class UserAuditImpl implements UserAudit {
 	EventTypeRepository eventTypeRepository;
 	
 	
-	@Override
 	public boolean logWritter(User user,Object object){
 			UserEvent userEvent=new UserEvent();
 			boolean result=false;
@@ -74,7 +73,7 @@ public class UserAuditImpl implements UserAudit {
 	
 	
 	
-	@Override
+	
 	public List<Object> logReader(User user,EventType eventType)
 	{
 			List<UserEvent> UserEvents=userEventRepository.findByUserAndType(user,eventType);
