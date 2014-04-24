@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.codehaus.jackson.annotate.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity(name = "user_profile")
 @Table(name = "user_profile")
@@ -90,5 +90,57 @@ public class UserProfile {
 	public void setReg(boolean isReg) {
 		this.isReg = isReg;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((fristName == null) ? 0 : fristName.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + (isReg ? 1231 : 1237);
+		result = prime * result
+				+ ((lastName == null) ? 0 : lastName.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserProfile other = (UserProfile) obj;
+		if (fristName == null) {
+			if (other.fristName != null)
+				return false;
+		} else if (!fristName.equals(other.fristName))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (isReg != other.isReg)
+			return false;
+		if (lastName == null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!lastName.equals(other.lastName))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "UserProfile [id=" + id + ", fristName=" + fristName
+				+ ", lastName=" + lastName + ", createdDate=" + createdDate
+				+ ", updatedDate=" + updatedDate + ", isReg=" + isReg
+				+ ", user=" + user + "]";
+	}
+	
+	
 
 }

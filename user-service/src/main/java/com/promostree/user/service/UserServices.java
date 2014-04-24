@@ -14,7 +14,7 @@ import com.promostree.domain.user.UserShare;
 import com.promostree.domain.user.UserShout;
 
 public interface UserServices {
-public UserProfile saveUserCredentials(User user);
+public User saveUserCredentials(User user);
 
 public String saveUserShout(UserShout userShout);
 

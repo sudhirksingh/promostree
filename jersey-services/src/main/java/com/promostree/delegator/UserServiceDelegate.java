@@ -16,49 +16,54 @@ import com.promostree.user.service.UserServices;
 public class UserServiceDelegate {
 	@Autowired
 	UserServices userServices;
-	//to  Registration
-	public UserProfile saveUserCredentials(User user){
-	UserProfile  use=userServices.saveUserCredentials(user);
-	return use;
+
+	// to Registration
+	public User saveUserCredentials(User user) {
+		User dbUser = userServices.saveUserCredentials(user);
+		return dbUser;
 	}
+
 	// to savetheusershout
-	public  String saveUserShout(UserShout userShout)
-	{
-      String ushout	= userServices.saveUserShout(userShout);
+	public String saveUserShout(UserShout userShout) {
+		String ushout = userServices.saveUserShout(userShout);
 		return "userShout";
 	}
-	//tor read userShouts
-	public  List<UserShout>  readUserShout(User user)
-	{
-    List<UserShout> userShout	= userServices.readUserShout(user);
+
+	// tor read userShouts
+	public List<UserShout> readUserShout(User user) {
+		List<UserShout> userShout = userServices.readUserShout(user);
 		return userShout;
 	}
-	//to share 
-	public boolean saveUserShares(UserShare userShares){
-	Boolean save=	userServices.saveUserShares(userShares);
+
+	// to share
+	public boolean saveUserShares(UserShare userShares) {
+		Boolean save = userServices.saveUserShares(userShares);
 		return save;
 	}
-	//to read shares which i got
-	public List<UserShare> readReceivedUserShares(Long userId){
-		User user=new User();
+
+	// to read shares which i got
+	public List<UserShare> readReceivedUserShares(Long userId) {
+		User user = new User();
 		user.setId(userId);
 		return userServices.readRecievedUserShares(user);
 	}
-	//to read shares which i posted
-	public List<UserShare> readPostedUserShares(Long userId){
-		User user=new User();
+
+	// to read shares which i posted
+	public List<UserShare> readPostedUserShares(Long userId) {
+		User user = new User();
 		user.setId(userId);
 		return userServices.readPostedUserShares(user);
 	}
 
-	//to save user preference
-	public List<UserPreference> saveUserPreference(List<UserPreference> userPreference){
+	// to save user preference
+	public List<UserPreference> saveUserPreference(
+			List<UserPreference> userPreference) {
 		return userServices.saveUserPreference(userPreference);
 	}
-	//to read user preferences
-	public List<UserPreference> readUserPreference(User user){
+
+	// to read user preferences
+	public List<UserPreference> readUserPreference(User user) {
 		return userServices.readUserPreferences(user);
 	}
-
 
 }

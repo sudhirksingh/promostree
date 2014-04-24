@@ -1,4 +1,5 @@
 package com.promostree.resource;
+
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -17,43 +18,50 @@ import com.promostree.domain.user.UserProfile;
 import com.promostree.domain.user.UserShare;
 import com.promostree.domain.user.UserShout;
 
+/**
+ * 
+ * @author visi
+ *
+ */
 @Path("/userservice")
 public class UserResources {
-	
+
 	@Autowired
 	UserServiceDelegate userServiceDelegate;
 	
-	//initial Registration of new user 
+	/**
+	 *  initial Registration of new user
+	 */
 	@POST
 	@Path("/login")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response intialRegistration(User user)
-	{
-	 UserProfile use	= userServiceDelegate.saveUserCredentials(user);
-	 ResponseBuilder builder=Response.ok();
-     return builder.entity(use).build();
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response intialRegistration(User user) {
+		User dbUser = userServiceDelegate.saveUserCredentials(user);
+		return Response.ok().entity(dbUser).build();
 	}
 	
-    // to save the usershout
+	
 	@POST
 	@Path("/shout")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response AudituingUserShot(UserShout userShout)
-	{
-	 String  use=userServiceDelegate.saveUserShout(userShout);
-	 ResponseBuilder builder=Response.ok();
-     return builder.entity(use).build();
+	public Response AudituingUserShot(UserShout userShout) {
+		String usershout = userServiceDelegate.saveUserShout(userShout);
+		ResponseBuilder builder = Response.ok();
+		return builder.entity(usershout).build();
 	}
+	
 	// to read shares which are posted
-		@GET
-		@Path("/postedShouts/{userId}")
-		@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-		public List<UserShout> readShouts(@PathParam("userId") Long userId) {
-			User user=new User();
-			user.setId(userId);
-			return userServiceDelegate.readUserShout(user);
-		}
-	//to save the user shares
+	@GET
+	@Path("/postedShouts/{userId}")
+	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+	public List<UserShout> readShouts(@PathParam("userId") Long userId) {
+		User user = new User();
+		user.setId(userId);
+		return userServiceDelegate.readUserShout(user);
+	}
+	
+	// to save the user shares
 	@POST
 	@Path("/share")
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
@@ -64,6 +72,7 @@ public class UserResources {
 		else
 			return "failed..";
 	}
+	
 	// to read shares which are posted
 	@GET
 	@Path("/postedShares/{userId}")
@@ -71,7 +80,7 @@ public class UserResources {
 	public List<UserShare> postedShares(@PathParam("userId") Long userId) {
 		return userServiceDelegate.readPostedUserShares(userId);
 	}
-
+	
 	// to read share which are received
 	@GET
 	@Path("/receivedShares/{userId}")
@@ -79,26 +88,25 @@ public class UserResources {
 	public List<UserShare> receivedShares(@PathParam("userId") Long userId) {
 		return userServiceDelegate.readReceivedUserShares(userId);
 	}
+	
 	// to save user preference
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
 	@Path("/savePreference")
-	public List<UserPreference> saveUserPreference(List<UserPreference> userPreference) {
+	public List<UserPreference> saveUserPreference(
+			List<UserPreference> userPreference) {
 		return userServiceDelegate.saveUserPreference(userPreference);
 	}
+	
 	// to read user preference
 	@GET
 	@Path("/readPreference/{userId}")
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public List<UserPreference> readUserPreference(@PathParam("userId") Long userId) {
-		User user=new User();
+	public List<UserPreference> readUserPreference(
+			@PathParam("userId") Long userId) {
+		User user = new User();
 		user.setId(userId);
 		return userServiceDelegate.readUserPreference(user);
 	}
-	
+
 }
-
-
-
-
-

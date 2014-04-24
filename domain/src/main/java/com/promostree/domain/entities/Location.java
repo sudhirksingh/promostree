@@ -6,18 +6,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.codehaus.jackson.annotate.JsonBackReference;
-import org.codehaus.jackson.annotate.JsonManagedReference;
-import org.hibernate.validator.constraints.NotBlank;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.promostree.domain.user.UserLocation;
-import com.promostree.domain.user.UserPreference;
-import com.promostree.domain.user.UserProfile;
 
 
 @Entity(name="location")

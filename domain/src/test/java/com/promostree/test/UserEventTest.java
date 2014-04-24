@@ -1,21 +1,17 @@
 package com.promostree.test;
 
 import java.io.IOException;
-import java.util.List;
 
-
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.ObjectWriter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.promostree.domain.entities.Venue;
-import com.promostree.domain.user.EventType;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserEvent;
 import com.promostree.repositories.user.EventTypeRepository;

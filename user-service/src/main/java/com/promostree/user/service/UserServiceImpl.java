@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.promostree.domain.entities.Location;
-import com.promostree.domain.entities.Venue;
 import com.promostree.domain.user.LocationType;
 import com.promostree.domain.user.TargetUser;
 import com.promostree.domain.user.User;
@@ -55,27 +54,23 @@ public class UserServiceImpl implements UserServices {
 
 	// for user Registration
 	@Override
-	public UserProfile saveUserCredentials(User user) {
-		User u = null;
-		UserProfile uprofile = null;
+	public User saveUserCredentials(User user) {
+		User dbUser = null;
 		if (user != null) {
-			u = userRepository.findByPhoneNumberOrEmail(user.getPhoneNumber(),
+			dbUser = userRepository.findByPhoneNumberOrEmail(user.getPhoneNumber(),
 					user.getEmail());
-			if (u == null) {
-				User use = userRepository.save(user);
-				uprofile = userProfileRepository.findOne(use.getId());
-				return uprofile;
-			} else
-				uprofile = userProfileRepository.findOne(u.getId());
+			if (dbUser == null) {
+				dbUser = userRepository.save(user);				
+			} 
 		}
-		return uprofile;
+		return dbUser;
 	}
 
 	// for storing the user shout
 	@Override
 	public String saveUserShout(UserShout userShout) {
-		UserShout usershout = userShoutRepository.save(userShout);
-		if (usershout.equals(userShout))
+		UserShout dbusershout = userShoutRepository.save(userShout);
+		if (dbusershout.equals(userShout))
 			return "stored successfully......";
 		else
 			return "not stored";

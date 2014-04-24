@@ -1,6 +1,5 @@
 package com.promostree.domain.user;
 
-
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -14,69 +13,69 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.codehaus.jackson.annotate.JsonBackReference;
-import org.codehaus.jackson.annotate.JsonManagedReference;
-@Entity(name="user_preference")
-@Table(name="user_preference")
-public class UserPreference
-{
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+@Entity(name = "user_preference")
+@Table(name = "user_preference")
+public class UserPreference {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-private Long id;
+	private Long id;
 
-@OneToOne
-@JoinColumn(name="typeId")
-@JsonManagedReference
-private Type type;
+	@OneToOne
+	@JoinColumn(name = "typeId")
+	@JsonManagedReference
+	private Type type;
 
-@Temporal(TemporalType.DATE)
-private Date createdDate;
+	@Temporal(TemporalType.DATE)
+	private Date createdDate;
 
+	private Long value;
 
-private Long value;
+	@ManyToOne
+	@JoinColumn(name = "userId")
+	@JsonBackReference
+	private User user;
 
-@ManyToOne
-@JoinColumn(name="userId")
-@JsonBackReference
-private User user;
+	public Date getCreatedDate() {
+		return createdDate;
+	}
 
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
 
-public Date getCreatedDate() {
-	return createdDate;
-}
-public void setCreatedDate(Date createdDate) {
-	this.createdDate = createdDate;
-}
-public User getUser() {
-	return user;
-}
-public void setUser(User user) {
-	this.user = user;
-}
-public Long getId() {
-	return id;
-}
-public void setId(Long id) {
-	this.id = id;
-}
+	public User getUser() {
+		return user;
+	}
 
+	public void setUser(User user) {
+		this.user = user;
+	}
 
+	public Long getId() {
+		return id;
+	}
 
-public Type getType() {
-	return type;
-}
-public void setType(Type type) {
-	this.type = type;
-}
-public Long getValue() {
-	return value;
-}
-public void setValue(Long value) {
-	this.value = value;
-}
+	public void setId(Long id) {
+		this.id = id;
+	}
 
+	public Type getType() {
+		return type;
+	}
 
+	public void setType(Type type) {
+		this.type = type;
+	}
 
+	public Long getValue() {
+		return value;
+	}
 
+	public void setValue(Long value) {
+		this.value = value;
+	}
 
 }

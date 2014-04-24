@@ -1,37 +1,25 @@
 package com.promostree;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
+import org.junit.Assert.*;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.promostree.domain.entities.Address;
-import com.promostree.domain.entities.Location;
 import com.promostree.domain.entities.Venue;
-import com.promostree.domain.user.TargetUser;
-import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
-import com.promostree.domain.user.UserFeedback;
-import com.promostree.domain.user.UserPreference;
-import com.promostree.domain.user.UserPreference;
 import com.promostree.domain.user.UserProfile;
-import com.promostree.domain.user.UserShare;
 import com.promostree.domain.user.UserShout;
-
 import com.promostree.repositories.entities.AddressRepository;
 import com.promostree.repositories.entities.LocationRepository;
 import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.user.TypeRepository;
 import com.promostree.repositories.user.UserPreferencesRepository;
 import com.promostree.repositories.user.UserRepository;
-import com.promostree.user.service.UserServiceImpl;
 import com.promostree.user.service.UserServices;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -62,7 +50,7 @@ public class UserServiceTests {
 	 * userService.saveUserPreference(userPreferences); }
 	 */
 
-	@Test
+	/*@Test
 	public void readUserPreferencesTest() {
 		User user = userRepository.findById(2L);
 		List<UserPreference> userPreferences = userService
@@ -70,7 +58,7 @@ public class UserServiceTests {
 		for (UserPreference userPre : userPreferences) {
 			System.out.println(userPre.getValue());
 		}
-	}
+	}*/
 
 	/*
 	 * @Test public void deleteUserPreferences(){ UserPreference
@@ -103,7 +91,7 @@ public class UserServiceTests {
 	 * userService.saveUserShares(userShares); Assert.assertTrue(b); }
 	 */
 
-	@Test
+/*	@Test
 	public void readUserSharesTest() { // to get shares which i posted
 		User user = new User();
 		user.setId(1L);
@@ -119,18 +107,23 @@ public class UserServiceTests {
 			System.out.println(u.getComment());
 		}
 	}
-
+*/
 	@Test
 	public void IntialRegistration() {
+		try {
 		User user = new User();
-		user.setEmail("anant@gmail.com");
+		user.setEmail("swaroopkasaraneni@gmail.com");
 		user.setPhoneNumber("903520886");
-		UserProfile uprofile = userService.saveUserCredentials(user);
+		User uprofile = userService.saveUserCredentials(user);
+		Assert.assertNotNull(uprofile);
 		System.out.println(uprofile);
+		} catch (Exception e) {
+			Assert.fail("Exception");
+		}
 	}
 
 
-	@Test
+/*	@Test
 	public void readShouts() {
 		User user = new User();
 		user.setId(1L);
@@ -138,7 +131,7 @@ public class UserServiceTests {
 		for (UserShout shout : userShouts) {
 			System.out.println("read shouts ::  " + shout.getComment());
 		}
-	}
+	}*/
 
 	/*
 	 * @Test public void savelocation() { Location loca = new Location();
@@ -174,8 +167,8 @@ public class UserServiceTests {
 	 * feedback.setValue("showroom"); Type t =typeRepository.findOne(1L);
 	 * feedback.setType(t); userService.saveUserFeedback(feedback); }
 	 */
-	@Test
+	/*@Test
 	public void readFeedback() {
 
-	}
+	}*/
 }

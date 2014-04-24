@@ -12,16 +12,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.codehaus.jackson.annotate.JsonBackReference;
-import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Component
 @Entity(name = "user_share")
 @Table(name = "user_share")
@@ -41,7 +42,7 @@ public class UserShare {
 
 	private Long value;
 
-	@ManyToOne(cascade=CascadeType.MERGE)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "typeId")
 	@JsonBackReference
 	private Type type;
@@ -50,7 +51,6 @@ public class UserShare {
 	@JsonManagedReference
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<TargetUser> targetUsers;
-
 
 	public Long getValue() {
 		return value;

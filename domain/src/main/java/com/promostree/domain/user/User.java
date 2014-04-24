@@ -17,10 +17,11 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @XmlRootElement(name = "user")
 @XmlType
@@ -43,8 +44,9 @@ public class User {
 	private UserProfile userProfile;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonManagedReference
+	//@JsonManagedReference
 	@Fetch(value = FetchMode.SUBSELECT)
+	@JsonIgnore
 	private List<UserLocation> userLocations;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -52,18 +54,21 @@ public class User {
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<UserPreference> userPreferences;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonManagedReference
 	@Fetch(value = FetchMode.SUBSELECT)
+	@JsonIgnore
 	private List<UserFeedback> userFeedback;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonManagedReference
 	@Fetch(value = FetchMode.SUBSELECT)
+	@JsonIgnore
 	private List<UserShare> userShares;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonManagedReference
+	@JsonIgnore
 	private List<UserShout> userShout;
 
 	@OneToOne(mappedBy = "user")
@@ -71,6 +76,7 @@ public class User {
 	// @JsonBackReference
 	private TargetUser targetUsers;
 
+	@JsonIgnore
 	public List<UserLocation> getUserLocations() {
 		return userLocations;
 	}

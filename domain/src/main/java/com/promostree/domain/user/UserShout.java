@@ -13,82 +13,70 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.codehaus.jackson.annotate.JsonBackReference;
-import org.codehaus.jackson.annotate.JsonManagedReference;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.promostree.domain.entities.Venue;
 
-@Entity(name="user_shout")
-@Table(name="user_shout")
-public class UserShout
-{
-	
+@Entity(name = "user_shout")
+@Table(name = "user_shout")
+public class UserShout {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-private Long id;
+	private Long id;
 
 	@Temporal(TemporalType.DATE)
-private Date createdDate;
-private String comment;
+	private Date createdDate;
+	private String comment;
 
-@ManyToOne
-@JoinColumn(name="userId")
-@JsonBackReference
-private User user;
+	@ManyToOne
+	@JoinColumn(name = "userId")
+	@JsonBackReference
+	private User user;
 
-@OneToOne
-@JoinColumn(name="venueId")
-@JsonManagedReference
-private Venue venue;
+	@OneToOne
+	@JoinColumn(name = "venueId")
+	@JsonManagedReference
+	private Venue venue;
 
+	public Venue getVenue() {
+		return venue;
+	}
 
+	public void setVenue(Venue venue) {
+		this.venue = venue;
+	}
 
+	public Long getId() {
+		return id;
+	}
 
-public Venue getVenue() {
-	return venue;
-}
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-public void setVenue(Venue venue) {
-	this.venue = venue;
-}
+	public Date getCreatedDate() {
+		return createdDate;
+	}
 
-public Long getId() {
-	return id;
-}
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
 
-public void setId(Long id) {
-	this.id = id;
-}
+	public String getComment() {
+		return comment;
+	}
 
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
 
+	public User getUser() {
+		return user;
+	}
 
-public Date getCreatedDate() {
-	return createdDate;
-}
-
-public void setCreatedDate(Date createdDate) {
-	this.createdDate = createdDate;
-}
-
-public String getComment() {
-	return comment;
-}
-
-public void setComment(String comment) {
-	this.comment = comment;
-}
-
-public User getUser() {
-	return user;
-}
-
-public void setUser(User user) {
-	this.user = user;
-}
-
-
-
-
-
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 }
