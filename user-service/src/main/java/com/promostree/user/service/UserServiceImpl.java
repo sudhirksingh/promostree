@@ -53,15 +53,9 @@ public class UserServiceImpl implements UserServices {
 	
 
 	// for user Registration
-<<<<<<< HEAD
 	@Override
 	public User saveUserCredentials(User user) {
 		User dbUser = null;
-=======
-	public UserProfile saveUserCredentials(User user) {
-		User u = null;
-		UserProfile uprofile = null;
->>>>>>> c6a156b8f2196abec44e85f7cce61d1bec558a95
 		if (user != null) {
 			dbUser = userRepository.findByPhoneNumberOrEmail(user.getPhoneNumber(),
 					user.getEmail());

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,66 +13,64 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-<<<<<<< HEAD
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-=======
-import org.codehaus.jackson.annotate.JsonBackReference;
-import org.codehaus.jackson.annotate.JsonManagedReference;
-import org.hibernate.validator.constraints.NotBlank;
-
 import com.promostree.domain.tenant.Tenant;
->>>>>>> c6a156b8f2196abec44e85f7cce61d1bec558a95
 
-
-
-
-@Entity(name="groups")
-@Table(name="groups")
+@Entity(name = "groups")
+@Table(name = "groups")
 public class Groups {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id; 
-	
-	@NotBlank(message =" group name must filled")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+
+	@NotBlank(message = " group name must filled")
 	private String name;
-	
-	@OneToMany(mappedBy="group",cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+
+	@OneToMany(mappedBy = "group", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonManagedReference
 	private List<Merchant> merchants;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tenantId")
 	@JsonBackReference
 	private Tenant tenant;
-	
-	
+
 	public Tenant getTenant() {
 		return tenant;
 	}
+
 	public void setTenant(Tenant tenant) {
 		this.tenant = tenant;
 	}
+
 	public List<Merchant> getMerchants() {
 		return merchants;
 	}
+
 	public void setMerchants(List<Merchant> merchants) {
 		this.merchants = merchants;
 	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -82,6 +81,7 @@ public class Groups {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -108,12 +108,11 @@ public class Groups {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "Groups [id=" + id + ", name=" + name + ", merchants="
 				+ merchants + ", tenant=" + tenant + "]";
 	}
-	
-
 
 }

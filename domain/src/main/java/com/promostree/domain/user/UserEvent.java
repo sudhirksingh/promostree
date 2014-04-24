@@ -10,19 +10,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
-<<<<<<< HEAD
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity(name = "user_event")
 @Table(name = "user_event")
 public class UserEvent {
-=======
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonManagedReference;
-
-@Entity(name="user_event")
-@Table(name="user_event")
-public class UserEvent
-{
->>>>>>> c6a156b8f2196abec44e85f7cce61d1bec558a95
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -71,8 +63,7 @@ public class UserEvent
 	public void setData(String data) {
 		this.data = data;
 	}
-<<<<<<< HEAD
-=======
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -83,6 +74,7 @@ public class UserEvent
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -114,12 +106,9 @@ public class UserEvent
 			return false;
 		return true;
 	}
-	/*@Override
-	public String toString() {
-		return "UserEvent [id=" + id + ", data=" + data + ", type=" + type
-				+ ", user=" + user + "]";
-	}
-	*/
->>>>>>> c6a156b8f2196abec44e85f7cce61d1bec558a95
+	/*
+	 * @Override public String toString() { return "UserEvent [id=" + id +
+	 * ", data=" + data + ", type=" + type + ", user=" + user + "]"; }
+	 */
 
 }

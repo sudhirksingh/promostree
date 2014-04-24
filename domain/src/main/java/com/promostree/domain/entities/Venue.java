@@ -23,112 +23,71 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
-<<<<<<< HEAD
 import org.hibernate.validator.constraints.NotBlank;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-=======
-import org.codehaus.jackson.annotate.JsonBackReference;
-import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.validator.constraints.NotBlank;
-
 import com.promostree.domain.tenant.Tenant;
->>>>>>> c6a156b8f2196abec44e85f7cce61d1bec558a95
 import com.promostree.domain.user.UserShout;
 
-@Entity(name="venue")
-@Table(name="venue")
+@XmlRootElement(name = "venue")
+@XmlType
+@XmlAccessorType(XmlAccessType.FIELD)
+@Entity(name = "venue")
+@Table(name = "venue")
 public class Venue {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-		private Long id;
+	private Long id;
 
 	@NotBlank(message = " vname must filled")
-		//@Pattern(regexp = "[a-z-A-Z]*", message = "First name has invalid ")
+	// @Pattern(regexp = "[a-z-A-Z]*", message = "First name has invalid ")
 	private String name;
-
 	private String image;
-
 	private String verified;
-
 	private String fourSquareId;
-
-@Transient
-private double distance;
-
-
-@Temporal(TemporalType.DATE)
-@NotNull
-private Date createdDate;
-
-@Temporal(TemporalType.DATE)
-private Date updatedDate;
-
-
-@NotBlank(message = " createdBy must filled")
-private String createdBy;
-
-
-private String updatedBy;
-
-
-private boolean active;
-
-private int shareCount;
-private int feedBackCount;
-
-@ManyToMany(fetch = FetchType.EAGER)
-@JoinTable(name="venues_brands",
-joinColumns={@JoinColumn(name="venue_id", referencedColumnName="id")},
-inverseJoinColumns={@JoinColumn(name="brand_id", referencedColumnName="id")}
-)
-@JsonManagedReference
-@Fetch(value = FetchMode.SUBSELECT)
-private  List<Brand> brands;
-
-
+	@Transient
+	private double distance;
+	@Temporal(TemporalType.DATE)
+	@NotNull
+	private Date createdDate;
+	@Temporal(TemporalType.DATE)
+	private Date updatedDate;
+	@NotBlank(message = " createdBy must filled")
+	private String createdBy;
+	private String updatedBy;
+	private boolean active;
+	private int shareCount;
+	private int feedBackCount;
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "venues_brands", joinColumns = { @JoinColumn(name = "venue_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "brand_id", referencedColumnName = "id") })
+	@JsonManagedReference
+	@Fetch(value = FetchMode.SUBSELECT)
+	private List<Brand> brands;
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "categoryId")
 	private Category category;
-	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tenantId")
 	@JsonBackReference
 	private Tenant tenant;
-
-	
-	@OneToMany(mappedBy = "venue", cascade = CascadeType.ALL, fetch = FetchType.EAGER,targetEntity = com.promostree.domain.entities.Offer.class)
+	@OneToMany(mappedBy = "venue", cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = com.promostree.domain.entities.Offer.class)
 	@JsonManagedReference
 	private List<Offer> offers = new ArrayList<Offer>();
-
-	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "addressId")
 	private Address address;
-	
 	@OneToOne
-	@JoinColumn(name="merchantId")
+	@JoinColumn(name = "merchantId")
 	@JsonBackReference
 	private Merchant merchant;
-
-	
 	@OneToOne(mappedBy = "venue", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-		  @JsonBackReference
+	@JsonBackReference
 	private UserShout userShout;
-	
-	
-	
-	
-	
-
 
 	public UserShout getUserShout() {
 		return userShout;
@@ -194,7 +153,6 @@ private  List<Brand> brands;
 		this.fourSquareId = fourSquareId;
 	}
 
-	
 	public Merchant getMerchant() {
 		return merchant;
 	}

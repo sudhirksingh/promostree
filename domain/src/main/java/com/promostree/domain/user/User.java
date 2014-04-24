@@ -14,46 +14,26 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
-<<<<<<< HEAD
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-@XmlRootElement(name = "user")
-@XmlType
-@XmlAccessorType(XmlAccessType.FIELD)
-=======
-import org.codehaus.jackson.annotate.JsonBackReference;
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import com.promostree.domain.tenant.Tenant;
 
-
->>>>>>> c6a156b8f2196abec44e85f7cce61d1bec558a95
 @Entity(name = "user")
 @Table(name = "user")
 public class User {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	private String phoneNumber;
-	
+
 	private String email;
-	
-	
+
 	@Transient
 	private Double lat;
 	@Transient
@@ -64,72 +44,46 @@ public class User {
 	private int pageNumber;
 	@Transient
 	private String searchTerm;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tenantId")
 	@JsonBackReference
 	private Tenant tenant;
 
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	// @JsonIgnore
-	@JsonManagedReference(value="user-userProfile")
+	@JsonManagedReference(value = "user-userProfile")
 	private UserProfile userProfile;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-<<<<<<< HEAD
-	//@JsonManagedReference
-=======
-	@JsonManagedReference(value="user-userLocations")
->>>>>>> c6a156b8f2196abec44e85f7cce61d1bec558a95
+	@JsonManagedReference(value = "user-userLocations")
 	@Fetch(value = FetchMode.SUBSELECT)
 	@JsonIgnore
 	private List<UserLocation> userLocations;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonManagedReference(value="user-userPreferences")
+	@JsonManagedReference(value = "user-userPreferences")
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<UserPreference> userPreferences;
-
-<<<<<<< HEAD
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JsonManagedReference
-=======
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonManagedReference(value="user-userFeedback")
->>>>>>> c6a156b8f2196abec44e85f7cce61d1bec558a95
+	@JsonManagedReference(value = "user-userFeedback")
 	@Fetch(value = FetchMode.SUBSELECT)
 	@JsonIgnore
 	private List<UserFeedback> userFeedback;
 
-<<<<<<< HEAD
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JsonManagedReference
-=======
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonManagedReference(value="user-userShares")
->>>>>>> c6a156b8f2196abec44e85f7cce61d1bec558a95
+	@JsonManagedReference(value = "user-userShares")
 	@Fetch(value = FetchMode.SUBSELECT)
 	@JsonIgnore
 	private List<UserShare> userShares;
 
-<<<<<<< HEAD
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JsonManagedReference
-	@JsonIgnore
-=======
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonManagedReference(value="user-userShout")
->>>>>>> c6a156b8f2196abec44e85f7cce61d1bec558a95
+	@JsonManagedReference(value = "user-userShout")
 	private List<UserShout> userShout;
-	
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonManagedReference
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Notification> notification;
-	
-
-	
 
 	@JsonIgnore
 	public List<UserLocation> getUserLocations() {
@@ -139,8 +93,6 @@ public class User {
 	public void setUserLocations(List<UserLocation> userLocations) {
 		this.userLocations = userLocations;
 	}
-
-	
 
 	public List<UserFeedback> getUserFeedback() {
 		return userFeedback;
@@ -249,10 +201,6 @@ public class User {
 	public Tenant getTenant() {
 		return tenant;
 	}
-
-	
-
-	
 
 	public List<Notification> getNotification() {
 		return notification;
@@ -374,18 +322,15 @@ public class User {
 		return true;
 	}
 
-/*	@Override
-	public String toString() {
-		return "User [id=" + id + ", phoneNumber=" + phoneNumber + ", email="
-				+ email + ", lat=" + lat + ", lng=" + lng + ", radius="
-				+ radius + ", pageNumber=" + pageNumber + ", searchTerm="
-				+ searchTerm + ", tenant=" + tenant + ", userProfile="
-				+ userProfile + ", userLocations=" + userLocations
-				+ ", userPreferences=" + userPreferences + ", userFeedback="
-				+ userFeedback + ", userShares=" + userShares + ", userShout="
-				+ userShout + ", notification=" + notification + "]";
-	}*/
+	/*
+	 * @Override public String toString() { return "User [id=" + id +
+	 * ", phoneNumber=" + phoneNumber + ", email=" + email + ", lat=" + lat +
+	 * ", lng=" + lng + ", radius=" + radius + ", pageNumber=" + pageNumber +
+	 * ", searchTerm=" + searchTerm + ", tenant=" + tenant + ", userProfile=" +
+	 * userProfile + ", userLocations=" + userLocations + ", userPreferences=" +
+	 * userPreferences + ", userFeedback=" + userFeedback + ", userShares=" +
+	 * userShares + ", userShout=" + userShout + ", notification=" +
+	 * notification + "]"; }
+	 */
 
-	
-	
 }

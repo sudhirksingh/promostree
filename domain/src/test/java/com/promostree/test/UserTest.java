@@ -196,12 +196,9 @@ public class UserTest {
 				
 		UserShare us=new UserShare();
 		us.setUser(u);
-<<<<<<< HEAD
 		Venue venue=vrep.findById((long)2);
 		
-=======
-		Venue venue=vrep.findById((long)1);
->>>>>>> c6a156b8f2196abec44e85f7cce61d1bec558a95
+
 		us.setValue(venue.getId());
 		us.setComment("nice..........");
 		us.setType(pt1);

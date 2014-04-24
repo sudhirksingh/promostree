@@ -2,7 +2,6 @@ package com.promostree.domain.user;
 
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,15 +16,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-<<<<<<< HEAD
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-=======
-import org.codehaus.jackson.annotate.JsonBackReference;
-import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
->>>>>>> c6a156b8f2196abec44e85f7cce61d1bec558a95
 
 @Entity(name = "user_feedback")
 @Table(name = "user_feedback")
@@ -42,18 +37,10 @@ public class UserFeedback {
 
 	private Long value;
 
-<<<<<<< HEAD
-	@ManyToOne
-	@JoinColumn(name = "userId")
-	@JsonBackReference
-	private User user;
-=======
 @ManyToOne
 @JoinColumn(name="userId")
 @JsonBackReference(value="user-userFeedback")
 private User user;
->>>>>>> c6a156b8f2196abec44e85f7cce61d1bec558a95
-
 	@OneToOne
 	@JoinColumn(name = "typeId")
 	@JsonManagedReference
@@ -67,19 +54,14 @@ private User user;
 		this.value = value;
 	}
 
-<<<<<<< HEAD
 	public User getUser() {
 		return user;
 	}
-=======
 @OneToMany(mappedBy = "userFeedback",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 @JsonBackReference
 @Fetch(value = FetchMode.SUBSELECT)
 private List<Notification> notifications;
 
-
-
->>>>>>> c6a156b8f2196abec44e85f7cce61d1bec558a95
 
 	public void setUser(User user) {
 		this.user = user;
@@ -120,12 +102,9 @@ private List<Notification> notifications;
 	public Type getType() {
 		return type;
 	}
-
-<<<<<<< HEAD
 	public void setType(Type type) {
 		this.type = type;
 	}
-=======
 public List<Notification> getNotifications() {
 	return notifications;
 }
@@ -153,7 +132,8 @@ public int hashCode() {
 }
 
 @Override
-public boolean equals(Object obj) {
+public boolean equals(Object obj) 
+{
 	if (this == obj)
 		return true;
 	if (obj == null)
@@ -214,6 +194,5 @@ public String toString() {
 
 */
 
->>>>>>> c6a156b8f2196abec44e85f7cce61d1bec558a95
 
 }
