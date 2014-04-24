@@ -22,14 +22,36 @@ import com.promostree.domain.user.User;
 public class VenueResources {
 	@Autowired
 	VenueSearchDelegate venueSearchDelegate;
+
+	@GET
+	@Path("/preferredVenues")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Venue> getPreferenceVenues(@QueryParam("userId") long userId,
+			@QueryParam("lat") double lat, @QueryParam("lng") double lng,
+			@QueryParam("radius") double radius,
+			@QueryParam("pageNumber") int pageNumber,
+			@QueryParam("searchTerm") String searchTerm) {
+		
+	String i=new String("2");
+		User user=new User();
+		user.setId(userId);
+		user.setLat(lat);
+		user.setLng(lng);	
+		user.setRadius(radius);
+		user.setPageNumber(pageNumber);
+		user.setSearchTerm("1");
+		//System.out.println(new String(i+""));
+		List<Venue> list = venueSearchDelegate.getPreferredVenues(user);
+		return list;
+	}
+
 	@GET
 	@Path("/venues")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Venue> getData(@QueryParam("lat") double lat,
-			                   @QueryParam("lng") double lng, 
-			                   @QueryParam("radius") double radius, 
-			                   @QueryParam("pageNumber") int pageNumber,
-			                   @QueryParam("searchTerm") String searchTerm) {
+			@QueryParam("lng") double lng, @QueryParam("radius") double radius,
+			@QueryParam("pageNumber") int pageNumber,
+			@QueryParam("searchTerm") String searchTerm) {
 		User user = new User();
 		user.setLat(lat);
 		user.setLng(lng);
@@ -39,35 +61,34 @@ public class VenueResources {
 		List<Venue> list = venueSearchDelegate.VenuesService(user);
 		return list;
 	}
-	
-	
+
 	@GET
 	@Path("/venue")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Venue getVenue(@QueryParam("venueId") long venueId) {
-	Venue venue = new Venue();
-	venue.setId(venueId);
-	Venue returnVenue = venueSearchDelegate.VenueService(venue);
-	//System.out.println(venueId);
-	//System.out.println(returnVenue.getCreatedBy()+", "+returnVenue.getOffers().get(1).getSubject()+" ,"+returnVenue.getAddress().getCity()+" ," +returnVenue.getOffers().get(1).getShout().getSubject()+returnVenue.getCategory().getName());
-	return returnVenue;
+		Venue venue = new Venue();
+		venue.setId(venueId);
+		Venue returnVenue = venueSearchDelegate.VenueService(venue);
+		// System.out.println(venueId);
+		// System.out.println(returnVenue.getCreatedBy()+", "+returnVenue.getOffers().get(1).getSubject()+" ,"+returnVenue.getAddress().getCity()+" ,"
+		// +returnVenue.getOffers().get(1).getShout().getSubject()+returnVenue.getCategory().getName());
+		return returnVenue;
 	}
-	
-	
+
 	@GET
 	@Path("/indexing")
 	@Produces(MediaType.APPLICATION_JSON)
 	public boolean getIndexing() {
-	boolean result  = venueSearchDelegate.getIndexing();
-	return result;
+		boolean result = venueSearchDelegate.getIndexing();
+		return result;
 	}
-//	
-//	@GET
-//	@Path("/sample")
-//	public String something()
-//	{
-//	 return "mallik";	
-//	}
-//	
-	
+	//
+	// @GET
+	// @Path("/sample")
+	// public String something()
+	// {
+	// return "mallik";
+	// }
+	//
+
 }

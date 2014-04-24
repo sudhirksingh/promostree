@@ -1,6 +1,7 @@
 package com.promostree.user.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,10 @@ import org.springframework.stereotype.Component;
 
 import com.promostree.domain.entities.Location;
 import com.promostree.domain.entities.Venue;
+import com.promostree.domain.user.EventType;
 import com.promostree.domain.user.LocationType;
 import com.promostree.domain.user.Notification;
+import com.promostree.domain.user.Notification1;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserFeedback;
 import com.promostree.domain.user.UserLocation;
@@ -18,6 +21,7 @@ import com.promostree.domain.user.UserProfile;
 import com.promostree.domain.user.UserShare;
 import com.promostree.domain.user.UserShout;
 import com.promostree.repositories.entities.LocationRepository;
+import com.promostree.repositories.user.EventTypeRepository;
 import com.promostree.repositories.user.LocationTypeRepository;
 import com.promostree.repositories.user.NotificationRepository;
 import com.promostree.repositories.user.UserFeedbackRepository;
@@ -51,7 +55,8 @@ public class UserServiceImpl implements UserServices {
 	UserFeedbackRepository userFeedbackRepository;
 	@Autowired
 	UserShoutRepository userShoutRepository;
-	
+	@Autowired
+	EventTypeRepository eventTypeRepository;
 
 	// for user Registration
 	public UserProfile saveUserCredentials(User user) {
@@ -71,7 +76,7 @@ public class UserServiceImpl implements UserServices {
 	}
 
 	// for storing the user shout
-	
+
 	public String saveUserShout(UserShout userShout) {
 		UserShout usershout = userShoutRepository.save(userShout);
 		if (usershout.equals(userShout))
@@ -79,18 +84,26 @@ public class UserServiceImpl implements UserServices {
 		else
 			return "not stored";
 	}
-	//read user shouts
+
+	// read user shouts
 	public List<UserShout> readUserShout(User user) {
 		return userShoutRepository.findByUserId(user.getId());
 	}
-	
+
 	// to save user share
-	public boolean saveUserShares(UserShare userShares) {
-		UserShare userShare = userSharesRepository.save(userShares);
-		if (userShare.equals(userShare))
-			return true;
-		else
-			return false;
+	public boolean saveUserShares(UserShare userShare) {
+		UserShare userShare2 = userSharesRepository.save(userShare);
+
+		Notification notification = new Notification();
+		notification.setCreatedDate(new Date());
+		EventType eventType = eventTypeRepository.findOne(1L);
+		notification.setEventType(eventType);
+		notification.setUser(userShare.getUser());
+		notification.setUserShare(userShare2);
+		notificationRepository.save(notification);
+
+		return true;
+
 	}
 
 	// to get shares which i posted
@@ -99,15 +112,18 @@ public class UserServiceImpl implements UserServices {
 	}
 
 	// to get shares which i received from different users
-	
+
 	public List<UserShare> readRecievedUserShares(User user) {
-	
-		return null;
+		List<UserShare> userShares = new ArrayList<UserShare>();
+		List<Notification> notifications = notificationRepository
+				.findByUserId(user.getId());
+		for (Notification notification : notifications) {
+			userShares.add(userSharesRepository.findOne(notification
+					.getUserShare().getId()));
+		}
+		return userShares;
 	}
 
-
-
-	
 	public UserProfile saveUserProfile(UserProfile userProfile) {
 		UserProfile userProfile1 = userProfileRepository.save(userProfile);
 
@@ -115,10 +131,14 @@ public class UserServiceImpl implements UserServices {
 	}
 
 	// to save user preferences
-	
-	public List<UserPreference> saveUserPreference(
-			List<UserPreference> userPreferences) {
-		return userPreferencesRepository.save(userPreferences);
+
+	public boolean saveUserPreference(List<UserPreference> userPreferences) {
+		UserPreference userPreference = new UserPreference();
+		for (UserPreference userPreference2 : userPreferences) {
+			userPreference2.setCreatedDate(new Date());
+			userPreferencesRepository.save(userPreference2);
+		}
+		return true;
 	}
 
 	/*
@@ -127,22 +147,19 @@ public class UserServiceImpl implements UserServices {
 	 * return userPreferences; }
 	 */
 
-	// to read user Preferences
+	// to read user Preferences wrong
 
-	
 	public List<UserPreference> readUserPreferences(User user) {
-		// userPreferencesRepository.findByUserId(user.getId());
-		 return null;
+
+		return userPreferencesRepository.findByUserId(user.getId());
 	}
 
-	
 	public UserLocation saveUserLocations(UserLocation userLocations) {
 		UserLocation userLocations1 = userLocationsRepository
 				.save(userLocations);
 		return userLocations1;
 	}
 
-	
 	public boolean saveLocationType(LocationType locationType) {
 		LocationType locationType1 = locationTypeRepository.save(locationType);
 		if (locationType1.equals(locationType))
@@ -151,19 +168,44 @@ public class UserServiceImpl implements UserServices {
 			return false;
 	}
 
-	
 	public Location saveLocation(Location location) {
 		Location location1 = locationRepository.save(location);
 		return location1;
 	}
 
-	
+	// to save user feedback
 	public boolean saveUserFeedback(UserFeedback userFeedback) {
-		UserFeedback userfeedback = userFeedbackRepository.save(userFeedback);
-		if (userfeedback.equals(userFeedback))
-			return true;
-		else
-			return false;
+		userFeedback.setCreatedDate(new Date());
+		userFeedbackRepository.save(userFeedback);
+
+		Notification notification = new Notification();
+		notification.setCreatedDate(new Date());
+		EventType eventType = eventTypeRepository.findOne(1L);
+		notification.setEventType(eventType);
+		// notification.setUser(userFeedback.getUser());
+		notification.setUserFeedback(userFeedback);
+		notificationRepository.save(notification);
+
+		return true;
+	}
+
+	@Override
+	public List<Notification1> readNotifications(User user) {
+		List<Notification1> notification1s = new ArrayList<Notification1>();
+	Notification1 notification1=new Notification1();
+		List<Notification> notifications = notificationRepository
+				.findByUserId(user.getId());
+	
+		for (Notification notification : notifications) {
+			UserShare userShare=notification.getUserShare();
+if(notification.getEventType().getId()==2 && userShare.getType().getId()==2){
+	notification1.setActivity_type("shared");
+	notification1.setUserShare(userShare);
+    notification1.setUser(userRepository.findById(userShare.getUser().getId()));
+    
+}
+		}
+		return null;
 	}
 
 }

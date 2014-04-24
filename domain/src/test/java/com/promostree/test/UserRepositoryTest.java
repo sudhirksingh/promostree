@@ -76,7 +76,7 @@ public class UserRepositoryTest {
 		for(Notification notification:notifications){
 			User user=notification.getUser();
 		
-			//System.out.println(notification.getId() );
+		System.out.println("notification by userId: "+notification.getId() );
 			
 			}
 	}
@@ -120,19 +120,19 @@ public class UserRepositoryTest {
 	 * userPreferencesRep.save(userPreferences); }
 	 */
 
-	// @Test
-	// public void readPreferenceTest(){
-	// List<UserPreference> userPreferences =
-	// userPreferencesRep.findByUserId(1L);
-	// for(UserPreference userPre:userPreferences){
-	// System.out.println(userPre.getId());
-	// }
-	// }
-	// @Test
-	// public void deletePreferenceTest(){
-	// UserPreference userPref=userPreferencesRep.findOne(1L);
-	// userPreferencesRep.delete(userPref);
-	// }
+	 @Test
+	 public void readPreferenceTest(){
+	 List<UserPreference> userPreferences =
+	 userPreferencesRep.findByUserId(4L);
+	 for(UserPreference userPre:userPreferences){
+	 System.out.println("readPreferenceTest:: "+userPre.getId());
+	 }
+	 }
+//	 @Test
+//	 public void deletePreferenceTest(){
+//	 UserPreference userPref=userPreferencesRep.findOne(1L);
+//	 userPreferencesRep.delete(userPref);
+//	 }
 
 /*	@Test
 	public void readPreferenceTest() {

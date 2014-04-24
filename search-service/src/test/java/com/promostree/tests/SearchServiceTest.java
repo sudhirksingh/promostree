@@ -66,11 +66,10 @@ public class SearchServiceTest {
 	@Autowired
 	UserLocationsRepository ulrep;
 	
-	
 	@Test
 	public void preferenceSearch(){
-		User user=urep.findById((long)2);
-		
+		User user=new User();
+		user.setId(2L);
 		user.setLat(17.24154);
 		user.setLng(78.23541254);	
 		user.setRadius(1000.0);

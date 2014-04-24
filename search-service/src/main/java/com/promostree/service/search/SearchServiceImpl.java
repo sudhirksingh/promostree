@@ -91,7 +91,7 @@ public class SearchServiceImpl implements SearchServices {
 		userPreferences = userPreferenceRepository.findByUserIdAndTypeId(
 				user.getId(), Long.parseLong(user.getSearchTerm()));
 
-		if (user.getSearchTerm() == "1") {
+		if (user.getSearchTerm()=="1") {
 			for (UserPreference userPreference : userPreferences) {
 				searchTerms.add(brandRepository.findOne(
 						userPreference.getValue()).getName());
@@ -99,7 +99,7 @@ public class SearchServiceImpl implements SearchServices {
 			return searchServiceHelper.toDomainVenues(solrRepository
 					.findBySearch_fieldIn(searchTerms, new PageRequest(
 							pageNumber, 30)), user);
-		} else if (user.getSearchTerm() == "2") {
+		} else if (user.getSearchTerm()=="2") {
 			for (UserPreference userPreference : userPreferences) {
 				solrVenues.addAll(solrRepository.findByEntity_id(userPreference
 						.getValue().toString()));

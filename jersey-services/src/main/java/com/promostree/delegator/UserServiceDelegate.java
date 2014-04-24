@@ -16,6 +16,7 @@ import com.promostree.user.service.UserServices;
 public class UserServiceDelegate {
 	@Autowired
 	UserServices userServices;
+	
 	//to  Registration
 	public UserProfile saveUserCredentials(User user){
 	UserProfile  use=userServices.saveUserCredentials(user);

@@ -5,6 +5,7 @@ import java.util.List;
 import com.promostree.domain.entities.Location;
 import com.promostree.domain.entities.Venue;
 import com.promostree.domain.user.LocationType;
+import com.promostree.domain.user.Notification1;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserFeedback;
 import com.promostree.domain.user.UserLocation;
@@ -24,7 +25,7 @@ public List<UserShare> readRecievedUserShares(User user);
 
 public UserProfile saveUserProfile(UserProfile userProfile);
 
-public List<UserPreference> saveUserPreference(List<UserPreference> userPreferences);
+public boolean saveUserPreference(List<UserPreference> userPreferences);
 public List<UserPreference> readUserPreferences(User user);
 
 //public UserPreference deleteUserPreferences(UserPreference userPreferences);
@@ -36,4 +37,6 @@ public boolean saveUserFeedback(UserFeedback userFeedback);
 
 //public List<UserFeedback> readUserFeedbackOnVenue(Venue venue);
 public List<UserShout> readUserShout(User user);	
+
+public List<Notification1> readNotifications(User user);
 }
