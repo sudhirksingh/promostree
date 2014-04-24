@@ -131,8 +131,8 @@ public class UserServiceImpl implements UserServices {
 
 	
 	public List<UserPreference> readUserPreferences(User user) {
-		return userPreferencesRepository.findByUserId(user.getId());
-
+		// userPreferencesRepository.findByUserId(user.getId());
+		 return null;
 	}
 
 	
