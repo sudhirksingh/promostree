@@ -1,9 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project-modules id="moduleCoreId" project-version="2.0">
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
   <wb-module deploy-name="jersey-services">
+        <dependent-module archiveName="search-service-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/search-service/search-service">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="domain-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/domain/domain">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="user-service-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/user-service/user-service">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
     <property name="context-root" value="jersey-services"/>
-    <wb-resource deploy-path="/" source-path="src/main/webapp"/>
     <property name="java-output-path" value="/target/classes"/>
+<<<<<<< HEAD
     <dependent-module archiveName="jersey-spring3-2.6.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/glassfish/jersey/ext/jersey-spring3/2.6/jersey-spring3-2.6.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
@@ -337,7 +345,11 @@
     <dependent-module archiveName="user-service-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/com/promostree/user-service/1.0-SNAPSHOT/user-service-1.0-SNAPSHOT.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
+=======
+>>>>>>> c6a156b8f2196abec44e85f7cce61d1bec558a95
     <wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/java"/>
     <wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/resources"/>
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
   </wb-module>
 </project-modules>

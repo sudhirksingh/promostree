@@ -12,9 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.promostree.domain.entities.User;
+
+
 import com.promostree.domain.entities.Venue;
+
 import com.promostree.domain.solr.SolrVenue;
+import com.promostree.domain.user.User;
 import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.solr.SolrVenueRepository;
 
@@ -36,7 +39,7 @@ public class SearchServiceImpl implements SearchServices {
 	
 	
 	// indexing
-	@Override
+
 	public boolean indexing() {
 		logger.info("enter into indexing ()");
 		List<Venue> domainVenues = searchServiceHelper.getVenuesFromSource();	
@@ -44,7 +47,7 @@ public class SearchServiceImpl implements SearchServices {
 		
 	}
 	
-	@Override
+	
 	public boolean indexing(List<Venue> venues) {
 		logger.info("enter into indexing(List<Venue> venues)");
 		boolean result = false;
@@ -59,7 +62,7 @@ public class SearchServiceImpl implements SearchServices {
 
 	
 	// search on nearest venues based on lat,lng
-		@Override
+		
 		public List<Venue> nearestVenues(User user) {
 			
 			logger.info("enter into nearestVenues(User user) ");

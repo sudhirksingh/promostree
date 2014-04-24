@@ -12,8 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.promostree.delegator.VenueSearchDelegate;
-import com.promostree.domain.entities.User;
+
 import com.promostree.domain.entities.Venue;
+import com.promostree.domain.user.User;
 
 @Path("service")
 @Component

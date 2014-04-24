@@ -6,5 +6,5 @@ import com.promostree.domain.user.LocationType;
 
 public interface LocationTypeRepository extends
 		JpaRepository<LocationType, Long> {
-
+public LocationType findByName(String name);
 }

@@ -16,9 +16,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.promostree.domain.entities.Location;
 import com.promostree.domain.entities.Venue;
+import com.promostree.domain.tenant.Tenant;
 import com.promostree.domain.user.EventType;
 import com.promostree.domain.user.LocationType;
-import com.promostree.domain.user.TargetUser;
+import com.promostree.domain.user.Notification;
+import com.promostree.domain.user.Notification;
 import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserEvent;
@@ -30,9 +32,12 @@ import com.promostree.domain.user.UserShare;
 import com.promostree.domain.user.UserShout;
 import com.promostree.repositories.entities.LocationRepository;
 import com.promostree.repositories.entities.VenueRepository;
+import com.promostree.repositories.tenant.TenantRepository;
 import com.promostree.repositories.user.EventTypeRepository;
 import com.promostree.repositories.user.LocationTypeRepository;
-import com.promostree.repositories.user.TargetUsersRepository;
+
+import com.promostree.repositories.user.NotificationRepository;
+import com.promostree.repositories.user.NotificationRepository;
 import com.promostree.repositories.user.TypeRepository;
 import com.promostree.repositories.user.UserEventRepository;
 import com.promostree.repositories.user.UserFeedbackRepository;
@@ -75,7 +80,7 @@ public class UserTest {
 	UserSharesRepository usrep;
 	
 	@Autowired
-	TargetUsersRepository turep;
+	NotificationRepository nrep;
 	
 	@Autowired
 	UserShoutRepository ussrep;
@@ -91,15 +96,23 @@ public class UserTest {
 	@Autowired
 	EventTypeRepository 	etrep;
 	
+	@Autowired
+	TenantRepository 	trep;
+	
+	@Autowired
+	NotificationRepository 	nnrep;
+	
+	
+	
 	
 	@Test
 	public void create()
 	{
 		// for types
 		
-		/*Type pt=new Type();
+		Type pt=new Type();
 		pt.setName("brand");
-		ptrep.save(pt);*/
+		ptrep.save(pt);
 		
 		Type pt1=new Type();
 		pt1.setName("venue");
@@ -143,11 +156,13 @@ public class UserTest {
 		l2.setLng(78.446635345435346);
 		lrep.save(l2);
 
+		Tenant t=trep.findOne((long)1);
 		
 		//send user
 		User u=new User();
 		u.setEmail("swaroopkasaraneni@gmail.com");
 		u.setPhoneNumber("9000208863");
+		u.setTenant(t);
 		urep.save(u);
 		
 		//destination user
@@ -155,11 +170,13 @@ public class UserTest {
 		User u1=new User();
 		u1.setEmail("ananth@gmail.com");
 		u1.setPhoneNumber("9542128262");
+		u1.setTenant(t);
 		urep.save(u1);
 		
 		User u2=new User();
 		u2.setEmail("naresh@gmail.com");
 		u2.setPhoneNumber("9035288863");
+		u2.setTenant(t);
 		urep.save(u2);
 		
 		
@@ -178,31 +195,55 @@ public class UserTest {
 		//shares 
 				
 		UserShare us=new UserShare();
-		
 		us.setUser(u);
+<<<<<<< HEAD
 		Venue venue=vrep.findById((long)2);
 		
+=======
+		Venue venue=vrep.findById((long)1);
+>>>>>>> c6a156b8f2196abec44e85f7cce61d1bec558a95
 		us.setValue(venue.getId());
 		us.setComment("nice..........");
 		us.setType(pt1);
 		us.setCreateDate(new Date());
 		usrep.save(us);
+		
+	//event Type
+		
+		EventType et=new EventType();
+		et.setName("user");
+		etrep.save(et);
+		
+		EventType et1=new EventType();
+		et1.setName("share");
+		etrep.save(et1);
+		
+		EventType et2=new EventType();
+		et2.setName("feedback");
+		etrep.save(et2);
+		
+		EventType et3=new EventType();
+		et3.setName("venue");
+		etrep.save(et3);
+		
+		EventType et4=etrep.findByName("share");
 
-		TargetUser uu=new TargetUser();
-		uu.setUserShares(us);
-		uu.setUsers(u1);
-		turep.save(uu);
+		Notification n=new Notification();
+		n.setUserShare(us);
+		n.setUser(u1);
+		n.setEventType(et4);
+		n.setCreatedDate(new Date());
+		nrep.save(n);
 		
 		
-		TargetUser uu1=new TargetUser();
-		uu1.setUserShares(us);
-		uu1.setUsers(u2);
-		turep.save(uu1);
+		Notification n1=new Notification();
+		n1.setUserShare(us);
+		n1.setUser(u2);
+		n1.setEventType(et4);
+		n1.setCreatedDate(new Date());
+		nrep.save(n1);
 		
-		
-		
-		
-		
+				
 		//feedback
 		
 		UserFeedback ufb1=new UserFeedback();
@@ -213,6 +254,17 @@ public class UserTest {
 		ufb1.setValue(venue.getOffers().get(0).getId());
 		ufbrep.save(ufb1);
 		
+       EventType et5=etrep.findByName("feedback");
+		
+       Notification n3=new Notification();
+		n3.setUserShare(us);
+		n3.setUser(u1);
+		n3.setEventType(et5);
+		n3.setUserFeedback(ufb1);
+		n3.setUserShare(null);
+		n3.setCreatedDate(new Date());
+		nrep.save(n3);
+		
 		UserFeedback ufb2=new UserFeedback();
 		ufb2.setUser(u);	
 		ufb2.setComment("worst");
@@ -221,6 +273,14 @@ public class UserTest {
 		ufb1.setValue(venue.getOffers().get(1).getId());
 		ufbrep.save(ufb2);
 		
+		Notification n4=new Notification();
+		n4.setUserShare(us);
+		n4.setUser(u2);
+		n4.setEventType(et5);
+		n4.setUserFeedback(ufb1);
+		n4.setUserShare(null);
+		n4.setCreatedDate(new Date());
+		nrep.save(n4);
 		
 		//preferences
 		
@@ -261,16 +321,10 @@ public class UserTest {
 		up.setReg(true);
 		up.setCreatedDate(new Date());
 		up.setUser(u);
-		
-		
 		uprep.save(up);
 		
 		
-		//event Type
-		
-		EventType et=new EventType();
-		et.setName("user");
-		etrep.save(et);
+	
 		
       //user event
 		
@@ -298,8 +352,14 @@ public class UserTest {
 		ue.setType(et);
 		ue.setUser(u);
 		uErep.save(ue);
+		
+		
+		
+		
+		
 		}
 	
+	/*
 	
 	@Test
 	public void reading(){
@@ -313,19 +373,21 @@ public class UserTest {
 			EventType e=etrep.findByName(last.toLowerCase());
 			System.out.println(e);*/
 			
-			User u=urep.findByPhoneNumberAndEmail("9000208863","swaroopkasaraneni@gmail.com");
-			System.out.println(u);
+			//User u=urep.findByPhoneNumberAndEmail("9000208863","swaroopkasaraneni@gmail.com");
+			//System.out.println(u);
 			
-	}
+	//}*/
 	
-	/*@Test
-	public void read()
+	@Test
+	public void readNotification()
 	{
-		User u=urep.findById((long)1);
-		
+
+		//System.out.println(Notifications.get(0));
+		User u=urep.findById((long)2);
 
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		try{
+			
 		String json = ow.writeValueAsString(u);
 		
 		System.out.println(json);
@@ -341,7 +403,7 @@ public class UserTest {
 
 			ex.printStackTrace();
 
-		}*/
+		}
 		}
 	
 	

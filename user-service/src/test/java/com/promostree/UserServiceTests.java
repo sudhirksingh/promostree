@@ -11,6 +11,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.promostree.domain.entities.Venue;
+<<<<<<< HEAD
+=======
+import com.promostree.domain.user.Notification;
+import com.promostree.domain.user.Type;
+>>>>>>> c6a156b8f2196abec44e85f7cce61d1bec558a95
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserProfile;
 import com.promostree.domain.user.UserShout;

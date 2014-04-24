@@ -7,12 +7,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+<<<<<<< HEAD
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+=======
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.hibernate.validator.constraints.NotBlank;
+
+import com.promostree.domain.tenant.Tenant;
+>>>>>>> c6a156b8f2196abec44e85f7cce61d1bec558a95
 
 
 
@@ -28,12 +38,22 @@ public class Groups {
 	@NotBlank(message =" group name must filled")
 	private String name;
 	
-	@OneToMany(mappedBy="group",cascade=CascadeType.ALL)
-	 @JsonManagedReference
+	@OneToMany(mappedBy="group",cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonManagedReference
 	private List<Merchant> merchants;
 	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "tenantId")
+	@JsonBackReference
+	private Tenant tenant;
 	
 	
+	public Tenant getTenant() {
+		return tenant;
+	}
+	public void setTenant(Tenant tenant) {
+		this.tenant = tenant;
+	}
 	public List<Merchant> getMerchants() {
 		return merchants;
 	}
@@ -51,6 +71,47 @@ public class Groups {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result
+				+ ((merchants == null) ? 0 : merchants.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Groups other = (Groups) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (merchants == null) {
+			if (other.merchants != null)
+				return false;
+		} else if (!merchants.equals(other.merchants))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+	@Override
+	public String toString() {
+		return "Groups [id=" + id + ", name=" + name + ", merchants="
+				+ merchants + ", tenant=" + tenant + "]";
 	}
 	
 

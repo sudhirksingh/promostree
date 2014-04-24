@@ -50,7 +50,7 @@ OfferRepository orep;
 @Autowired
 ShoutRepository srep;
 
-@Test
+/*@Test
 public void save() throws ParseException {
 try{
 Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -175,7 +175,7 @@ i++;
 System.out.println(e);
 }
 }
-
+*/
 
 @Test
 public void vvjj()

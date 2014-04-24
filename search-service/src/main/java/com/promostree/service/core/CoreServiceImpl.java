@@ -16,11 +16,13 @@ public class CoreServiceImpl implements CoreService{
 	@Autowired
 	VenueRepository domainRepository;
 
-	@Override
+
 	public Venue getVenue(Venue venue) {
 		logger.info("enter into getVenue================================================================");
 		Venue returnVenue=domainRepository.findById(venue.getId());
 		return returnVenue;
 	}
+
+	
 
 }

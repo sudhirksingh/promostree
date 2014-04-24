@@ -26,9 +26,13 @@ import com.promostree.domain.entities.Category;
 import com.promostree.domain.entities.Location;
 import com.promostree.domain.entities.Offer;
 import com.promostree.domain.entities.Shout;
-import com.promostree.domain.entities.User;
 import com.promostree.domain.entities.Venue;
+
+
 import com.promostree.domain.solr.SolrVenue;
+import com.promostree.domain.user.LocationType;
+import com.promostree.domain.user.User;
+import com.promostree.domain.user.UserLocation;
 import com.promostree.repositories.entities.AddressRepository;
 import com.promostree.repositories.entities.CategoryRepository;
 import com.promostree.repositories.entities.LocationRepository;
@@ -36,6 +40,9 @@ import com.promostree.repositories.entities.OfferRepository;
 import com.promostree.repositories.entities.ShoutRepository;
 import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.solr.SolrVenueRepository;
+import com.promostree.repositories.user.LocationTypeRepository;
+import com.promostree.repositories.user.UserLocationsRepository;
+import com.promostree.repositories.user.UserRepository;
 import com.promostree.service.search.SearchServiceImpl;
 
 
@@ -46,14 +53,46 @@ public class SearchServiceTest {
 	SolrVenueRepository vrep;
 	@Autowired
 	SearchServiceImpl vs;
+	
+	@Autowired
+	LocationTypeRepository ltrep ;
+	
+	@Autowired
+	LocationRepository lrep;
+	
+	@Autowired
+	UserRepository urep ;
+	
+	@Autowired
+	UserLocationsRepository ulrep;
+	
 	@Test
 	public void nearest() {
 		//vs.indexing();
 	
 		
-	User user=new User();
+	User user=urep.findById((long)1);
+	
 	user.setLat(17.24154);
 	user.setLng(78.23541254);
+	
+	
+	//storing the user Location
+	LocationType lt=ltrep.findByName("current");
+	Location l1=new Location();
+	l1.setLat(user.getLat());
+	l1.setLng(user.getLng());
+	lrep.save(l1);
+
+	UserLocation ul=new UserLocation();
+	ul.setCreatedDate(new Date());
+	ul.setLocation(l1);
+	ul.setLocationType(lt);
+	ul.setUser(user);
+	ulrep.save(ul);
+	
+
+	
 	user.setRadius(1000.0);
 	user.setPageNumber(0);
 	user.setSearchTerm("wine");

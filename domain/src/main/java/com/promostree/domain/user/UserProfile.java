@@ -12,7 +12,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonBackReference;
+=======
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
+>>>>>>> c6a156b8f2196abec44e85f7cce61d1bec558a95
 
 @Entity(name = "user_profile")
 @Table(name = "user_profile")
@@ -32,7 +38,7 @@ public class UserProfile {
 
 	@OneToOne
 	@JoinColumn(name = "userId")
-	@JsonBackReference
+	@JsonManagedReference(value="user-userProfile")
 	private User user;
 
 	public Date getCreatedDate() {
@@ -96,11 +102,22 @@ public class UserProfile {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
+<<<<<<< HEAD
+=======
+				+ ((createdDate == null) ? 0 : createdDate.hashCode());
+		result = prime * result
+>>>>>>> c6a156b8f2196abec44e85f7cce61d1bec558a95
 				+ ((fristName == null) ? 0 : fristName.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + (isReg ? 1231 : 1237);
 		result = prime * result
 				+ ((lastName == null) ? 0 : lastName.hashCode());
+<<<<<<< HEAD
+=======
+		result = prime * result
+				+ ((updatedDate == null) ? 0 : updatedDate.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
+>>>>>>> c6a156b8f2196abec44e85f7cce61d1bec558a95
 		return result;
 	}
 
@@ -113,6 +130,14 @@ public class UserProfile {
 		if (getClass() != obj.getClass())
 			return false;
 		UserProfile other = (UserProfile) obj;
+<<<<<<< HEAD
+=======
+		if (createdDate == null) {
+			if (other.createdDate != null)
+				return false;
+		} else if (!createdDate.equals(other.createdDate))
+			return false;
+>>>>>>> c6a156b8f2196abec44e85f7cce61d1bec558a95
 		if (fristName == null) {
 			if (other.fristName != null)
 				return false;
@@ -130,17 +155,38 @@ public class UserProfile {
 				return false;
 		} else if (!lastName.equals(other.lastName))
 			return false;
+<<<<<<< HEAD
 		return true;
 	}
 
 	@Override
+=======
+		if (updatedDate == null) {
+			if (other.updatedDate != null)
+				return false;
+		} else if (!updatedDate.equals(other.updatedDate))
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
+		return true;
+	}
+
+	/*@Override
+>>>>>>> c6a156b8f2196abec44e85f7cce61d1bec558a95
 	public String toString() {
 		return "UserProfile [id=" + id + ", fristName=" + fristName
 				+ ", lastName=" + lastName + ", createdDate=" + createdDate
 				+ ", updatedDate=" + updatedDate + ", isReg=" + isReg
 				+ ", user=" + user + "]";
+<<<<<<< HEAD
 	}
 	
 	
+=======
+	}*/
+>>>>>>> c6a156b8f2196abec44e85f7cce61d1bec558a95
 
 }

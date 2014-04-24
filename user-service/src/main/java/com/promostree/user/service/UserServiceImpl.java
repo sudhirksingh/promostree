@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.promostree.domain.entities.Location;
 import com.promostree.domain.user.LocationType;
-import com.promostree.domain.user.TargetUser;
+import com.promostree.domain.user.Notification;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserFeedback;
 import com.promostree.domain.user.UserLocation;
@@ -18,7 +18,7 @@ import com.promostree.domain.user.UserShare;
 import com.promostree.domain.user.UserShout;
 import com.promostree.repositories.entities.LocationRepository;
 import com.promostree.repositories.user.LocationTypeRepository;
-import com.promostree.repositories.user.TargetUsersRepository;
+import com.promostree.repositories.user.NotificationRepository;
 import com.promostree.repositories.user.UserFeedbackRepository;
 import com.promostree.repositories.user.UserLocationsRepository;
 import com.promostree.repositories.user.UserPreferencesRepository;
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserServices {
 	@Autowired
 	UserSharesRepository userSharesRepository;
 	@Autowired
-	TargetUsersRepository targetUsersRepository;
+	NotificationRepository notificationRepository;
 	@Autowired
 	UserRepository userRepository;
 	@Autowired
@@ -50,12 +50,18 @@ public class UserServiceImpl implements UserServices {
 	UserFeedbackRepository userFeedbackRepository;
 	@Autowired
 	UserShoutRepository userShoutRepository;
-	private List<UserShare> userShares;
+	
 
 	// for user Registration
+<<<<<<< HEAD
 	@Override
 	public User saveUserCredentials(User user) {
 		User dbUser = null;
+=======
+	public UserProfile saveUserCredentials(User user) {
+		User u = null;
+		UserProfile uprofile = null;
+>>>>>>> c6a156b8f2196abec44e85f7cce61d1bec558a95
 		if (user != null) {
 			dbUser = userRepository.findByPhoneNumberOrEmail(user.getPhoneNumber(),
 					user.getEmail());
@@ -67,7 +73,7 @@ public class UserServiceImpl implements UserServices {
 	}
 
 	// for storing the user shout
-	@Override
+	
 	public String saveUserShout(UserShout userShout) {
 		UserShout dbusershout = userShoutRepository.save(userShout);
 		if (dbusershout.equals(userShout))
@@ -75,13 +81,12 @@ public class UserServiceImpl implements UserServices {
 		else
 			return "not stored";
 	}
-	@Override
+	//read user shouts
 	public List<UserShout> readUserShout(User user) {
 		return userShoutRepository.findByUserId(user.getId());
 	}
 	
 	// to save user share
-	@Override
 	public boolean saveUserShares(UserShare userShares) {
 		UserShare userShare = userSharesRepository.save(userShares);
 		if (userShare.equals(userShare))
@@ -91,27 +96,20 @@ public class UserServiceImpl implements UserServices {
 	}
 
 	// to get shares which i posted
-	@Override
 	public List<UserShare> readPostedUserShares(User user) {
 		return userSharesRepository.findByUserId(user.getId());
 	}
 
 	// to get shares which i received from different users
-	@Override
+	
 	public List<UserShare> readRecievedUserShares(User user) {
-		userShares = new ArrayList<UserShare>();
-		List<TargetUser> targetUsers = targetUsersRepository
-				.findByUserId(user.getId());
-		for (TargetUser targetUser : targetUsers) {
-			System.out.println(targetUser.getId());
-			userShares.add(userSharesRepository.findOne(targetUser.getId()));
-		}
-		return userShares;
+	
+		return null;
 	}
 
 
 
-	@Override
+	
 	public UserProfile saveUserProfile(UserProfile userProfile) {
 		UserProfile userProfile1 = userProfileRepository.save(userProfile);
 
@@ -119,7 +117,7 @@ public class UserServiceImpl implements UserServices {
 	}
 
 	// to save user preferences
-	@Override
+	
 	public List<UserPreference> saveUserPreference(
 			List<UserPreference> userPreferences) {
 		return userPreferencesRepository.save(userPreferences);
@@ -133,20 +131,20 @@ public class UserServiceImpl implements UserServices {
 
 	// to read user Preferences
 
-	@Override
+	
 	public List<UserPreference> readUserPreferences(User user) {
 		return userPreferencesRepository.findByUserId(user.getId());
 
 	}
 
-	@Override
+	
 	public UserLocation saveUserLocations(UserLocation userLocations) {
 		UserLocation userLocations1 = userLocationsRepository
 				.save(userLocations);
 		return userLocations1;
 	}
 
-	@Override
+	
 	public boolean saveLocationType(LocationType locationType) {
 		LocationType locationType1 = locationTypeRepository.save(locationType);
 		if (locationType1.equals(locationType))
@@ -155,13 +153,13 @@ public class UserServiceImpl implements UserServices {
 			return false;
 	}
 
-	@Override
+	
 	public Location saveLocation(Location location) {
 		Location location1 = locationRepository.save(location);
 		return location1;
 	}
 
-	@Override
+	
 	public boolean saveUserFeedback(UserFeedback userFeedback) {
 		UserFeedback userfeedback = userFeedbackRepository.save(userFeedback);
 		if (userfeedback.equals(userFeedback))

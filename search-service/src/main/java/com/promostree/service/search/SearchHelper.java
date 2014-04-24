@@ -19,9 +19,10 @@ import com.promostree.domain.entities.Category;
 import com.promostree.domain.entities.Location;
 import com.promostree.domain.entities.Offer;
 import com.promostree.domain.entities.Shout;
-import com.promostree.domain.entities.User;
+
 import com.promostree.domain.entities.Venue;
 import com.promostree.domain.solr.SolrVenue;
+import com.promostree.domain.user.User;
 import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.solr.SolrVenueRepository;
 
