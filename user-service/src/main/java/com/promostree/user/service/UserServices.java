@@ -34,7 +34,6 @@ public boolean saveLocationType(LocationType locationType);
 public Location saveLocation(Location location); 
 
 public boolean saveUserFeedback(UserFeedback userFeedback,List<User> users);
-
 //public List<UserFeedback> readUserFeedbackOnVenue(Venue venue);
 public List<UserShout> readUserShout(User user);	
 

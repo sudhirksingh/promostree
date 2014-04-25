@@ -54,66 +54,59 @@ public class UserServiceTests {
 	UserPreferencesRepository userPreferencesRepository;
 	@Autowired
 	UserFeedbackRepository userFeedbackRepository;
-	
-	/*@Test
-	public void saveUserShareTest(){
-		List<User> users=new ArrayList<>();
-				
-		User user1=userRepository.findById(1L);
-		users.add(user1);
-		 user1=userRepository.findById(3L);
-		users.add(user1);
-		
-		UserShare userShare=new UserShare();
-		userShare.setComment("awesome...");
-		userShare.setCreateDate(new Date());
-		Type type=typeRepository.findOne(2L);
-		userShare.setType(type);
-		User user=userRepository.findOne(2L);
-		userShare.setUser(user);
-		userShare.setValue(2L);
-		userService.saveUserShares(userShare,users);
-	}*/
-/*	@Test
-	public void saveUserFeedBackTest(){
-		List<User> users=new ArrayList<>();
-		
-		User user1=userRepository.findById(1L);
-		users.add(user1);
-		 user1=userRepository.findById(3L);
-		users.add(user1);
-		
-		UserFeedback userFeedback=new UserFeedback();
-		userFeedback.setComment("its pretty good..");
-		
-		Type type=typeRepository.findOne(2L);
-		userFeedback.setType(type);
-	
-		User user=new User();
-		user.setId(2L);
-		userFeedback.setUser(user);
-		userFeedback.setValue(2L);
-		userService.saveUserFeedback(userFeedback,users);
-	}*/
+
+	/*
+	 * @Test public void saveUserShareTest(){ List<User> users=new
+	 * ArrayList<>();
+	 * 
+	 * User user1=userRepository.findById(2L); users.add(user1);
+	 * user1=userRepository.findById(3L); users.add(user1);
+	 * 
+	 * UserShare userShare=new UserShare(); userShare.setComment("awesome...");
+	 * userShare.setCreateDate(new Date()); Type
+	 * type=typeRepository.findOne(2L); userShare.setType(type); User
+	 * user=userRepository.findOne(1L); userShare.setUser(user);
+	 * userShare.setValue(3L); userService.saveUserShares(userShare,users); }
+	 */
+	/*
+	 * @Test public void saveUserFeedBackTest(){ List<User> users=new
+	 * ArrayList<>();
+	 * 
+	 * User user1=userRepository.findById(2L); users.add(user1);
+	 * user1=userRepository.findById(3L); users.add(user1);
+	 * 
+	 * UserFeedback userFeedback=new UserFeedback();
+	 * userFeedback.setComment("its pretty good..");
+	 * 
+	 * Type type=typeRepository.findOne(4L); userFeedback.setType(type);
+	 * 
+	 * User user=new User(); user.setId(1L); userFeedback.setUser(user);
+	 * userFeedback.setValue(4L);
+	 * userService.saveUserFeedback(userFeedback,users); }
+	 */
 
 	@Test
-	public void readNoitificationsTest(){
-		User user=userRepository.findOne(3L);
-		List<Notification1>notification1s=userService.readNotifications(user);
-		for(Notification1 notification1:notification1s){
-			
-			if(notification1.getActivity_type()=="share"){
-				System.out.println("notification read test ::   "+notification1.getActivity_type());
-			System.out.println("notification read test ::   "+notification1.getUserShare().getComment());
+	public void readNoitificationsTest() {
+		User user = userRepository.findOne(3L);
+		List<Notification1> notification1s = userService
+				.readNotifications(user);
+		for (Notification1 notification1 : notification1s) {
+
+			if (notification1.getActivity_type() == "share") {
+				System.out.println("notification read test :share:   "
+						+ notification1.getUserProfile().getFristName());
+				
 			}
-			if(notification1.getActivity_type()=="feedback"){
-				System.out.println("notification read test ::   "+notification1.getUserFeedback().getComment());
+			if (notification1.getActivity_type() == "feedback") {
+				System.out.println("notification read test :feedback:   "
+						+ notification1.getUserFeedback().getComment());
+				
+				
 			}
-			
-			}
+
+		}
 	}
-	
-	
+
 	/*
 	 * @Test public void saveUserPreferencesTest() { List<UserPreference>
 	 * userPreferences=new ArrayList<UserPreference>(); UserPreference
@@ -124,15 +117,12 @@ public class UserServiceTests {
 	 * userService.saveUserPreference(userPreferences); }
 	 */
 
-	/*@Test
-	public void readUserPreferencesTest() {
-		User user = userRepository.findById(2L);
-		List<UserPreference> userPreferences = userService
-				.readUserPreferences(user);
-		for (UserPreference userPre : userPreferences) {
-			System.out.println(userPre.getValue());
-		}
-	}*/
+	/*
+	 * @Test public void readUserPreferencesTest() { User user =
+	 * userRepository.findById(2L); List<UserPreference> userPreferences =
+	 * userService .readUserPreferences(user); for (UserPreference userPre :
+	 * userPreferences) { System.out.println(userPre.getValue()); } }
+	 */
 
 	/*
 	 * @Test public void deleteUserPreferences(){ UserPreference
@@ -154,44 +144,29 @@ public class UserServiceTests {
 	 * userService.deleteUserPreferences(userPreferences); }
 	 */
 
-	
+	/*
+	 * @Test public void readUserSharesTest() { // to get shares which i posted
+	 * User user = new User(); user.setId(1L); List<UserShare> us =
+	 * userService.readPostedUserShares(user); for (UserShare u : us) {
+	 * System.out.println(u.getComment()); } // to ge shares which i received
+	 * from different users List<UserShare> uss = null; user.setId(2L); uss =
+	 * userService.readRecievedUserShares(user); for (UserShare u : uss) {
+	 * System.out.println(u.getComment()); } }
+	 */
 
-/*	@Test
-	public void readUserSharesTest() { // to get shares which i posted
-		User user = new User();
-		user.setId(1L);
-		List<UserShare> us = userService.readPostedUserShares(user);
-		for (UserShare u : us) {
-			System.out.println(u.getComment());
-		}
-		// to ge shares which i received from different users
-		List<UserShare> uss = null;
-		user.setId(2L);
-		uss = userService.readRecievedUserShares(user);
-		for (UserShare u : uss) {
-			System.out.println(u.getComment());
-		}
-	}*/
+	/*
+	 * @Test public void IntialRegistration() { User user = new User();
+	 * user.setEmail("anant@gmail.com"); user.setPhoneNumber("903520886");
+	 * UserProfile uprofile = userService.saveUserCredentials(user);
+	 * System.out.println(uprofile); }
+	 */
 
-	/*@Test
-	public void IntialRegistration() {
-		User user = new User();
-		user.setEmail("anant@gmail.com");
-		user.setPhoneNumber("903520886");
-		UserProfile uprofile = userService.saveUserCredentials(user);
-		System.out.println(uprofile);
-	}*/
-
-
-	/*@Test
-	public void readShouts() {
-		User user = new User();
-		user.setId(1L);
-		List<UserShout> userShouts = userService.readUserShout(user);
-		for (UserShout shout : userShouts) {
-			System.out.println("read shouts ::  " + shout.getComment());
-		}
-	}*/
+	/*
+	 * @Test public void readShouts() { User user = new User(); user.setId(1L);
+	 * List<UserShout> userShouts = userService.readUserShout(user); for
+	 * (UserShout shout : userShouts) { System.out.println("read shouts ::  " +
+	 * shout.getComment()); } }
+	 */
 
 	/*
 	 * @Test public void savelocation() { Location loca = new Location();
@@ -207,8 +182,6 @@ public class UserServiceTests {
 	 * addressRepository.save(a); }
 	 */
 
-
-
 	/*
 	 * @Test public void saveFeedback() { UserFeedback feedback = new
 	 * UserFeedback(); feedback.setComment("nice product...");
@@ -217,5 +190,5 @@ public class UserServiceTests {
 	 * feedback.setValue("showroom"); Type t =typeRepository.findOne(1L);
 	 * feedback.setType(t); userService.saveUserFeedback(feedback); }
 	 */
-	
+
 }

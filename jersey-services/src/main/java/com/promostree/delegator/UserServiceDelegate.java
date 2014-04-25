@@ -36,7 +36,7 @@ public class UserServiceDelegate {
 	}
 	//to share 
 	public boolean saveUserShares(UserShare userShares){
-	Boolean save=	userServices.saveUserShares(userShares);
+	Boolean save= userServices.saveUserShares(userShares);
 		return save;
 	}
 	//to read shares which i got

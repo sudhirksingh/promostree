@@ -63,23 +63,24 @@ public class UserRepositoryTest {
 	@Autowired
 	LocationTypeRepository locationRep;
 
-	@Test
-	public void readUserProfile(){
-		User userProfiles=userRep.findById(1L);
-		//for(UserProfile userProfile :userProfiles){
-		System.out.println(userProfiles.getUserProfile().getId());
-		//}
-	}
-	@Test
-	public void readReceivedShares() {
-		List<Notification> notifications = userNotificationRep.findByUserId(5L);
-		for(Notification notification:notifications){
-			User user=notification.getUser();
-		
-		System.out.println("notification by userId: "+notification.getId() );
-			
-			}
-	}
+//			@Test
+//	public void readUserProfile(){
+//		UserProfile userProfiles=userProfileRep.findByUserId(3L);
+//		//for(UserProfile userProfile :userProfiles){
+//		System.out.println("profile   "+userProfiles.getFristName());
+//		//}
+//	}
+//	@Test
+//	public void readReceivedShares() {
+//		List<Notification> notifications = userNotificationRep.findByUserId(5L);
+//		for(Notification notification:notifications){
+//			User user=notification.getUser();
+//		
+//		System.out.println("notification by userId: "+notification.getId() );
+//			
+//			}
+//	}
+
 
 /*	@Test
 	public void userLoginTest() {

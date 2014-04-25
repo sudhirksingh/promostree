@@ -209,7 +209,7 @@ public class UserServiceImpl implements UserServices {
 		UserShare userShare = new UserShare();
 		UserFeedback userFeedback = new UserFeedback();
 		for (Notification notification : notifications) {
-System.out.println("impl :: "+notification.getEventType().getId());
+
 			if (notification.getEventType().getId() == 2) { // if its share type
 				notification1 = new Notification1();
 				userShare = notification.getUserShare();
@@ -217,10 +217,13 @@ System.out.println("impl :: "+notification.getEventType().getId());
 				notification1.setUserShare(userShare);
 				notification1.setUser(userRepository.findById(userShare
 						.getUser().getId()));
+				System.out.println("\n\n\n"+userProfileRepository
+						.findByUserId(userShare.getUser().getId()).getFristName()+"\n\n\n");
+					
 				notification1.setUserProfile(userProfileRepository
-						.findByUserId(notification1.getUser().getId()));
+						.findByUserId(userShare.getUser().getId()));
 				if (userShare.getType().getId() == 2) { // venue shared
-					notification1.setVenue(venueRepository.findOne(userShare
+					notification1.setVenue(venueRepository.findOne((long)userShare
 							.getValue()));
 				}
 				if (userShare.getType().getId() == 4) { // offer shared
