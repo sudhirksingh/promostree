@@ -19,7 +19,7 @@ public UserProfile saveUserCredentials(User user);
 
 public String saveUserShout(UserShout userShout);
 
-public boolean saveUserShares(UserShare userShares);
+public boolean saveUserShares(UserShare userShares,List<User> users);
 public List<UserShare> readPostedUserShares(User user); 
 public List<UserShare> readRecievedUserShares(User user); 
 
@@ -33,7 +33,7 @@ public UserLocation saveUserLocations(UserLocation userLocations);
 public boolean saveLocationType(LocationType locationType); 
 public Location saveLocation(Location location); 
 
-public boolean saveUserFeedback(UserFeedback userFeedback);
+public boolean saveUserFeedback(UserFeedback userFeedback,List<User> users);
 
 //public List<UserFeedback> readUserFeedbackOnVenue(Venue venue);
 public List<UserShout> readUserShout(User user);	

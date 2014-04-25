@@ -91,7 +91,7 @@ public class SearchServiceImpl implements SearchServices {
 		userPreferences = userPreferenceRepository.findByUserIdAndTypeId(
 				user.getId(), Long.parseLong(user.getSearchTerm()));
 
-		if (user.getSearchTerm()=="1") {
+		if (Integer.parseInt(user.getSearchTerm())==Integer.parseInt("1")) {
 			for (UserPreference userPreference : userPreferences) {
 				searchTerms.add(brandRepository.findOne(
 						userPreference.getValue()).getName());

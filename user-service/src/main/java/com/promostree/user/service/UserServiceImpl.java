@@ -21,6 +21,8 @@ import com.promostree.domain.user.UserProfile;
 import com.promostree.domain.user.UserShare;
 import com.promostree.domain.user.UserShout;
 import com.promostree.repositories.entities.LocationRepository;
+import com.promostree.repositories.entities.OfferRepository;
+import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.user.EventTypeRepository;
 import com.promostree.repositories.user.LocationTypeRepository;
 import com.promostree.repositories.user.NotificationRepository;
@@ -57,6 +59,10 @@ public class UserServiceImpl implements UserServices {
 	UserShoutRepository userShoutRepository;
 	@Autowired
 	EventTypeRepository eventTypeRepository;
+	@Autowired
+	VenueRepository venueRepository;
+	@Autowired
+	OfferRepository offerRepository;
 
 	// for user Registration
 	public UserProfile saveUserCredentials(User user) {
@@ -91,17 +97,20 @@ public class UserServiceImpl implements UserServices {
 	}
 
 	// to save user share
-	public boolean saveUserShares(UserShare userShare) {
+	public boolean saveUserShares(UserShare userShare, List<User> users) {
+		userShare.setCreateDate(new Date());
 		UserShare userShare2 = userSharesRepository.save(userShare);
 
-		Notification notification = new Notification();
-		notification.setCreatedDate(new Date());
-		EventType eventType = eventTypeRepository.findOne(1L);
-		notification.setEventType(eventType);
-		notification.setUser(userShare.getUser());
-		notification.setUserShare(userShare2);
-		notificationRepository.save(notification);
-
+		for (User user : users) {
+			Notification notification = new Notification();
+			notification.setCreatedDate(new Date());
+			EventType eventType = eventTypeRepository.findOne(2L);
+			notification.setEventType(eventType);
+			notification.setUserShare(userShare2);
+			user = userRepository.findOne(user.getId());
+			notification.setUser(user);
+			notificationRepository.save(notification);
+		}
 		return true;
 
 	}
@@ -174,38 +183,73 @@ public class UserServiceImpl implements UserServices {
 	}
 
 	// to save user feedback
-	public boolean saveUserFeedback(UserFeedback userFeedback) {
+	public boolean saveUserFeedback(UserFeedback userFeedback, List<User> users) {
 		userFeedback.setCreatedDate(new Date());
+		userFeedback.setUpdatedDate(new Date());
+		// userFeedback.setUser(userRepository.findOne(userFeedback.getUser().getId()));
 		userFeedbackRepository.save(userFeedback);
-
-		Notification notification = new Notification();
-		notification.setCreatedDate(new Date());
-		EventType eventType = eventTypeRepository.findOne(1L);
-		notification.setEventType(eventType);
-		// notification.setUser(userFeedback.getUser());
-		notification.setUserFeedback(userFeedback);
-		notificationRepository.save(notification);
-
+		for (User user : users) {
+			Notification notification = new Notification();
+			notification.setCreatedDate(new Date());
+			EventType eventType = eventTypeRepository.findOne(3L);
+			notification.setEventType(eventType);
+			notification.setUser(user);
+			notification.setUserFeedback(userFeedback);
+			notificationRepository.save(notification);
+		}
 		return true;
 	}
 
 	@Override
 	public List<Notification1> readNotifications(User user) {
 		List<Notification1> notification1s = new ArrayList<Notification1>();
-	Notification1 notification1=new Notification1();
+		Notification1 notification1 = null;
 		List<Notification> notifications = notificationRepository
 				.findByUserId(user.getId());
-	
+		UserShare userShare = new UserShare();
+		UserFeedback userFeedback = new UserFeedback();
 		for (Notification notification : notifications) {
-			UserShare userShare=notification.getUserShare();
-if(notification.getEventType().getId()==2 && userShare.getType().getId()==2){
-	notification1.setActivity_type("shared");
-	notification1.setUserShare(userShare);
-    notification1.setUser(userRepository.findById(userShare.getUser().getId()));
-    
-}
+System.out.println("impl :: "+notification.getEventType().getId());
+			if (notification.getEventType().getId() == 2) { // if its share type
+				notification1 = new Notification1();
+				userShare = notification.getUserShare();
+				notification1.setActivity_type("share");
+				notification1.setUserShare(userShare);
+				notification1.setUser(userRepository.findById(userShare
+						.getUser().getId()));
+				notification1.setUserProfile(userProfileRepository
+						.findByUserId(notification1.getUser().getId()));
+				if (userShare.getType().getId() == 2) { // venue shared
+					notification1.setVenue(venueRepository.findOne(userShare
+							.getValue()));
+				}
+				if (userShare.getType().getId() == 4) { // offer shared
+					notification1.setOffer(offerRepository.findOne(userShare
+							.getValue()));
+				}
+				notification1s.add(notification1);
+			} else 
+				if (notification.getEventType().getId() == 3) { // if its a feedback type	
+					notification1 = new Notification1();
+				userFeedback = notification.getUserFeedback();
+				notification1.setActivity_type("feedback");
+				notification1.setUserFeedback(userFeedback);
+				notification1.setUser(userRepository.findById(userFeedback
+						.getUser().getId()));
+				notification1.setUserProfile(userProfileRepository
+						.findByUserId(notification1.getUser().getId()));
+				if (userShare.getType().getId() == 2) { // feedback on venue
+					notification1.setVenue(venueRepository.findOne(userFeedback
+							.getValue()));
+				}
+				if (userShare.getType().getId() == 4) { // feedback on offer
+					notification1.setOffer(offerRepository.findOne(userFeedback
+							.getValue()));
+				}
+                    notification1s.add(notification1);
+			}
 		}
-		return null;
+		return notification1s;
 	}
 
 }

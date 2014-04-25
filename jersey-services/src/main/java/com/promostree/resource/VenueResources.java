@@ -39,7 +39,7 @@ public class VenueResources {
 		user.setLng(lng);	
 		user.setRadius(radius);
 		user.setPageNumber(pageNumber);
-		user.setSearchTerm("1");
+		user.setSearchTerm(searchTerm);
 		//System.out.println(new String(i+""));
 		List<Venue> list = venueSearchDelegate.getPreferredVenues(user);
 		return list;
