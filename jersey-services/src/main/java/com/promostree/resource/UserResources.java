@@ -1,5 +1,6 @@
 package com.promostree.resource;
 import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -9,8 +10,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import com.promostree.delegator.UserServiceDelegate;
+import com.promostree.domain.user.Notification1;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserPreference;
 import com.promostree.domain.user.UserProfile;
@@ -54,16 +58,16 @@ public class UserResources {
 			return userServiceDelegate.readUserShout(user);
 		}
 	//to save the user shares
-	@POST
+/*	@POST
 	@Path("/share")
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String share(UserShare userShares) {
-		boolean save = userServiceDelegate.saveUserShares(userShares);
+	public String share(UserShare userShares,List<User> users) {
+		boolean save = userServiceDelegate.saveUserShares(userShares,users);
 		if (save)
 			return "sucessfully shared..";
 		else
 			return "failed..";
-	}
+	}*/
 	// to read shares which are posted
 	@GET
 	@Path("/postedShares/{userId}")
@@ -83,7 +87,7 @@ public class UserResources {
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
 	@Path("/savePreference")
-	public List<UserPreference> saveUserPreference(List<UserPreference> userPreference) {
+	public boolean saveUserPreference(List<UserPreference> userPreference) {
 		return userServiceDelegate.saveUserPreference(userPreference);
 	}
 	// to read user preference
@@ -95,7 +99,13 @@ public class UserResources {
 		user.setId(userId);
 		return userServiceDelegate.readUserPreference(user);
 	}
-	
+	// to read notifications
+	@GET
+	@Path("/readNotifications/{userId}")
+	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+	public List<Notification1> readNotifications(@PathParam("userId") Long userId) {
+		return userServiceDelegate.readNotifications(userId);
+	}
 }
 
 

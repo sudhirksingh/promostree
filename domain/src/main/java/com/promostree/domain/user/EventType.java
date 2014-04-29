@@ -15,45 +15,43 @@ import javax.validation.constraints.Size;
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-
-
-
-
-@Entity(name="event_type")
-@Table(name="event_type")
-public class EventType
-{
+@Entity(name = "event_type")
+@Table(name = "event_type")
+public class EventType {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-private Long id;
+	private Long id;
 	private String name;
-	
+
 	@OneToOne
 	@JsonIgnore
 	private UserEvent userEvent;
-	
 
-@OneToOne(mappedBy="eventType",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-@JsonBackReference
+	@OneToOne(mappedBy = "eventType", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonBackReference
 	private Notification notification;
-	
-	
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public UserEvent getUserEvent() {
 		return userEvent;
 	}
+
 	public void setUserEvent(UserEvent userEvent) {
 		this.userEvent = userEvent;
 	}
@@ -61,19 +59,24 @@ private Long id;
 	public Notification getNotification() {
 		return notification;
 	}
+
 	public void setNotification(Notification notification) {
 		this.notification = notification;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		/*result = prime * result
-				+ ((notification == null) ? 0 : notification.hashCode());*/
+		/*
+		 * result = prime * result + ((notification == null) ? 0 :
+		 * notification.hashCode());
+		 */
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -93,26 +96,17 @@ private Long id;
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		/*if (notification == null) {
-			if (other.notification != null)
-				return false;
-		} else if (!notification.equals(other.notification))
-			return false;*/
+		/*
+		 * if (notification == null) { if (other.notification != null) return
+		 * false; } else if (!notification.equals(other.notification)) return
+		 * false;
+		 */
 		return true;
 	}
-	/*@Override
-	public String toString() {
-		return "EventType [id=" + id + ", name=" + name + ", userEvent=" + userEvent + ", notification=" + notification + "]";
-	}*/
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	/*
+	 * @Override public String toString() { return "EventType [id=" + id +
+	 * ", name=" + name + ", userEvent=" + userEvent + ", notification=" +
+	 * notification + "]"; }
+	 */
 
 }

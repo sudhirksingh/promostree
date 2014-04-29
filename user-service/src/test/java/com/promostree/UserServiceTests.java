@@ -94,7 +94,7 @@ public class UserServiceTests {
 
 			if (notification1.getActivity_type() == "share") {
 				System.out.println("notification read test :share:   "
-						+ notification1.getUserProfile().getFristName());
+						+ notification1.getUserShare().getComment());
 				
 			}
 			if (notification1.getActivity_type() == "feedback") {

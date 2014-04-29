@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.promostree.domain.user.Notification1;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserPreference;
 import com.promostree.domain.user.UserProfile;
@@ -35,8 +36,8 @@ public class UserServiceDelegate {
 		return userShout;
 	}
 	//to share 
-	public boolean saveUserShares(UserShare userShares){
-	Boolean save= userServices.saveUserShares(userShares);
+	public boolean saveUserShares(UserShare userShares,List<User> users){
+	Boolean save= userServices.saveUserShares(userShares,users);
 		return save;
 	}
 	//to read shares which i got
@@ -53,13 +54,19 @@ public class UserServiceDelegate {
 	}
 
 	//to save user preference
-	public List<UserPreference> saveUserPreference(List<UserPreference> userPreference){
+	public boolean saveUserPreference(List<UserPreference> userPreference){
 		return userServices.saveUserPreference(userPreference);
 	}
 	//to read user preferences
 	public List<UserPreference> readUserPreference(User user){
 		return userServices.readUserPreferences(user);
 	}
-
+   //to read notifications
+	public List<Notification1>  readNotifications(Long userId)
+	{
+		User user=new User();
+		user.setId(userId);
+		return userServices.readNotifications(user);
+	}
 
 }

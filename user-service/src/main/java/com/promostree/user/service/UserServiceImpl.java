@@ -65,6 +65,7 @@ public class UserServiceImpl implements UserServices {
 	OfferRepository offerRepository;
 
 	// for user Registration
+	@Override
 	public UserProfile saveUserCredentials(User user) {
 		User u = null;
 		UserProfile uprofile = null;
@@ -82,7 +83,7 @@ public class UserServiceImpl implements UserServices {
 	}
 
 	// for storing the user shout
-
+	@Override
 	public String saveUserShout(UserShout userShout) {
 		UserShout usershout = userShoutRepository.save(userShout);
 		if (usershout.equals(userShout))
@@ -92,11 +93,13 @@ public class UserServiceImpl implements UserServices {
 	}
 
 	// read user shouts
+	@Override
 	public List<UserShout> readUserShout(User user) {
 		return userShoutRepository.findByUserId(user.getId());
 	}
 
 	// to save user share
+	@Override
 	public boolean saveUserShares(UserShare userShare, List<User> users) {
 		userShare.setCreateDate(new Date());
 		UserShare userShare2 = userSharesRepository.save(userShare);
@@ -116,12 +119,13 @@ public class UserServiceImpl implements UserServices {
 	}
 
 	// to get shares which i posted
+	@Override
 	public List<UserShare> readPostedUserShares(User user) {
 		return userSharesRepository.findByUserId(user.getId());
 	}
 
 	// to get shares which i received from different users
-
+	@Override
 	public List<UserShare> readRecievedUserShares(User user) {
 		List<UserShare> userShares = new ArrayList<UserShare>();
 		List<Notification> notifications = notificationRepository
@@ -133,6 +137,7 @@ public class UserServiceImpl implements UserServices {
 		return userShares;
 	}
 
+	@Override
 	public UserProfile saveUserProfile(UserProfile userProfile) {
 		UserProfile userProfile1 = userProfileRepository.save(userProfile);
 
@@ -140,7 +145,7 @@ public class UserServiceImpl implements UserServices {
 	}
 
 	// to save user preferences
-
+	@Override
 	public boolean saveUserPreference(List<UserPreference> userPreferences) {
 		UserPreference userPreference = new UserPreference();
 		for (UserPreference userPreference2 : userPreferences) {
@@ -157,18 +162,20 @@ public class UserServiceImpl implements UserServices {
 	 */
 
 	// to read user Preferences wrong
-
+	@Override
 	public List<UserPreference> readUserPreferences(User user) {
 
 		return userPreferencesRepository.findByUserId(user.getId());
 	}
 
+	@Override
 	public UserLocation saveUserLocations(UserLocation userLocations) {
 		UserLocation userLocations1 = userLocationsRepository
 				.save(userLocations);
 		return userLocations1;
 	}
 
+	@Override
 	public boolean saveLocationType(LocationType locationType) {
 		LocationType locationType1 = locationTypeRepository.save(locationType);
 		if (locationType1.equals(locationType))
@@ -177,12 +184,14 @@ public class UserServiceImpl implements UserServices {
 			return false;
 	}
 
+	@Override
 	public Location saveLocation(Location location) {
 		Location location1 = locationRepository.save(location);
 		return location1;
 	}
 
 	// to save user feedback
+	@Override
 	public boolean saveUserFeedback(UserFeedback userFeedback, List<User> users) {
 		userFeedback.setCreatedDate(new Date());
 		userFeedback.setUpdatedDate(new Date());
@@ -202,14 +211,19 @@ public class UserServiceImpl implements UserServices {
 
 	@Override
 	public List<Notification1> readNotifications(User user) {
+
 		List<Notification1> notification1s = new ArrayList<Notification1>();
-		Notification1 notification1 = null;
+
+		Notification1 notification1 = new Notification1();
+
 		List<Notification> notifications = notificationRepository
 				.findByUserId(user.getId());
-		UserShare userShare = new UserShare();
-		UserFeedback userFeedback = new UserFeedback();
-		for (Notification notification : notifications) {
 
+		UserShare userShare = new UserShare();
+
+		UserFeedback userFeedback = new UserFeedback();
+
+		for (Notification notification : notifications) {
 			if (notification.getEventType().getId() == 2) { // if its share type
 				notification1 = new Notification1();
 				userShare = notification.getUserShare();
@@ -217,23 +231,22 @@ public class UserServiceImpl implements UserServices {
 				notification1.setUserShare(userShare);
 				notification1.setUser(userRepository.findById(userShare
 						.getUser().getId()));
-				System.out.println("\n\n\n"+userProfileRepository
-						.findByUserId(userShare.getUser().getId()).getFristName()+"\n\n\n");
-					
+
 				notification1.setUserProfile(userProfileRepository
 						.findByUserId(userShare.getUser().getId()));
 				if (userShare.getType().getId() == 2) { // venue shared
-					notification1.setVenue(venueRepository.findOne((long)userShare
-							.getValue()));
+					notification1.setVenue(venueRepository
+							.findOne((long) userShare.getValue()));
 				}
 				if (userShare.getType().getId() == 4) { // offer shared
 					notification1.setOffer(offerRepository.findOne(userShare
 							.getValue()));
 				}
 				notification1s.add(notification1);
-			} else 
-				if (notification.getEventType().getId() == 3) { // if its a feedback type	
-					notification1 = new Notification1();
+			} else if (notification.getEventType().getId() == 3) { // if its a
+																	// feedback
+																	// type
+				notification1 = new Notification1();
 				userFeedback = notification.getUserFeedback();
 				notification1.setActivity_type("feedback");
 				notification1.setUserFeedback(userFeedback);
@@ -244,14 +257,17 @@ public class UserServiceImpl implements UserServices {
 				if (userShare.getType().getId() == 2) { // feedback on venue
 					notification1.setVenue(venueRepository.findOne(userFeedback
 							.getValue()));
+
+					notification1s.add(notification1);
 				}
 				if (userShare.getType().getId() == 4) { // feedback on offer
 					notification1.setOffer(offerRepository.findOne(userFeedback
 							.getValue()));
 				}
-                    notification1s.add(notification1);
+
 			}
 		}
+
 		return notification1s;
 	}
 
