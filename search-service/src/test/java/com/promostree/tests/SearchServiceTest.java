@@ -64,29 +64,45 @@ public class SearchServiceTest {
 	UserLocationsRepository ulrep;
 	
 	@Test
+	public void preferenceSearch(){
+		User user=new User();
+		user.setId(2L);
+		user.setLat(17.24154);
+		user.setLng(78.23541254);	
+		user.setRadius(1000.0);
+		user.setPageNumber(0);
+		user.setSearchTerm("1");
+		
+		List<Venue>venues=vs.findBySearch_fieldIn(user);
+	for(Venue venue:venues){
+		System.out.println("preference search test  ::  "+venue.getName());
+	}
+	}
+	
+	@Test
 	public void nearest() {
 		//vs.indexing();
 	
 		
-	User user=urep.findById((long)1);
+	User user=urep.findById((long)2);
 	
 	user.setLat(17.24154);
 	user.setLng(78.23541254);
 	
 	
 	//storing the user Location
-	LocationType lt=ltrep.findByName("current");
+	//LocationType lt=ltrep.findByName("current");
 	Location l1=new Location();
 	l1.setLat(user.getLat());
 	l1.setLng(user.getLng());
-	lrep.save(l1);
+	//lrep.save(l1);
 
 	UserLocation ul=new UserLocation();
 	ul.setCreatedDate(new Date());
 	ul.setLocation(l1);
-	ul.setLocationType(lt);
+	//ul.setLocationType(lt);
 	ul.setUser(user);
-	ulrep.save(ul);
+	//ulrep.save(ul);
 	
 
 	

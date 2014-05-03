@@ -7,8 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserPreference;
 
-public interface UserPreferencesRepository extends JpaRepository<UserPreference, Long> {
 
-public 	List<UserPreference> findByUserId(Long long1);
+public interface UserPreferencesRepository extends
+		JpaRepository<UserPreference, Long> {
+	List<UserPreference> findByUserId(Long userId);
+	List<UserPreference> findByUserIdAndTypeId(Long userId,Long typeId);
+
 	
 }

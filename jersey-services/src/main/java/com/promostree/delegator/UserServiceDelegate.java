@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.promostree.domain.user.Notification1;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserPreference;
 import com.promostree.domain.user.UserShare;
@@ -20,6 +21,11 @@ public class UserServiceDelegate {
 	public User saveUserCredentials(User user) {
 		User dbUser = userServices.saveUserCredentials(user);
 		return dbUser;
+	}
+
+	public String saveUserPreference(UserPreference userPreference) {
+		String dbuser = userServices.saveUserPreference(userPreference);
+		return dbuser;
 	}
 
 	// to savetheusershout
@@ -40,6 +46,12 @@ public class UserServiceDelegate {
 		return save;
 	}
 
+	// to share
+	public boolean saveUserShares(UserShare userShares, List<User> users) {
+		Boolean save = userServices.saveUserShares(userShares, users);
+		return save;
+	}
+
 	// to read shares which i got
 	public List<UserShare> readReceivedUserShares(Long userId) {
 		User user = new User();
@@ -54,14 +66,16 @@ public class UserServiceDelegate {
 		return userServices.readPostedUserShares(user);
 	}
 
-	// to save user preference
-	public String saveUserPreference(UserPreference userPreference) {
-		return userServices.saveUserPreference(userPreference);
-	}
-
 	// to read user preferences
 	public List<UserPreference> readUserPreference(User user) {
 		return userServices.readUserPreferences(user);
+	}
+
+	// to read notifications
+	public List<Notification1> readNotifications(Long userId) {
+		User user = new User();
+		user.setId(userId);
+		return userServices.readNotifications(user);
 	}
 
 }

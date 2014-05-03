@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.promostree.delegator.UserServiceDelegate;
+import com.promostree.domain.user.Notification1;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserPreference;
 import com.promostree.domain.user.UserProfile;
@@ -24,16 +25,16 @@ import com.promostree.domain.user.UserShout;
 /**
  * 
  * @author visi
- *
+ * 
  */
 @Path("/userservice")
 public class UserResources {
 
 	@Autowired
 	UserServiceDelegate userServiceDelegate;
-	
+
 	/**
-	 *  initial Registration of new user
+	 * initial Registration of new user
 	 */
 	@POST
 	@Path("/login")
@@ -43,8 +44,7 @@ public class UserResources {
 		User dbUser = userServiceDelegate.saveUserCredentials(user);
 		return Response.ok().entity(dbUser).build();
 	}
-	
-	
+
 	@POST
 	@Path("/shout")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -53,8 +53,9 @@ public class UserResources {
 		ResponseBuilder builder = Response.ok();
 		return builder.entity(usershout).build();
 	}
-	
+
 	// to read shares which are posted
+
 	@GET
 	@Path("/postedShouts/{userId}")
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
@@ -63,19 +64,21 @@ public class UserResources {
 		user.setId(userId);
 		return userServiceDelegate.readUserShout(user);
 	}
-	
+
 	// to save the user shares
-	@POST
-	@Path("/share")
-	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public String share(UserShare userShares) {
-		boolean save = userServiceDelegate.saveUserShares(userShares);
-		if (save)
-			return "sucessfully shared..";
-		else
-			return "failed..";
-	}
-	
+	/*
+	 * @POST >>>>>>> 83eb8eb014478cef04a4c4530b6ab6df52e011ea
+	 * 
+	 * @Path("/share")
+	 * 
+	 * @Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON) public String
+	 * share(UserShare userShares,List<User> users) { boolean save =
+	 * userServiceDelegate.saveUserShares(userShares,users); if (save) return
+	 * "sucessfully shared.."; else return "failed.."; <<<<<<< HEAD }
+	 * 
+	 * ======= }
+	 */
+
 	// to read shares which are posted
 	@GET
 	@Path("/postedShares/{userId}")
@@ -83,7 +86,7 @@ public class UserResources {
 	public List<UserShare> postedShares(@PathParam("userId") Long userId) {
 		return userServiceDelegate.readPostedUserShares(userId);
 	}
-	
+
 	// to read share which are received
 	@GET
 	@Path("/receivedShares/{userId}")
@@ -91,7 +94,7 @@ public class UserResources {
 	public List<UserShare> receivedShares(@PathParam("userId") Long userId) {
 		return userServiceDelegate.readReceivedUserShares(userId);
 	}
-	
+
 	// to save user preference
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
@@ -99,17 +102,26 @@ public class UserResources {
 	public String saveUserPreference(UserPreference userPreference) {
 		return userServiceDelegate.saveUserPreference(userPreference);
 	}
-	
+
 	// to read user preference
 	@GET
 	@Path("/readPreference/{userId}")
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
 	public List<UserPreference> readUserPreference(
 			@PathParam("userId") Long userId) {
-	     User user=new User();
-	     user.setId(userId);
-	 List<UserPreference> userperlist=userServiceDelegate.readUserPreference(user);
-	 return userperlist;
+		User user = new User();
+		user.setId(userId);
+		List<UserPreference> userperlist = userServiceDelegate
+				.readUserPreference(user);
+		return userperlist;
 	}
 
+	// to read notifications
+	@GET
+	@Path("/readNotifications/{userId}")
+	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+	public List<Notification1> readNotifications(
+			@PathParam("userId") Long userId) {
+		return userServiceDelegate.readNotifications(userId);
+	}
 }

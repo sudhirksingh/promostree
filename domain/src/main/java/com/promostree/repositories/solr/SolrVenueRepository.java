@@ -12,13 +12,10 @@ import com.promostree.domain.solr.SolrVenue;
 
 public interface SolrVenueRepository extends
 		SolrCrudRepository<SolrVenue, String> {
-
-	// delete document by id
-	@Query("id:*?0*")
-	public void deleteByQueryAnnotation(String id);
-
-	@Query("id:*?0*")
-	public List<SolrVenue> findByQueryAnnotation(String id);
+    @Query("entity_id:?0")
+    public List<SolrVenue> findByEntity_id(String entityId);
+	@Query("search_field:*?0*")
+	public List<SolrVenue> findByQueryAnnotation(String searchTerm);
 
 	@Query("lat:?0* AND lng:?1*")
 	public List<SolrVenue> findByQueryAnnotation(String lat, String lng,
@@ -28,12 +25,13 @@ public interface SolrVenueRepository extends
 	@Query("lat:?0* AND lng:?1*")
 	public List<SolrVenue> findByQueryAnnotation(String lat, String lng);
 
-
-
+    @Query("search_field:*?0*")
+    public List<SolrVenue> findBySearch_fieldIn(List<String> searchField,Pageable page);
+	
 	@Query("fq={!geofilt pt=?0,?1 sfield=geolocation d=?2} AND (search_field:*?3* )")
-	List<SolrVenue> findByQueryAnnotation(double lat, double lng, double d,String searchterm,Pageable page);
+	public List<SolrVenue> findByQueryAnnotation(double lat, double lng, double d,String searchterm,Pageable page);
 	@Query("fq={!geofilt pt=?0,?1 sfield=geolocation d=?2} ")
-	List<SolrVenue> findByQueryAnnotation(double lat, double lng, double d,Pageable page);
+	public List<SolrVenue> findByQueryAnnotation(double lat, double lng, double d,Pageable page);
 
 	// find by search term in vname or city
 	/*

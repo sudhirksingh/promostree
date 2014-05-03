@@ -12,6 +12,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.promostree.domain.entities.Venue;
+
+import com.promostree.domain.user.Notification;
+import com.promostree.domain.user.Notification1;
+
 import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserPreference;
@@ -20,6 +24,7 @@ import com.promostree.repositories.entities.AddressRepository;
 import com.promostree.repositories.entities.LocationRepository;
 import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.user.TypeRepository;
+import com.promostree.repositories.user.UserFeedbackRepository;
 import com.promostree.repositories.user.UserPreferencesRepository;
 import com.promostree.repositories.user.UserRepository;
 import com.promostree.user.service.UserServices;
@@ -41,6 +46,60 @@ public class UserServiceTests {
 	AddressRepository addressRepository;
 	@Autowired
 	UserPreferencesRepository userPreferencesRepository;
+	@Autowired
+	UserFeedbackRepository userFeedbackRepository;
+
+	/*
+	 * @Test public void saveUserShareTest(){ List<User> users=new
+	 * ArrayList<>();
+	 * 
+	 * User user1=userRepository.findById(2L); users.add(user1);
+	 * user1=userRepository.findById(3L); users.add(user1);
+	 * 
+	 * UserShare userShare=new UserShare(); userShare.setComment("awesome...");
+	 * userShare.setCreateDate(new Date()); Type
+	 * type=typeRepository.findOne(2L); userShare.setType(type); User
+	 * user=userRepository.findOne(1L); userShare.setUser(user);
+	 * userShare.setValue(3L); userService.saveUserShares(userShare,users); }
+	 */
+	/*
+	 * @Test public void saveUserFeedBackTest(){ List<User> users=new
+	 * ArrayList<>();
+	 * 
+	 * User user1=userRepository.findById(2L); users.add(user1);
+	 * user1=userRepository.findById(3L); users.add(user1);
+	 * 
+	 * UserFeedback userFeedback=new UserFeedback();
+	 * userFeedback.setComment("its pretty good..");
+	 * 
+	 * Type type=typeRepository.findOne(4L); userFeedback.setType(type);
+	 * 
+	 * User user=new User(); user.setId(1L); userFeedback.setUser(user);
+	 * userFeedback.setValue(4L);
+	 * userService.saveUserFeedback(userFeedback,users); }
+	 */
+
+	@Test
+	public void readNoitificationsTest() {
+		User user = userRepository.findOne(3L);
+		List<Notification1> notification1s = userService
+				.readNotifications(user);
+		for (Notification1 notification1 : notification1s) {
+
+			if (notification1.getActivity_type() == "share") {
+				System.out.println("notification read test :share:   "
+						+ notification1.getUserShare().getComment());
+				
+			}
+			if (notification1.getActivity_type() == "feedback") {
+				System.out.println("notification read test :feedback:   "
+						+ notification1.getUserFeedback().getComment());
+				
+				
+			}
+
+		}
+	}
 
 //	@Test
 //	public void saveUserPreferencesTest() { // List<UserPreference>
@@ -81,6 +140,7 @@ public class UserServiceTests {
 //		userService.saveUserShout(ushout);
 //	}
 
+
 	@Test
 	public void IntialRegistration() {
 		try {
@@ -96,6 +156,14 @@ public class UserServiceTests {
 	}
 
 	/*
+	 * @Test public void readUserPreferencesTest() { User user =
+	 * userRepository.findById(2L); List<UserPreference> userPreferences =
+	 * userService .readUserPreferences(user); for (UserPreference userPre :
+	 * userPreferences) { System.out.println(userPre.getValue()); } }
+	 */
+
+
+	/*
 	 * * @Test public void deleteUserPreferences(){ UserPreference
 	 * userPreferences=userPreferencesRepository.findOne(1L);
 	 * userService.deleteUserPreferences(userPreferences); }
@@ -108,17 +176,6 @@ public class UserServiceTests {
 	 */
 
 	/*
-	 * @Test public void saveUserSharesTest() { Type pt = new Type();
-	 * pt.setId(1L); //pt.setName("brand"); User user = new User();
-	 * user.setId(1L); // user.setEmail("ananth@gmail.com"); //
-	 * user.setPhoneNumber("9542128262"); UserShares userShares = new
-	 * UserShares(); userShares.setComment("it's pretty good..");
-	 * userShares.setCreateDate(new Date()); userShares.setType(pt);
-	 * userShares.setUser(user); userShares.setValue("Pepe zeans"); boolean b=
-	 * userService.saveUserShares(userShares); Assert.assertTrue(b); }
-	 */
-
-	/*
 	 * @Test public void readUserSharesTest() { // to get shares which i posted
 	 * User user = new User(); user.setId(1L); List<UserShare> us =
 	 * userService.readPostedUserShares(user); for (UserShare u : us) {
@@ -128,6 +185,7 @@ public class UserServiceTests {
 	 * System.out.println(u.getComment()); } }
 	 */
 
+	
 	/*
 	 * @Test public void readShouts() { User user = new User(); user.setId(1L);
 	 * List<UserShout> userShouts = userService.readUserShout(user); for
@@ -157,9 +215,5 @@ public class UserServiceTests {
 	 * feedback.setValue("showroom"); Type t =typeRepository.findOne(1L);
 	 * feedback.setType(t); userService.saveUserFeedback(feedback); }
 	 */
-	/*
-	 * @Test public void readFeedback() {
-	 * 
-	 * }
-	 */
+
 }

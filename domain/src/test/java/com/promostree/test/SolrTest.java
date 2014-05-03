@@ -1,10 +1,12 @@
 package com.promostree.test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -19,11 +21,15 @@ public class SolrTest {
 SolrVenueRepository solrVenueRepository;
 	@Test
 	public void nearestVenues() throws Exception {
-	
-		List<SolrVenue> v1=	solrVenueRepository.findByQueryAnnotation("11");
+		int pageNumber=0;
+		List<String> searchField=new ArrayList<String>();
+		searchField.add("bawarchi");
+		//searchField.add("cream");
+		//searchField.add("wine");
+		List<SolrVenue> v1=	solrVenueRepository.findBySearch_fieldIn( searchField, new PageRequest(pageNumber, 30));
 		int i = 0;
 		for (SolrVenue v : v1) {
-			System.out.println(v.getName() + " " + ++i + "  id:   "
+			System.out.println( ++i +"     "+ v.getSearch_field() + "  id:   "
 					+ v.getId());
 		}
 		

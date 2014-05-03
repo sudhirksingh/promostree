@@ -22,6 +22,29 @@ public class VenueResources {
 	@Autowired
 	VenueSearchDelegate venueSearchDelegate;
 
+
+	@GET
+	@Path("/preferredVenues")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Venue> getPreferenceVenues(@QueryParam("userId") long userId,
+			@QueryParam("lat") double lat, @QueryParam("lng") double lng,
+			@QueryParam("radius") double radius,
+			@QueryParam("pageNumber") int pageNumber,
+			@QueryParam("searchTerm") String searchTerm) {
+		
+	String i=new String("2");
+		User user=new User();
+		user.setId(userId);
+		user.setLat(lat);
+		user.setLng(lng);	
+		user.setRadius(radius);
+		user.setPageNumber(pageNumber);
+		user.setSearchTerm(searchTerm);
+		//System.out.println(new String(i+""));
+		List<Venue> list = venueSearchDelegate.getPreferredVenues(user);
+		return list;
+	}
+
 	@GET
 	@Path("/venues")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -46,6 +69,7 @@ public class VenueResources {
 		Venue venue = new Venue();
 		venue.setId(venueId);
 		Venue returnVenue = venueSearchDelegate.VenueService(venue);
+
 		return returnVenue;
 	}
 

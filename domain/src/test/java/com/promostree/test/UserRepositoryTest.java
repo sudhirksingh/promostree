@@ -57,6 +57,7 @@ public class UserRepositoryTest {
 	LocationTypeRepository locationRep;
 	
 
+
 /*	@Test
 	public void readUserProfile() {
 		User userProfiles = userRep.findById(1L);
@@ -74,6 +75,26 @@ public class UserRepositoryTest {
 		List<Notification> notifications = userNotificationRep.findByUserId(5L);
 		for (Notification notification : notifications) {
 			User user = notification.getUser();
+
+//			@Test
+//	public void readUserProfile(){
+//		UserProfile userProfiles=userProfileRep.findByUserId(3L);
+//		//for(UserProfile userProfile :userProfiles){
+//		System.out.println("profile   "+userProfiles.getFristName());
+//		//}
+//	}
+//	@Test
+//	public void readReceivedShares() {
+//		List<Notification> notifications = userNotificationRep.findByUserId(5L);
+//		for(Notification notification:notifications){
+//			User user=notification.getUser();
+//		
+//		System.out.println("notification by userId: "+notification.getId() );
+//			
+//			}
+//	}
+
+>>>>>>> 83eb8eb014478cef04a4c4530b6ab6df52e011ea
 
 			// System.out.println(notification.getId() );
 
@@ -146,6 +167,32 @@ public class UserRepositoryTest {
 	// UserPreference userPref=userPreferencesRep.findOne(1L);
 	// userPreferencesRep.delete(userPref);
 	// }
+
+	/*
+	 * @Test public void savePreferenceTest(){ List<UserPreference>
+	 * userPreferences=new ArrayList<UserPreference>() UserPreference
+	 * userPreference=new UserPreference(); Type type=typeRep.findOne(1L); User
+	 * u1=userRep.findById(2L); userPreference.setType(type);
+	 * userPreference.setUser(u1); //userPreference.setValue();
+	 * userPreferencesRep.save(userPreference); userPreference.setValue(1L);
+	 * userPreferences.add(userPreference);
+	 * userPreferencesRep.save(userPreferences); }
+	 */
+
+	 @Test
+	 public void readPreferenceTest(){
+	 List<UserPreference> userPreferences =
+	 userPreferencesRep.findByUserId(4L);
+	 for(UserPreference userPre:userPreferences){
+	 System.out.println("readPreferenceTest:: "+userPre.getId());
+	 }
+	 }
+//	 @Test
+//	 public void deletePreferenceTest(){
+//	 UserPreference userPref=userPreferencesRep.findOne(1L);
+//	 userPreferencesRep.delete(userPref);
+//	 }
+
 
 	/*
 	 * @Test public void readPreferenceTest() { List<UserPreference>
