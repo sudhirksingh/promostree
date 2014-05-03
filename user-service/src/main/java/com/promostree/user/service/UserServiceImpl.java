@@ -62,49 +62,50 @@ public class UserServiceImpl implements UserServices {
 	@Override
 	public User saveUserCredentials(User user) {
 		User dbUser = null;
-		if (user!= null) {
-			if (user.getPhoneNumber()!= null && user.getEmail() == null) {
-				dbUser = userRepository.findByPhoneNumber(user.getPhoneNumber());
+		if (user != null) {
+			if (user.getPhoneNumber() != null && user.getEmail() == null) {
+				dbUser = userRepository
+						.findByPhoneNumber(user.getPhoneNumber());
 				if (dbUser == null) {
 					dbUser = userRepository.save(user);
 				}
-			} 
-			else if (user.getEmail() != null && user.getPhoneNumber() == null) {
+			} else if (user.getEmail() != null && user.getPhoneNumber() == null) {
 				dbUser = userRepository.findByEmail(user.getEmail());
 				if (dbUser == null) {
 					dbUser = userRepository.save(user);
 				}
-			} 
-			//if (user.getPhoneNumber() != null && user.getEmail() != null)
-			else  {
+			}
+			// if (user.getPhoneNumber() != null && user.getEmail() != null)
+			else {
 				User dbemail = userRepository.findByEmail(user.getEmail());
-				User dbphone = userRepository.findByPhoneNumber(user.getPhoneNumber());
-				if (dbemail.getEmail() == null && dbphone.getPhoneNumber() == null) {
-					dbUser = userRepository.findByPhoneNumberAndEmail(user.getPhoneNumber(), user.getEmail());
+				User dbphone = userRepository.findByPhoneNumber(user
+						.getPhoneNumber());
+				if (dbemail.getEmail() == null
+						&& dbphone.getPhoneNumber() == null) {
+					dbUser = userRepository.findByPhoneNumberAndEmail(
+							user.getPhoneNumber(), user.getEmail());
 					if (dbUser == null) {
 						dbUser = userRepository.save(user);
 					}
-				}
-					else  {
-							dbUser = userRepository.findByPhoneNumberAndEmail(
-									user.getPhoneNumber(), user.getEmail());
-							if (!dbemail.getEmail().equals(user.getEmail())
-									&& !dbphone.getPhoneNumber().equals(
-											user.getPhoneNumber())) {
-							if (dbUser == null) {
-								dbUser = userRepository.save(user);
-							}
-							
+				} else {
+					dbUser = userRepository.findByPhoneNumberAndEmail(
+							user.getPhoneNumber(), user.getEmail());
+					if (!dbemail.getEmail().equals(user.getEmail())
+							&& !dbphone.getPhoneNumber().equals(
+									user.getPhoneNumber())) {
+						if (dbUser == null) {
+							dbUser = userRepository.save(user);
 						}
-							return dbUser;
+
 					}
+					return dbUser;
 				}
 			}
+		}
 		return dbUser;
 	}
 
 	// for storing the user shout
-
 
 	public String saveUserShout(UserShout userShout) {
 		userShout.setUser(userRepository.findById(userShout.getUser().getId()));
@@ -121,7 +122,8 @@ public class UserServiceImpl implements UserServices {
 		// List<UserPreference> userpreList = null;
 		Long userid = userPreference.getUser().getId();
 		userPreference.setUser(userRepository.findById(userid));
-		userPreference.setType(typeRepository.findById(userPreference.getType().getId()));
+		userPreference.setType(typeRepository.findById(userPreference.getType()
+				.getId()));
 		UserPreference dbuserPreference = userPreferencesRepository
 				.save(userPreference);
 		if (userPreference.equals(dbuserPreference)) {
@@ -136,28 +138,23 @@ public class UserServiceImpl implements UserServices {
 		userpreList = userPreferencesRepository.findByUserId(user.getId());
 		return userpreList;
 	}
-		/*
-		 * List<UserPreference> userpreferences=user.getUserPreferences();
-		 * List<UserPreference> userpreList = new ArrayList<UserPreference>();
-		 * for(UserPreference userPreference:userpreferences) { Long userid =
-		 * userPreference.getUser().getId();
-		 * userPreference.setUser(userRepository.findById(userid));
-		 * userPreference
-		 * .setType(typeRepository.findById(userPreference.getType().getId()));
-		 * if(userPreference!=null) userpreList =
-		 * userPreferencesRepository.findByUserId(userid); } return userpreList;
-		 */
 
-
-
-
+	/*
+	 * List<UserPreference> userpreferences=user.getUserPreferences();
+	 * List<UserPreference> userpreList = new ArrayList<UserPreference>();
+	 * for(UserPreference userPreference:userpreferences) { Long userid =
+	 * userPreference.getUser().getId();
+	 * userPreference.setUser(userRepository.findById(userid)); userPreference
+	 * .setType(typeRepository.findById(userPreference.getType().getId()));
+	 * if(userPreference!=null) userpreList =
+	 * userPreferencesRepository.findByUserId(userid); } return userpreList;
+	 */
 
 	// to get shares which i posted
 	@Override
 	public List<UserShare> readPostedUserShares(User user) {
 		return userSharesRepository.findByUserId(user.getId());
 	}
-
 
 	@Override
 	public List<UserShare> readRecievedUserShares(User user) {
@@ -171,23 +168,18 @@ public class UserServiceImpl implements UserServices {
 		return userShares;
 	}
 
-
-
-	
 	/*
 	 * @Override public UserPreference deleteUserPreferences(UserPreference
 	 * userPreferences){ userPreferencesRepository.delete(userPreferences);
 	 * return userPreferences; }
 	 */
 
-	
 	@Override
 	public UserLocation saveUserLocations(UserLocation userLocations) {
 		UserLocation userLocations1 = userLocationsRepository
 				.save(userLocations);
 		return userLocations1;
 	}
-
 
 	@Override
 	public boolean saveLocationType(LocationType locationType) {
@@ -198,15 +190,10 @@ public class UserServiceImpl implements UserServices {
 			return false;
 	}
 
-
 	public Location saveLocation(Location location) {
 		Location location1 = locationRepository.save(location);
 		return location1;
 	}
-
-
-
-	
 
 	@Override
 	public List<Notification1> readNotifications(User user) {
@@ -289,8 +276,6 @@ public class UserServiceImpl implements UserServices {
 		return null;
 	}
 
-
-
 	@Override
 	public boolean saveUserPreference(List<UserPreference> userPreferences) {
 		// TODO Auto-generated method stub
@@ -308,7 +293,5 @@ public class UserServiceImpl implements UserServices {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-
 
 }
