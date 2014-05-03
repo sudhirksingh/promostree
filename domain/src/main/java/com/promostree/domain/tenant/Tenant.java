@@ -39,58 +39,7 @@ public class Tenant {
 	private Date createdDate;
 	private boolean active;
 
-	@OneToMany(mappedBy = "tenant", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonManagedReference
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<Merchant> merchants;
-
-	@OneToMany(mappedBy = "tenant", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonManagedReference
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<Venue> venues;
-
-	@OneToMany(mappedBy = "tenant", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonManagedReference
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<Groups> groups;
-
-	@OneToMany(mappedBy = "tenant", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonManagedReference
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<User> user;
-
-	public List<Merchant> getMerchants() {
-		return merchants;
-	}
-
-	public void setMerchants(List<Merchant> merchants) {
-		this.merchants = merchants;
-	}
-
-	public List<Venue> getVenues() {
-		return venues;
-	}
-
-	public void setVenues(List<Venue> venues) {
-		this.venues = venues;
-	}
-
-	public List<Groups> getGroups() {
-		return groups;
-	}
-
-	public void setGroups(List<Groups> groups) {
-		this.groups = groups;
-	}
-
-	public List<User> getUser() {
-		return user;
-	}
-
-	public void setUser(List<User> user) {
-		this.user = user;
-	}
-
+	
 	public Long getId() {
 		return id;
 	}

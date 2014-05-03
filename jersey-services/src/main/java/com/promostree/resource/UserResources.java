@@ -1,6 +1,7 @@
 package com.promostree.resource;
 
 import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -10,7 +11,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import com.promostree.delegator.UserServiceDelegate;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserPreference;
@@ -93,8 +96,7 @@ public class UserResources {
 	@POST
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
 	@Path("/savePreference")
-	public List<UserPreference> saveUserPreference(
-			List<UserPreference> userPreference) {
+	public String saveUserPreference(UserPreference userPreference) {
 		return userServiceDelegate.saveUserPreference(userPreference);
 	}
 	
@@ -104,9 +106,10 @@ public class UserResources {
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
 	public List<UserPreference> readUserPreference(
 			@PathParam("userId") Long userId) {
-		User user = new User();
-		user.setId(userId);
-		return userServiceDelegate.readUserPreference(user);
+	     User user=new User();
+	     user.setId(userId);
+	 List<UserPreference> userperlist=userServiceDelegate.readUserPreference(user);
+	 return userperlist;
 	}
 
 }

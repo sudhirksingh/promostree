@@ -25,11 +25,18 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+
 import org.hibernate.validator.constraints.NotBlank;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+
 import com.promostree.domain.tenant.Tenant;
 import com.promostree.domain.user.UserShout;
 
@@ -80,6 +87,7 @@ public class Venue {
 	private List<Offer> offers = new ArrayList<Offer>();
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "addressId")
+	@JsonBackReference
 	private Address address;
 	@OneToOne
 	@JoinColumn(name = "merchantId")
@@ -389,7 +397,7 @@ public class Venue {
 		return true;
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
 		return "Venue [id=" + id + ", name=" + name + ", image=" + image
 				+ ", verified=" + verified + ", fourSquareId=" + fourSquareId
@@ -401,6 +409,6 @@ public class Venue {
 				+ category + ", tenant=" + tenant + ", offers=" + offers
 				+ ", address=" + address + ", merchant=" + merchant
 				+ ", userShout=" + userShout + "]";
-	}
+	}*/
 
 }

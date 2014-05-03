@@ -1,7 +1,6 @@
 package com.promostree.test;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -10,15 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.promostree.domain.entities.Venue;
-import com.promostree.domain.user.Notification;
 import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
-import com.promostree.domain.user.UserFeedback;
 import com.promostree.domain.user.UserPreference;
-import com.promostree.domain.user.UserProfile;
-import com.promostree.domain.user.UserShare;
-import com.promostree.domain.user.UserShout;
 import com.promostree.repositories.entities.LocationRepository;
 import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.user.LocationTypeRepository;
@@ -37,6 +30,8 @@ import com.promostree.repositories.user.UserShoutRepository;
 @ContextConfiguration(locations = "classpath:domain-application-context.xml")
 public class UserRepositoryTest {
 	@Autowired
+	TypeRepository typeRepo;
+	@Autowired
 	UserRepository userRep;
 	@Autowired
 	UserEventRepository userEventRep;
@@ -49,8 +44,6 @@ public class UserRepositoryTest {
 	@Autowired
 	UserPreferencesRepository userPreferencesRep;
 	@Autowired
-	TypeRepository typeRep;
-	@Autowired
 	UserFeedbackRepository userFeedbackRep;
 	@Autowired
 	UserSharesRepository userSharesRep;
@@ -62,31 +55,38 @@ public class UserRepositoryTest {
 	VenueRepository venueRep;
 	@Autowired
 	LocationTypeRepository locationRep;
-
-	@Test
-	public void readUserProfile(){
-		User userProfiles=userRep.findById(1L);
-		//for(UserProfile userProfile :userProfiles){
-		System.out.println(userProfiles.getUserProfile().getId());
-		//}
-	}
-	@Test
-	public void readReceivedShares() {
-		List<Notification> notifications = userNotificationRep.findByUserId(5L);
-		for(Notification notification:notifications){
-			User user=notification.getUser();
-		
-			//System.out.println(notification.getId() );
-			
-			}
-	}
+	
 
 /*	@Test
-	public void userLoginTest() {
-		User user = userRep.findByPhoneNumberOrEmail("9000208863",
-				"swaroopkasaraneni@gmail.com");
-		System.out.println(user.getPhoneNumber() + "  " + user.getEmail());
+	public void readUserProfile() {
+		User userProfiles = userRep.findById(1L);
+		// for(UserProfile userProfile :userProfiles){
+		System.out.println(userProfiles.getUserProfile().getId());
+		// }
+	}
+
+	@Test
+	
+	
+	
+	
+	public void readReceivedShares() {
+		List<Notification> notifications = userNotificationRep.findByUserId(5L);
+		for (Notification notification : notifications) {
+			User user = notification.getUser();
+
+			// System.out.println(notification.getId() );
+
+		}
 	}*/
+
+	
+	  @Test 
+	  public void userLoginTest() {
+		  User user = userRep.findByPhoneNumberOrEmail("432211111111",
+	  "dddd@gmail.com");
+	  System.out.println(user.getPhoneNumber()+ "  " + user.getEmail()); }
+	 
 
 	/*
 	 * @Test public void usershoutTest() { UserShout ushout= new UserShout();
@@ -109,17 +109,30 @@ public class UserRepositoryTest {
 	// userPreferencesRep.save(userPreference);
 	// }
 
-	/*
-	 * @Test public void savePreferenceTest(){ List<UserPreference>
-	 * userPreferences=new ArrayList<UserPreference>() UserPreference
-	 * userPreference=new UserPreference(); Type type=typeRep.findOne(1L); User
-	 * u1=userRep.findById(2L); userPreference.setType(type);
-	 * userPreference.setUser(u1); //userPreference.setValue();
-	 * userPreferencesRep.save(userPreference); userPreference.setValue(1L);
-	 * userPreferences.add(userPreference);
-	 * userPreferencesRep.save(userPreferences); }
-	 */
-
+	@Test
+	public void savePreferenceTest() {
+		User u1=null;
+		List<UserPreference> userPreferences = new ArrayList<UserPreference>();
+		UserPreference userPreference = new UserPreference();
+	    Type type= typeRepo.findById(6L);
+		 u1 = userRep.findById(2L);
+		userPreference.setType(type);
+		userPreference.setUser(u1); 
+		userPreferences.add(userPreference);
+		UserPreference userPreference1 = new UserPreference();
+		Type type1= typeRepo.findById(7L);
+		 u1 = userRep.findById(2L);
+		userPreference1.setType(type1);
+		userPreference1.setUser(u1); 
+		userPreferences.add(userPreference1);
+		userPreferencesRep.save(userPreferences);
+	}
+		
+	/*	userPreferencesRep.save(userPreference);
+		userPreference.setValue(1L);
+		userPreferences.add(userPreference);
+		userPreferencesRep.save(userPreferences);*/
+	
 	// @Test
 	// public void readPreferenceTest(){
 	// List<UserPreference> userPreferences =
@@ -134,14 +147,12 @@ public class UserRepositoryTest {
 	// userPreferencesRep.delete(userPref);
 	// }
 
-/*	@Test
-	public void readPreferenceTest() {
-		List<UserPreference> userPreferences = userPreferencesRep
-				.findByUserId(1L);
-		for (UserPreference userPre : userPreferences) {
-			System.out.println("preference :: " + userPre.getId());
-		}
-	}*/
+	/*
+	 * @Test public void readPreferenceTest() { List<UserPreference>
+	 * userPreferences = userPreferencesRep .findByUserId(1L); for
+	 * (UserPreference userPre : userPreferences) {
+	 * System.out.println("preference :: " + userPre.getId()); } }
+	 */
 
 	/*
 	 * @Test public void saveShout(){ UserShout userShout=new UserShout();
@@ -154,14 +165,13 @@ public class UserRepositoryTest {
 	 * }
 	 */
 
-	/*@Test
-	public void readShouts() {
-		List<UserShout> userShouts = userShoutRep.findByUserId(1L);
-		for (UserShout userShout : userShouts) {
-			System.out.println("shout.." + userShout.getComment());
-		}
-
-	}*/
+	/*
+	 * @Test public void readShouts() { List<UserShout> userShouts =
+	 * userShoutRep.findByUserId(1L); for (UserShout userShout : userShouts) {
+	 * System.out.println("shout.." + userShout.getComment()); }
+	 * 
+	 * }
+	 */
 	/*
 	 * @Test public void readUserFeedbackOfVenue(){
 	 * 
@@ -176,5 +186,4 @@ public class UserRepositoryTest {
 	 * userPref=userPreferencesRep.findOne(1L);
 	 * userPreferencesRep.delete(userPref); }
 	 */
-
 }

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserPreference;
-import com.promostree.domain.user.UserProfile;
 import com.promostree.domain.user.UserShare;
 import com.promostree.domain.user.UserShout;
 import com.promostree.user.service.UserServices;
@@ -26,7 +25,7 @@ public class UserServiceDelegate {
 	// to savetheusershout
 	public String saveUserShout(UserShout userShout) {
 		String ushout = userServices.saveUserShout(userShout);
-		return "userShout";
+		return ushout;
 	}
 
 	// tor read userShouts
@@ -56,8 +55,7 @@ public class UserServiceDelegate {
 	}
 
 	// to save user preference
-	public List<UserPreference> saveUserPreference(
-			List<UserPreference> userPreference) {
+	public String saveUserPreference(UserPreference userPreference) {
 		return userServices.saveUserPreference(userPreference);
 	}
 

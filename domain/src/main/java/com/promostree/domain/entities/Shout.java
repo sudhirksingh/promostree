@@ -188,7 +188,7 @@ public class Shout {
 		return "Shout [id=" + id + ", subject=" + subject + ", createdDate="
 				+ createdDate + ", updatedDate=" + updatedDate + ", createdBy="
 				+ createdBy + ", updatedBy=" + updatedBy + ", active=" + active
-				+ ", offer=" + offer + ", shareCount=" + shareCount
+				+ ", shareCount=" + shareCount
 				+ ", feedBackCount=" + feedBackCount + "]";
 	}
 	

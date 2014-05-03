@@ -21,16 +21,21 @@ public class UserPreference {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
 	@OneToOne
 	@JoinColumn(name = "typeId")
-	@JsonManagedReference
+	//@JsonManagedReference(value = "type-userPreferences")
 	private Type type;
+	
 	@Temporal(TemporalType.DATE)
 	private Date createdDate;
+	
 	private Long value;
+	
 	@ManyToOne
 	@JoinColumn(name = "userId")
-	@JsonBackReference(value = "user-userPreferences")
+	//@JsonBackReference(value = "user-userPreferences")
+	//@JsonManagedReference
 	private User user;
 
 	
