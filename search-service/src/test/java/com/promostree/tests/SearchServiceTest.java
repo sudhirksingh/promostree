@@ -3,6 +3,7 @@ package com.promostree.tests;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -19,8 +20,6 @@ import org.springframework.data.solr.core.geo.GeoConverters;
 import org.springframework.data.solr.core.geo.GeoLocation;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import sun.misc.GC.LatencyRequest;
 
 import com.promostree.domain.entities.Address;
 import com.promostree.domain.entities.Category;

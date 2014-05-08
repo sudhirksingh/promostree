@@ -14,28 +14,24 @@ import com.promostree.domain.user.UserProfile;
 import com.promostree.domain.user.UserShare;
 import com.promostree.domain.user.UserShout;
 
-public interface UserServices {
-public UserProfile saveUserCredentials(User user);
-
+public interface UserServices 
+{
+public User saveUserCredentials(User user);
 public String saveUserShout(UserShout userShout);
-
-public boolean saveUserShares(UserShare userShares,List<User> users);
+public String  saveUserPreference(UserPreference userPreference);
+public List<UserPreference> readUserPreferences(User user);
+public boolean saveUserShares(UserShare userShares);
 public List<UserShare> readPostedUserShares(User user); 
 public List<UserShare> readRecievedUserShares(User user); 
-
 public UserProfile saveUserProfile(UserProfile userProfile);
-
+public boolean saveUserShares(UserShare userShares,List<User> users);
 public boolean saveUserPreference(List<UserPreference> userPreferences);
-public List<UserPreference> readUserPreferences(User user);
-
 //public UserPreference deleteUserPreferences(UserPreference userPreferences);
 public UserLocation saveUserLocations(UserLocation userLocations);
 public boolean saveLocationType(LocationType locationType); 
 public Location saveLocation(Location location); 
-
 public boolean saveUserFeedback(UserFeedback userFeedback);
 //public List<UserFeedback> readUserFeedbackOnVenue(Venue venue);
 public List<UserShout> readUserShout(User user);	
-
 public List<Notification1> readNotifications(User user);
 }

@@ -10,48 +10,48 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity(name="user_event")
-@Table(name="user_event")
-public class UserEvent
-{
+@Entity(name = "user_event")
+@Table(name = "user_event")
+public class UserEvent {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-private Long id;
+	private Long id;
 
-	@Size(max=100000)
-private String data;
-	
-	@JoinColumn(name="eventTypeId")
+	@Size(max = 100000)
+	private String data;
+
+	@JoinColumn(name = "eventTypeId")
 	@OneToOne
 	@JsonIgnore
 	private EventType type;
-	
 
 	@ManyToOne
-	@JoinColumn(name="userId")
+	@JoinColumn(name = "userId")
 	private User user;
-	
-	
-	
+
 	public EventType getType() {
 		return type;
 	}
+
 	public void setType(EventType type) {
 		this.type = type;
 	}
+
 	public User getUser() {
 		return user;
 	}
+
 	public void setUser(User user) {
 		this.user = user;
 	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -59,9 +59,11 @@ private String data;
 	public String getData() {
 		return data;
 	}
+
 	public void setData(String data) {
 		this.data = data;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -72,6 +74,7 @@ private String data;
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -103,11 +106,9 @@ private String data;
 			return false;
 		return true;
 	}
-	/*@Override
-	public String toString() {
-		return "UserEvent [id=" + id + ", data=" + data + ", type=" + type
-				+ ", user=" + user + "]";
-	}
-	*/
+	/*
+	 * @Override public String toString() { return "UserEvent [id=" + id +
+	 * ", data=" + data + ", type=" + type + ", user=" + user + "]"; }
+	 */
 
 }

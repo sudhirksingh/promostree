@@ -1,6 +1,5 @@
 package com.promostree.resource;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -23,6 +22,7 @@ import com.promostree.domain.user.UserPreference;
 public class VenueResources {
 	@Autowired
 	VenueSearchDelegate venueSearchDelegate;
+
 
 	@GET
 	@Path("/preferredVenues")
@@ -86,9 +86,7 @@ public class VenueResources {
 		Venue venue = new Venue();
 		venue.setId(venueId);
 		Venue returnVenue = venueSearchDelegate.VenueService(venue);
-		// System.out.println(venueId);
-		// System.out.println(returnVenue.getCreatedBy()+", "+returnVenue.getOffers().get(1).getSubject()+" ,"+returnVenue.getAddress().getCity()+" ,"
-		// +returnVenue.getOffers().get(1).getShout().getSubject()+returnVenue.getCategory().getName());
+
 		return returnVenue;
 	}
 

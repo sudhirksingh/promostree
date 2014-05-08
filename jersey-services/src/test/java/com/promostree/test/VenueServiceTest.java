@@ -18,6 +18,7 @@ import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Test;
 
 import com.promostree.domain.entities.Venue;
+import com.promostree.domain.user.UserPreference;
 import com.promostree.resource.VenueResources;
 
 
@@ -41,19 +42,23 @@ public class VenueServiceTest extends JerseyTest {
     
     @Test
     public void testVenue() {
-      Venue v = target("service/venue").queryParam("venueId",0).request().accept(MediaType.APPLICATION_JSON).get(Venue.class);
-       //assertEquals("2", rs.readEntity(Venue.class).getId());
-      System.out.println(v);
-     // assertEquals("2", v.getId());
+      Venue venue = target("service/venue").queryParam("venueId",1).request().accept(MediaType.APPLICATION_JSON).get(Venue.class);
+      System.out.println(venue);
     }
-    @Test
+/*    @Test
     public void testVenues() {
     	GenericType<Collection<Venue>> genericType = new GenericType<Collection<Venue>>(){};
       List<Venue> venue = (List<Venue>) target("service/venue").queryParam("lat",17.3660).queryParam("lng", 78.456).queryParam("radius",5.0).queryParam("pageNumber",0).queryParam("searchTerm","ice").request().accept(MediaType.APPLICATION_JSON).get(genericType);
        //assertEquals("2", rs.readEntity(Venue.class).getId());
       System.out.println(venue);
      // assertEquals("2", v.getId());
-    }
+    }*/
    
+    
+    @Test
+    public void testUserPrefrences() {
+      List<UserPreference> userPreferences = target("userservice/readPreference/2/").request().accept(MediaType.APPLICATION_JSON).get(new GenericType<List<UserPreference>>(){});
+      System.out.println(userPreferences);
+    }
 }
 

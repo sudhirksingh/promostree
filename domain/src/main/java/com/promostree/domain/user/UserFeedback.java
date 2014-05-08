@@ -2,7 +2,6 @@ package com.promostree.domain.user;
 
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,105 +16,95 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.codehaus.jackson.annotate.JsonBackReference;
-import org.codehaus.jackson.annotate.JsonManagedReference;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-@Entity(name="user_feedback")
-@Table(name="user_feedback")
-public class UserFeedback
-{
+@Entity(name = "user_feedback")
+@Table(name = "user_feedback")
+public class UserFeedback {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-private Long id;
+	private Long id;
 
-private String comment;
-@Temporal(TemporalType.DATE)
-private Date createdDate;
-@Temporal(TemporalType.DATE)
-private Date updatedDate;
+	private String comment;
+	@Temporal(TemporalType.DATE)
+	private Date createdDate;
+	@Temporal(TemporalType.DATE)
+	private Date updatedDate;
 
-private Long value;
+	private Long value;
 
 @ManyToOne
 @JoinColumn(name="userId")
 @JsonBackReference(value="user-userFeedback")
 private User user;
+	@OneToOne
+	@JoinColumn(name = "typeId")
+	@JsonManagedReference
+	private Type type;
 
-@OneToOne
-@JoinColumn(name="typeId")
-@JsonManagedReference
-private Type type;
+	public Long getValue() {
+		return value;
+	}
 
+	public void setValue(Long value) {
+		this.value = value;
+	}
 
-
+	public User getUser() {
+		return user;
+	}
 @OneToMany(mappedBy = "userFeedback",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 @JsonBackReference
 @Fetch(value = FetchMode.SUBSELECT)
 private List<Notification> notifications;
 
 
+	public void setUser(User user) {
+		this.user = user;
+	}
 
+	public Long getId() {
+		return id;
+	}
 
-public Long getValue() {
-	return value;
-}
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-public void setValue(Long value) {
-	this.value = value;
-}
+	public String getComment() {
+		return comment;
+	}
 
-public User getUser() {
-	return user;
-}
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
 
-public void setUser(User user) {
-	this.user = user;
-}
+	public Date getCreatedDate() {
+		return createdDate;
+	}
 
-public Long getId() {
-	return id;
-}
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
 
-public void setId(Long id) {
-	this.id = id;
-}
+	public Date getUpdatedDate() {
+		return updatedDate;
+	}
 
-public String getComment() {
-	return comment;
-}
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
+	}
 
-public void setComment(String comment) {
-	this.comment = comment;
-}
-
-public Date getCreatedDate() {
-	return createdDate;
-}
-
-public void setCreatedDate(Date createdDate) {
-	this.createdDate = createdDate;
-}
-
-public Date getUpdatedDate() {
-	return updatedDate;
-}
-
-public void setUpdatedDate(Date updatedDate) {
-	this.updatedDate = updatedDate;
-}
-
-public Type getType() {
-	return type;
-}
-
-public void setType(Type type) {
-	this.type = type;
-}
-
-
-
+	public Type getType() {
+		return type;
+	}
+	public void setType(Type type) {
+		this.type = type;
+	}
 public List<Notification> getNotifications() {
 	return notifications;
 }
@@ -143,7 +132,8 @@ public int hashCode() {
 }
 
 @Override
-public boolean equals(Object obj) {
+public boolean equals(Object obj) 
+{
 	if (this == obj)
 		return true;
 	if (obj == null)

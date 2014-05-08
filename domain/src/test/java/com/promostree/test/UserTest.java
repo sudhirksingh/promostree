@@ -1,22 +1,19 @@
 package com.promostree.test;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.StringTokenizer;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.ObjectWriter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.promostree.domain.entities.Location;
 import com.promostree.domain.entities.Venue;
 import com.promostree.domain.tenant.Tenant;
@@ -33,7 +30,6 @@ import com.promostree.domain.user.UserPreference;
 import com.promostree.domain.user.UserProfile;
 import com.promostree.domain.user.UserShare;
 import com.promostree.domain.user.UserShout;
-
 import com.promostree.repositories.entities.LocationRepository;
 import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.tenant.TenantRepository;
@@ -200,7 +196,9 @@ public class UserTest {
 				
 		UserShare us=new UserShare();
 		us.setUser(u);
-		Venue venue=vrep.findById((long)1);
+		Venue venue=vrep.findById((long)2);
+		
+
 		us.setValue(venue.getId());
 		us.setComment("nice..........");
 		us.setType(pt1);

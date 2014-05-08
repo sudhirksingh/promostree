@@ -9,12 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.codehaus.jackson.annotate.JsonBackReference;
-import org.codehaus.jackson.annotate.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity(name = "type")
 @Table(name = "type")
 public class Type {
+
 	
 	public Type(Long id) {
 		super();
@@ -72,6 +72,8 @@ public class Type {
 	public void setUserPreferences(UserPreference userPreferences) {
 		this.userPreferences = userPreferences;
 	}
+
+	
 
 	public Long getId() {
 		return id;

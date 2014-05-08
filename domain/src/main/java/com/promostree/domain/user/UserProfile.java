@@ -12,9 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.codehaus.jackson.annotate.JsonBackReference;
-import org.codehaus.jackson.annotate.JsonManagedReference;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity(name = "user_profile")
 @Table(name = "user_profile")
@@ -34,7 +33,7 @@ public class UserProfile {
 
 	@OneToOne
 	@JoinColumn(name = "userId")
-	@JsonManagedReference(value="user-userProfile")
+	@JsonBackReference(value = "user-userProfile")
 	private User user;
 
 	public Date getCreatedDate() {
@@ -155,12 +154,11 @@ public class UserProfile {
 		return true;
 	}
 
-	/*@Override
-	public String toString() {
-		return "UserProfile [id=" + id + ", fristName=" + fristName
-				+ ", lastName=" + lastName + ", createdDate=" + createdDate
-				+ ", updatedDate=" + updatedDate + ", isReg=" + isReg
-				+ ", user=" + user + "]";
-	}*/
+	/*
+	 * @Override public String toString() { return "UserProfile [id=" + id +
+	 * ", fristName=" + fristName + ", lastName=" + lastName + ", createdDate="
+	 * + createdDate + ", updatedDate=" + updatedDate + ", isReg=" + isReg +
+	 * ", user=" + user + "]"; }
+	 */
 
 }

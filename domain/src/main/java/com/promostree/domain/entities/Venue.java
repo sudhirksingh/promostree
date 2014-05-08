@@ -4,57 +4,60 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import javax.persistence.CascadeType;
 
-import org.codehaus.jackson.annotate.JsonBackReference;
-import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.hibernate.validator.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.validator.constraints.NotBlank;
 
 import com.promostree.domain.tenant.Tenant;
 import com.promostree.domain.user.UserShout;
 
-@Entity(name="venue")
-@Table(name="venue")
+@XmlRootElement(name = "venue")
+@XmlType
+@XmlAccessorType(XmlAccessType.FIELD)
+@Entity(name = "venue")
+@Table(name = "venue")
 public class Venue {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-		private Long id;
+	private Long id;
 
 	@NotBlank(message = " vname must filled")
-		//@Pattern(regexp = "[a-z-A-Z]*", message = "First name has invalid ")
+	// @Pattern(regexp = "[a-z-A-Z]*", message = "First name has invalid ")
 	private String name;
-
 	private String image;
-
 	private String verified;
-
 	private String fourSquareId;
+
 
 @Transient
 private double distance;
@@ -95,37 +98,24 @@ private  List<Brand> brands;
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "categoryId")
 	private Category category;
-	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tenantId")
 	@JsonBackReference
 	private Tenant tenant;
-
-	
-	@OneToMany(mappedBy = "venue", cascade = CascadeType.ALL, fetch = FetchType.EAGER,targetEntity = com.promostree.domain.entities.Offer.class)
+	@OneToMany(mappedBy = "venue", cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = com.promostree.domain.entities.Offer.class)
 	@JsonManagedReference
 	private List<Offer> offers = new ArrayList<Offer>();
-
-	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "addressId")
+	@JsonBackReference
 	private Address address;
-	
 	@OneToOne
-	@JoinColumn(name="merchantId")
+	@JoinColumn(name = "merchantId")
 	@JsonBackReference
 	private Merchant merchant;
-
-	
 	@OneToOne(mappedBy = "venue", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-		  @JsonBackReference
+	@JsonBackReference
 	private UserShout userShout;
-	
-	
-	
-	
-	
-
 
 	public UserShout getUserShout() {
 		return userShout;
@@ -191,7 +181,6 @@ private  List<Brand> brands;
 		this.fourSquareId = fourSquareId;
 	}
 
-	
 	public Merchant getMerchant() {
 		return merchant;
 	}
@@ -444,7 +433,7 @@ private  List<Brand> brands;
 		this.shoutCount = shoutCount;
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
 		return "Venue [id=" + id + ", name=" + name + ", image=" + image
 				+ ", verified=" + verified + ", fourSquareId=" + fourSquareId
@@ -456,6 +445,6 @@ private  List<Brand> brands;
 				+ category + ", tenant=" + tenant + ", offers=" + offers
 				+ ", address=" + address + ", merchant=" + merchant
 				+ ", userShout=" + userShout + "]";
-	}
+	}*/
 
 }

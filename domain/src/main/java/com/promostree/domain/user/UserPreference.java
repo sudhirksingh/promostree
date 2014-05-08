@@ -1,10 +1,11 @@
 package com.promostree.domain.user;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,10 +16,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -61,12 +61,20 @@ public class UserPreference {
 	@JsonBackReference(value = "user-userPreferences")
 	private User user;
 
-	public Date getCreatedDate() {
-		return createdDate;
-	}
+
+
+
+
+	
+
+	
 
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
 	}
 
 	public User getUser() {
@@ -76,6 +84,7 @@ public class UserPreference {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
 
 	public Long getId() {
 		return id;
@@ -157,6 +166,7 @@ public class UserPreference {
 	 * ", user=" + user + "]"; }
 	 */
 
+
 	public String getJson(Object userPreference) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.setSerializationInclusion(Include.NON_DEFAULT);
@@ -197,5 +207,6 @@ public class UserPreference {
 		}
 
 	}
+
 
 }

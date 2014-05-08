@@ -10,90 +10,91 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.codehaus.jackson.annotate.JsonBackReference;
-import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.validator.constraints.NotBlank;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.promostree.domain.tenant.Tenant;
 
-@Entity(name="merchant")
-@Table(name="merchant")
+@Entity(name = "merchant")
+@Table(name = "merchant")
 public class Merchant {
-	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	 @NotBlank(message = "merchant name must filled")
+	@NotBlank(message = "merchant name must filled")
 	private String name;
-	 @NotBlank(message = "merchant loginId must filled")
+	@NotBlank(message = "merchant loginId must filled")
 	private String loginId;
-	 @NotBlank(message = "merchant pwd must filled")
+	@NotBlank(message = "merchant pwd must filled")
 	private String pwd;
-	
-	
-	 @ManyToOne
-		@JoinColumn(name="groupId")
-		@JsonBackReference
+	@ManyToOne
+	@JoinColumn(name = "groupId")
+	@JsonBackReference
 	private Groups group;
-	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tenantId")
 	@JsonBackReference
 	private Tenant tenant;
-	
-	
-	
 	@OneToOne(mappedBy = "merchant", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	  @JsonManagedReference
+	@JsonManagedReference
 	private Venue venue;
-	
-	
-	
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public Venue getVenue() {
 		return venue;
 	}
+
 	public void setVenue(Venue venue) {
 		this.venue = venue;
 	}
+
 	public Groups getGroup() {
 		return group;
 	}
+
 	public void setGroup(Groups group) {
 		this.group = group;
 	}
-	
+
 	public String getLoginId() {
 		return loginId;
 	}
+
 	public void setLoginId(String loginId) {
 		this.loginId = loginId;
 	}
+
 	public String getPwd() {
 		return pwd;
 	}
+
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
+
 	public Tenant getTenant() {
 		return tenant;
 	}
+
 	public void setTenant(Tenant tenant) {
 		this.tenant = tenant;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -105,6 +106,7 @@ public class Merchant {
 		result = prime * result + ((pwd == null) ? 0 : pwd.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -141,15 +143,12 @@ public class Merchant {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "Merchant [id=" + id + ", name=" + name + ", loginId=" + loginId
 				+ ", pwd=" + pwd + ", group=" + group + ", tenant=" + tenant
 				+ ", venue=" + venue + "]";
 	}
-	
-	
-	
-	
 
 }

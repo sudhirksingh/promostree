@@ -14,34 +14,28 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
-import org.codehaus.jackson.annotate.JsonBackReference;
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import com.promostree.domain.tenant.Tenant;
 
-
 @Entity(name = "user")
 @Table(name = "user")
 public class User {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	private String phoneNumber;
-	
+
 	private String email;
-	
-	
+
 	@Transient
 	private Double lat;
 	@Transient
@@ -52,91 +46,14 @@ public class User {
 	private int pageNumber;
 	@Transient
 	private String searchTerm;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tenantId")
-	@JsonBackReference
 	private Tenant tenant;
 
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	// @JsonIgnore
-	@JsonManagedReference(value="user-userProfile")
+	@JsonManagedReference(value = "user-userProfile")
 	private UserProfile userProfile;
-
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonManagedReference(value="user-userLocations")
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<UserLocation> userLocations;
-
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonManagedReference(value="user-userPreferences")
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<UserPreference> userPreferences;
-
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonManagedReference(value="user-userFeedback")
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<UserFeedback> userFeedback;
-
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonManagedReference(value="user-userShares")
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<UserShare> userShares;
-
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonManagedReference(value="user-userShout")
-	private List<UserShout> userShout;
-	
-
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonManagedReference
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<Notification> notification;
-	
-
-	
-
-	public List<UserLocation> getUserLocations() {
-		return userLocations;
-	}
-
-	public void setUserLocations(List<UserLocation> userLocations) {
-		this.userLocations = userLocations;
-	}
-
-	
-
-	public List<UserFeedback> getUserFeedback() {
-		return userFeedback;
-	}
-
-	public void setUserFeedback(List<UserFeedback> userFeedback) {
-		this.userFeedback = userFeedback;
-	}
-
-	public List<UserShare> getUserShares() {
-		return userShares;
-	}
-
-	public void setUserShares(List<UserShare> userShares) {
-		this.userShares = userShares;
-	}
-
-	public List<UserShout> getUserShout() {
-		return userShout;
-	}
-
-	public void setUserShout(List<UserShout> userShout) {
-		this.userShout = userShout;
-	}
-
-	public List<UserPreference> getUserPreferences() {
-		return userPreferences;
-	}
-
-	public void setUserPreferences(List<UserPreference> userPreferences) {
-		this.userPreferences = userPreferences;
-	}
 
 	public UserProfile getUserProfile() {
 		return userProfile;
@@ -214,18 +131,6 @@ public class User {
 		return tenant;
 	}
 
-	
-
-	
-
-	public List<Notification> getNotification() {
-		return notification;
-	}
-
-	public void setNotification(List<Notification> notification) {
-		this.notification = notification;
-	}
-
 	public void setTenant(Tenant tenant) {
 		this.tenant = tenant;
 	}
@@ -238,118 +143,16 @@ public class User {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((lat == null) ? 0 : lat.hashCode());
 		result = prime * result + ((lng == null) ? 0 : lng.hashCode());
-		result = prime * result
-				+ ((notification == null) ? 0 : notification.hashCode());
+		
 		result = prime * result + pageNumber;
 		result = prime * result
 				+ ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
 		result = prime * result + ((radius == null) ? 0 : radius.hashCode());
 		result = prime * result
 				+ ((searchTerm == null) ? 0 : searchTerm.hashCode());
-		result = prime * result
-				+ ((userFeedback == null) ? 0 : userFeedback.hashCode());
-		result = prime * result
-				+ ((userLocations == null) ? 0 : userLocations.hashCode());
-		result = prime * result
-				+ ((userPreferences == null) ? 0 : userPreferences.hashCode());
-		result = prime * result
-				+ ((userShares == null) ? 0 : userShares.hashCode());
-		result = prime * result
-				+ ((userShout == null) ? 0 : userShout.hashCode());
 		return result;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (lat == null) {
-			if (other.lat != null)
-				return false;
-		} else if (!lat.equals(other.lat))
-			return false;
-		if (lng == null) {
-			if (other.lng != null)
-				return false;
-		} else if (!lng.equals(other.lng))
-			return false;
-		if (notification == null) {
-			if (other.notification != null)
-				return false;
-		} else if (!notification.equals(other.notification))
-			return false;
-		if (pageNumber != other.pageNumber)
-			return false;
-		if (phoneNumber == null) {
-			if (other.phoneNumber != null)
-				return false;
-		} else if (!phoneNumber.equals(other.phoneNumber))
-			return false;
-		if (radius == null) {
-			if (other.radius != null)
-				return false;
-		} else if (!radius.equals(other.radius))
-			return false;
-		if (searchTerm == null) {
-			if (other.searchTerm != null)
-				return false;
-		} else if (!searchTerm.equals(other.searchTerm))
-			return false;
-		if (userFeedback == null) {
-			if (other.userFeedback != null)
-				return false;
-		} else if (!userFeedback.equals(other.userFeedback))
-			return false;
-		if (userLocations == null) {
-			if (other.userLocations != null)
-				return false;
-		} else if (!userLocations.equals(other.userLocations))
-			return false;
-		if (userPreferences == null) {
-			if (other.userPreferences != null)
-				return false;
-		} else if (!userPreferences.equals(other.userPreferences))
-			return false;
-		if (userShares == null) {
-			if (other.userShares != null)
-				return false;
-		} else if (!userShares.equals(other.userShares))
-			return false;
-		if (userShout == null) {
-			if (other.userShout != null)
-				return false;
-		} else if (!userShout.equals(other.userShout))
-			return false;
-		return true;
-	}
 
-/*	@Override
-	public String toString() {
-		return "User [id=" + id + ", phoneNumber=" + phoneNumber + ", email="
-				+ email + ", lat=" + lat + ", lng=" + lng + ", radius="
-				+ radius + ", pageNumber=" + pageNumber + ", searchTerm="
-				+ searchTerm + ", tenant=" + tenant + ", userProfile="
-				+ userProfile + ", userLocations=" + userLocations
-				+ ", userPreferences=" + userPreferences + ", userFeedback="
-				+ userFeedback + ", userShares=" + userShares + ", userShout="
-				+ userShout + ", notification=" + notification + "]";
-	}*/
 
-	
-	
 }
