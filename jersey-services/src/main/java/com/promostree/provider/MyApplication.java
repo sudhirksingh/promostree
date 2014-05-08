@@ -1,11 +1,8 @@
 package com.promostree.provider;
 
-import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.web.filter.RequestContextFilter;
 
-import com.promostree.resource.UserResources;
-import com.promostree.resource.VenueResources;
 
 public class MyApplication extends ResourceConfig {
 
@@ -19,11 +16,9 @@ public class MyApplication extends ResourceConfig {
 
 	// private Set<Class<?>> classes
 	public MyApplication() {
-		register(RequestContextFilter.class);
-		register(VenueResources.class);
-		register(UserResources.class);
-		register(JacksonFeature.class);
-		register(MyObjectMapperProvider.class);
+		register(RequestContextFilter.class)
+		.packages("com.promostree.resource")
+		.register(MyObjectMapperProvider.class);
 	}
 
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.promostree.domain.user.Notification1;
 import com.promostree.domain.user.User;
+import com.promostree.domain.user.UserFeedback;
 import com.promostree.domain.user.UserPreference;
 import com.promostree.domain.user.UserProfile;
 import com.promostree.domain.user.UserShare;
@@ -17,6 +18,8 @@ import com.promostree.user.service.UserServices;
 public class UserServiceDelegate {
 	@Autowired
 	UserServices userServices;
+	
+	
 	
 	//to  Registration
 	public UserProfile saveUserCredentials(User user){
@@ -62,11 +65,15 @@ public class UserServiceDelegate {
 		return userServices.readUserPreferences(user);
 	}
    //to read notifications
-	public List<Notification1>  readNotifications(Long userId)
+	public List<Notification1>  readNotifications(long userId)
 	{
 		User user=new User();
 		user.setId(userId);
 		return userServices.readNotifications(user);
+	}
+	//to save user feedback
+	public boolean saveUserFeedback(UserFeedback userFeedback){
+		return userServices.saveUserFeedback(userFeedback);
 	}
 
 }

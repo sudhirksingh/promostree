@@ -81,28 +81,32 @@ public class SearchServiceImpl implements SearchServices {
 
 		return searchServiceHelper.toDomainVenues(solrVenue, user);
 	}
+	 
 
 	// search on Multiple search fields
-	public List<Venue> findBySearch_fieldIn(User user) {
-		int pageNumber = user.getPageNumber();
+	public List<Venue> findBySearch_fieldIn(UserPreference userPreference) {
+		User user = userPreference.getUser();
+		int pageNumber = 0;
 		List<String> searchTerms = new ArrayList<String>();
 		List<UserPreference> userPreferences = new ArrayList<UserPreference>();
 		List<SolrVenue> solrVenues = new ArrayList<SolrVenue>();
 		userPreferences = userPreferenceRepository.findByUserIdAndTypeId(
-				user.getId(), Long.parseLong(user.getSearchTerm()));
+				user.getId(), userPreference.getType().getId());
 
-		if (Integer.parseInt(user.getSearchTerm())==Integer.parseInt("1")) {
-			for (UserPreference userPreference : userPreferences) {
+		for (UserPreference userPreference1 : userPreferences) {
+			System.out.println(
+					userPreference1.getValue());
+			if (userPreference1.getType().getId() == 1) {  //FOR Brand type preferences
 				searchTerms.add(brandRepository.findOne(
-						userPreference.getValue()).getName());
-			}
-			return searchServiceHelper.toDomainVenues(solrRepository
-					.findBySearch_fieldIn(searchTerms, new PageRequest(
-							pageNumber, 30)), user);
-		} else if (user.getSearchTerm()=="2") {
-			for (UserPreference userPreference : userPreferences) {
-				solrVenues.addAll(solrRepository.findByEntity_id(userPreference
-						.getValue().toString()));
+						userPreference1.getValue()).getName());
+				solrVenues.addAll(solrRepository.findBySearch_fieldIn(searchTerms, new PageRequest(pageNumber, 30)));
+			
+			} else if (userPreference1.getType().getId() == 2) { // for preferred venues 
+				searchTerms.add(solrRepository
+						.findByEntity_id(userPreference1.getValue().toString())
+						.get(0).getName());
+				solrVenues.addAll(solrRepository.findBySearch_fieldIn(searchTerms, new PageRequest(pageNumber, 30)));
+
 			}
 		}
 

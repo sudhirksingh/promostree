@@ -16,5 +16,5 @@ public interface SearchServices {
 	
 	public List<Venue> nearestVenues(User user);
 	
-	public List<Venue> findBySearch_fieldIn(User user);
+	public List<Venue> findBySearch_fieldIn(UserPreference userPreference);
 }

@@ -192,7 +192,8 @@ public class UserServiceImpl implements UserServices {
 
 	// to save user feedback
 	@Override
-	public boolean saveUserFeedback(UserFeedback userFeedback, List<User> users) {
+	public boolean saveUserFeedback(UserFeedback userFeedback) {
+		List<User>users=userRepository.findByIdNotIn(userFeedback.getUser().getId());
 		userFeedback.setCreatedDate(new Date());
 		userFeedback.setUpdatedDate(new Date());
 		// userFeedback.setUser(userRepository.findOne(userFeedback.getUser().getId()));
@@ -238,7 +239,7 @@ public class UserServiceImpl implements UserServices {
 					notification1.setVenue(venueRepository
 							.findOne((long) userShare.getValue()));
 				}
-				if (userShare.getType().getId() == 4) { // offer shared
+				else if (userShare.getType().getId() == 4) { // offer shared
 					notification1.setOffer(offerRepository.findOne(userShare
 							.getValue()));
 				}

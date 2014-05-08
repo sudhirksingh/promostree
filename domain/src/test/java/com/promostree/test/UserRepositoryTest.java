@@ -1,7 +1,5 @@
 package com.promostree.test;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -10,15 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.promostree.domain.entities.Venue;
-import com.promostree.domain.user.Notification;
-import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
-import com.promostree.domain.user.UserFeedback;
-import com.promostree.domain.user.UserPreference;
-import com.promostree.domain.user.UserProfile;
-import com.promostree.domain.user.UserShare;
-import com.promostree.domain.user.UserShout;
 import com.promostree.repositories.entities.LocationRepository;
 import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.user.LocationTypeRepository;
@@ -62,6 +52,14 @@ public class UserRepositoryTest {
 	VenueRepository venueRep;
 	@Autowired
 	LocationTypeRepository locationRep;
+	@Test
+	public void userRepTest(){
+		List<User> users=userRep.findByIdNotIn(3L);
+		int i=0;
+		for(User user:users){
+			System.out.println(++i+"   "+userSharesRep.findByTypeIdAndValue(2L, 1L).size()+"  "+user.getId());
+		}
+	}
 
 //			@Test
 //	public void readUserProfile(){
@@ -121,14 +119,14 @@ public class UserRepositoryTest {
 	 * userPreferencesRep.save(userPreferences); }
 	 */
 
-	 @Test
+	/* @Test
 	 public void readPreferenceTest(){
 	 List<UserPreference> userPreferences =
 	 userPreferencesRep.findByUserId(4L);
 	 for(UserPreference userPre:userPreferences){
 	 System.out.println("readPreferenceTest:: "+userPre.getId());
 	 }
-	 }
+	 }*/
 //	 @Test
 //	 public void deletePreferenceTest(){
 //	 UserPreference userPref=userPreferencesRep.findOne(1L);

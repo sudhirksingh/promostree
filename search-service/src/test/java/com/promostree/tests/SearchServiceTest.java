@@ -2,6 +2,7 @@ package com.promostree.tests;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -31,8 +32,10 @@ import com.promostree.domain.entities.Venue;
 
 import com.promostree.domain.solr.SolrVenue;
 import com.promostree.domain.user.LocationType;
+import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserLocation;
+import com.promostree.domain.user.UserPreference;
 import com.promostree.repositories.entities.AddressRepository;
 import com.promostree.repositories.entities.CategoryRepository;
 import com.promostree.repositories.entities.LocationRepository;
@@ -68,21 +71,28 @@ public class SearchServiceTest {
 	
 	@Test
 	public void preferenceSearch(){
+	List<String> fav=new ArrayList<String>();
+		UserPreference userPreference=new UserPreference();
 		User user=new User();
 		user.setId(2L);
 		user.setLat(17.24154);
 		user.setLng(78.23541254);	
 		user.setRadius(1000.0);
-		user.setPageNumber(0);
-		user.setSearchTerm("1");
+	
+		fav.add("bawarchi");
+		userPreference.setUser(user);
+		Type type=new Type();
+		type.setId(1L);
+		userPreference.setType(type);
 		
-		List<Venue>venues=vs.findBySearch_fieldIn(user);
+		
+		List<Venue>venues=vs.findBySearch_fieldIn(userPreference);
 	for(Venue venue:venues){
 		System.out.println("preference search test  ::  "+venue.getName());
 	}
 	}
 	
-	@Test
+	/*@Test
 	public void nearest() {
 		//vs.indexing();
 	
@@ -126,7 +136,7 @@ public class SearchServiceTest {
 			System.out.println(v.getName() + "  imange: "+v.getVerified()+ "  distance:  "+v.getDistance()+" kms      ::"+ ++i);
 
 		}
-	}
+	}*/
 	@Test
 	public void testIndexing() {
 		//vs.indexing();

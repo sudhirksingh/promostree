@@ -102,11 +102,19 @@ public class SolrVenue {
 	private String merchant_id;
 	@Field
 	private String merchant_name;
+	
+	@Field
+	private String share_count;
+	@Field
+	private String preference_count;
+	@Field
+	private String shout_count;
+	@Field
+	private String feedback_count;
 
 	public String getActive() {
 		return active;
 	}
-
 	public void setActive(String active) {
 		this.active = active;
 	}
@@ -462,5 +470,29 @@ public class SolrVenue {
 	public void setSearch_field(String search_field) {
 		this.search_field = search_field;
 	}
- 
+	public String getShare_count() {
+		return share_count;
+	}
+	public void setShare_count(String share_count) {
+		this.share_count = share_count;
+	}
+	public String getPreference_count() {
+		return preference_count;
+	}
+	public void setPreference_count(String preference_count) {
+		this.preference_count = preference_count;
+	}
+	public String getShout_count() {
+		return shout_count;
+	}
+	public void setShout_count(String shout_count) {
+		this.shout_count = shout_count;
+	}
+	public String getFeedback_count() {
+		return feedback_count;
+	}
+	public void setFeedBack_count(String feedBack_count) {
+		this.feedback_count = feedBack_count;
+	}
+	
 }

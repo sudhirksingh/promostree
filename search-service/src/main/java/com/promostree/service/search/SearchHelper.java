@@ -19,12 +19,15 @@ import com.promostree.domain.entities.Category;
 import com.promostree.domain.entities.Location;
 import com.promostree.domain.entities.Offer;
 import com.promostree.domain.entities.Shout;
-
 import com.promostree.domain.entities.Venue;
 import com.promostree.domain.solr.SolrVenue;
 import com.promostree.domain.user.User;
 import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.solr.SolrVenueRepository;
+import com.promostree.repositories.user.UserFeedbackRepository;
+import com.promostree.repositories.user.UserPreferencesRepository;
+import com.promostree.repositories.user.UserSharesRepository;
+import com.promostree.repositories.user.UserShoutRepository;
 
 @Component
 public class SearchHelper {
@@ -36,6 +39,14 @@ public class SearchHelper {
 
 	@Autowired
 	SolrVenueRepository solrRepository;
+	@Autowired
+	UserSharesRepository userSharesRepository;
+	@Autowired
+	UserShoutRepository userShoutRepository;
+	@Autowired
+	UserPreferencesRepository userPreferencesRepository;
+	@Autowired
+	UserFeedbackRepository userFeedbackRepository;
 
 public List<SolrVenue> getOfferInVenue( Venue venue) {
 	logger.info("enter into getOfferInVenue( Venue venue)============================== ");
@@ -121,6 +132,10 @@ public List<SolrVenue> getOfferInVenue( Venue venue) {
 					+ venue.getName().toLowerCase();
 			doc.setSearch_field(searchField);
 			
+			doc.setShare_count(new String(userSharesRepository.findByTypeIdAndValue(2L, venue.getId()).size()+""));
+			doc.setShout_count(new String(userShoutRepository.findByVenueId(venue.getId()).size()+""));
+			doc.setPreference_count(new String(userPreferencesRepository.findByTypeIdAndValue(2L, venue.getId()).size()+""));
+			doc.setFeedBack_count(new String(userFeedbackRepository.findByTypeIdAndValue(2L, venue.getId()).size()+""));
 			
 			/* // merchant venues.setMerchant_id(venue.getMerchant().getId()
 			 * .toString());
@@ -132,6 +147,7 @@ public List<SolrVenue> getOfferInVenue( Venue venue) {
 		}
 		return solrVenues;
 	}
+
 
 	public List<Venue> getVenuesFromSource() {
 		logger.info("enter into getVenuesFromSource()============================== ");
@@ -252,6 +268,7 @@ public List<SolrVenue> getOfferInVenue( Venue venue) {
 				shout.setActive(Boolean.valueOf(doc.getShout_active()));
 				shout.setCreatedBy(doc.getShout_created_by());
 				shout.setUpdatedBy(doc.getShout_updated_by());
+				
 				try
 				{
 				shout.setCreatedDate(sdf.parse(docs.getShout_created_dt()));
@@ -260,7 +277,10 @@ public List<SolrVenue> getOfferInVenue( Venue venue) {
 				
 				offer.setShout(shout);
 				domainVenue.getOffers().add(offer);
-
+                domainVenue.setShareCount(Integer.parseInt(docs.getShare_count()));
+                domainVenue.setShoutCount(Integer.parseInt(docs.getShout_count()));
+                domainVenue.setPreferenceCount(Integer.parseInt(docs.getPreference_count()));
+                domainVenue.setFeedBackCount(Integer.parseInt(docs.getFeedback_count()));
 			}
 
 			// System.out.println(domainVenue.getName() + "");

@@ -86,7 +86,7 @@
 			<version>0.9.1</version>
 		</dependency>
 
-		<dependency>
+<!-- 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-core-asl</artifactId>
 			<version>1.9.13</version>
@@ -108,14 +108,25 @@
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.13</version>
-		</dependency>
+		</dependency> -->
 		
 		<dependency>
   <groupId>com.fasterxml.jackson.core</groupId>
   <artifactId>jackson-databind</artifactId>
   <version>2.2.0</version>
 </dependency>
-
+<dependency>
+	<groupId>com.fasterxml.jackson.core</groupId>
+	<artifactId>jackson-annotations</artifactId>
+	<version>2.2.0</version>
+</dependency>
+<dependency>
+	<groupId>com.fasterxml.jackson.core</groupId>
+	<artifactId>jackson-core</artifactId>
+	<version>2.2.0</version>
+</dependency>
+            
+            
 	</dependencies>
 
 	<properties>

@@ -77,6 +77,8 @@ private String updatedBy;
 
 private boolean active;
 
+private int preferenceCount;
+private int shoutCount;
 private int shareCount;
 private int feedBackCount;
 
@@ -424,6 +426,22 @@ private  List<Brand> brands;
 		} else if (!verified.equals(other.verified))
 			return false;
 		return true;
+	}
+   
+	public int getPreferenceCount() {
+		return preferenceCount;
+	}
+
+	public void setPreferenceCount(int preferenceCount) {
+		this.preferenceCount = preferenceCount;
+	}
+
+	public int getShoutCount() {
+		return shoutCount;
+	}
+
+	public void setShoutCount(int shoutCount) {
+		this.shoutCount = shoutCount;
 	}
 
 	@Override

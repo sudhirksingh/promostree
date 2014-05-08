@@ -11,5 +11,6 @@ public interface UserSharesRepository extends JpaRepository<UserShare, Long> {
 
 	//@Query("user.id:?0")
 	List<UserShare> findByUserId(Long userId);
+	List<UserShare> findByTypeIdAndValue(Long typeId,Long value);
 	
 }

@@ -10,5 +10,6 @@ public interface UserPreferencesRepository extends
 		JpaRepository<UserPreference, Long> {
 	List<UserPreference> findByUserId(Long userId);
 	List<UserPreference> findByUserIdAndTypeId(Long userId,Long typeId);
+	List<UserPreference> findByTypeIdAndValue(Long typeId,Long value);
 	
 }

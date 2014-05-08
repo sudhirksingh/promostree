@@ -68,22 +68,22 @@ public class UserServiceTests {
 	 * user=userRepository.findOne(1L); userShare.setUser(user);
 	 * userShare.setValue(3L); userService.saveUserShares(userShare,users); }
 	 */
-	/*
-	 * @Test public void saveUserFeedBackTest(){ List<User> users=new
-	 * ArrayList<>();
-	 * 
-	 * User user1=userRepository.findById(2L); users.add(user1);
-	 * user1=userRepository.findById(3L); users.add(user1);
-	 * 
-	 * UserFeedback userFeedback=new UserFeedback();
-	 * userFeedback.setComment("its pretty good..");
-	 * 
-	 * Type type=typeRepository.findOne(4L); userFeedback.setType(type);
-	 * 
-	 * User user=new User(); user.setId(1L); userFeedback.setUser(user);
-	 * userFeedback.setValue(4L);
-	 * userService.saveUserFeedback(userFeedback,users); }
-	 */
+	
+	 /* @Test public void saveUserFeedBackTest(){ List<User> users=new
+	  ArrayList<>();
+	  
+	  User user1=userRepository.findById(2L); users.add(user1);
+	  user1=userRepository.findById(3L); users.add(user1);
+	  
+	  UserFeedback userFeedback=new UserFeedback();
+	  userFeedback.setComment("nice place..");
+	  
+	  Type type=typeRepository.findOne(4L); userFeedback.setType(type);
+	  
+	  User user=new User(); user.setId(1L); userFeedback.setUser(user);
+	 userFeedback.setValue(4L);
+	  userService.saveUserFeedback(userFeedback); }*/
+	 
 
 	@Test
 	public void readNoitificationsTest() {
