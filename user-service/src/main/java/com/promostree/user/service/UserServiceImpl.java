@@ -229,7 +229,7 @@ public class UserServiceImpl implements UserServices {
 	public List<Notification1> readNotifications(User user) {
 
 		List<Notification1> notification1s = new ArrayList<Notification1>();
-
+		
 		Notification1 notification1 = new Notification1();
 
 		List<Notification> notifications = notificationRepository
@@ -238,7 +238,10 @@ public class UserServiceImpl implements UserServices {
 		UserShare userShare = new UserShare();
 
 		UserFeedback userFeedback = new UserFeedback();
-
+		for(Notification notification:notifications){
+			System.out.println(notification.getId());
+		}
+          
 		for (Notification notification : notifications) {
 			if (notification.getEventType().getId() == 2) { // if its share type
 				notification1 = new Notification1();
@@ -250,6 +253,7 @@ public class UserServiceImpl implements UserServices {
 
 				notification1.setUserProfile(userProfileRepository
 						.findByUserId(userShare.getUser().getId()));
+			
 				if (userShare.getType().getId() == 2) { // venue shared
 					notification1.setVenue(venueRepository
 							.findOne((long) userShare.getValue()));
@@ -258,6 +262,7 @@ public class UserServiceImpl implements UserServices {
 					notification1.setOffer(offerRepository.findOne(userShare
 							.getValue()));
 				}
+				
 				notification1s.add(notification1);
 			} else if (notification.getEventType().getId() == 3) { // if its a
 																	// feedback

@@ -12,17 +12,18 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.promostree.domain.entities.Venue;
-
 import com.promostree.domain.user.Notification;
 import com.promostree.domain.user.Notification1;
-
 import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
+import com.promostree.domain.user.UserFeedback;
 import com.promostree.domain.user.UserPreference;
+import com.promostree.domain.user.UserShare;
 import com.promostree.domain.user.UserShout;
 import com.promostree.repositories.entities.AddressRepository;
 import com.promostree.repositories.entities.LocationRepository;
 import com.promostree.repositories.entities.VenueRepository;
+import com.promostree.repositories.user.NotificationRepository;
 import com.promostree.repositories.user.TypeRepository;
 import com.promostree.repositories.user.UserFeedbackRepository;
 import com.promostree.repositories.user.UserPreferencesRepository;
@@ -48,6 +49,8 @@ public class UserServiceTests {
 	UserPreferencesRepository userPreferencesRepository;
 	@Autowired
 	UserFeedbackRepository userFeedbackRepository;
+	@Autowired
+	NotificationRepository notificationRepository;
 
 	/*
 	 * @Test public void saveUserShareTest(){ List<User> users=new
@@ -81,7 +84,23 @@ public class UserServiceTests {
 
 	@Test
 	public void readNoitificationsTest() {
-		User user = userRepository.findOne(3L);
+		UserShare userShare = new UserShare();
+		 userShare=notificationRepository.findByUserShareId(1L);
+		System.out.println(userShare.getComment());
+		List<Notification> notifications = notificationRepository
+				.findByUserId(5L);
+
+		
+
+		UserFeedback userFeedback = new UserFeedback();
+		for(Notification notification:notifications){
+			System.out.println(notification.getId());
+		}
+		
+		
+		
+		
+		/*User user = userRepository.findOne(5L);
 		List<Notification1> notification1s = userService
 				.readNotifications(user);
 		for (Notification1 notification1 : notification1s) {
@@ -93,12 +112,12 @@ public class UserServiceTests {
 			}
 			if (notification1.getActivity_type() == "feedback") {
 				System.out.println("notification read test :feedback:   "
-						+ notification1.getUserFeedback().getComment());
+						+ notification1.getUserFeedback().getId());
 				
 				
 			}
 
-		}
+		}*/
 	}
 
 //	@Test
@@ -141,7 +160,7 @@ public class UserServiceTests {
 //	}
 
 
-	@Test
+	/*@Test
 	public void IntialRegistration() {
 		try {
 			User user = new User();
@@ -154,7 +173,7 @@ public class UserServiceTests {
 			Assert.fail("Exception");
 		}
 	}
-
+*/
 	/*
 	 * @Test public void readUserPreferencesTest() { User user =
 	 * userRepository.findById(2L); List<UserPreference> userPreferences =
