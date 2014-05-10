@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -23,7 +24,7 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-@Component
+
 @Entity(name = "user_share")
 @Table(name = "user_share")
 public class UserShare {
@@ -33,10 +34,11 @@ public class UserShare {
 
 	@ManyToOne
 	@JoinColumn(name = "userId")
-	@JsonBackReference(value="user-userShares")
 	private User user;
 
+	@Column(name = "comment")
 	private String comment;
+	
 	@Temporal(TemporalType.DATE)
 	private Date createDate;
 
@@ -44,35 +46,8 @@ public class UserShare {
 
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "typeId")
-	@JsonManagedReference
 	private Type type;
-
-	@OneToMany(mappedBy = "userShare",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonBackReference
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<Notification> notifications;
 	
-
-	
-
-
-
-	public Long getValue() {
-		return value;
-	}
-
-	public void setValue(Long value) {
-		this.value = value;
-	}
-
-	public Type getType() {
-		return type;
-	}
-
-	public void setType(Type type) {
-		this.type = type;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -105,13 +80,20 @@ public class UserShare {
 		this.createDate = createDate;
 	}
 
-
-	public List<Notification> getNotifications() {
-		return notifications;
+	public Long getValue() {
+		return value;
 	}
 
-	public void setNotifications(List<Notification> notifications) {
-		this.notifications = notifications;
+	public void setValue(Long value) {
+		this.value = value;
+	}
+
+	public Type getType() {
+		return type;
+	}
+
+	public void setType(Type type) {
+		this.type = type;
 	}
 
 	@Override
@@ -122,8 +104,6 @@ public class UserShare {
 		result = prime * result
 				+ ((createDate == null) ? 0 : createDate.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		/*result = prime * result
-				+ ((notifications == null) ? 0 : notifications.hashCode());*/
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		result = prime * result + ((value == null) ? 0 : value.hashCode());
@@ -154,11 +134,6 @@ public class UserShare {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		/*if (notifications == null) {
-			if (other.notifications != null)
-				return false;
-		} else if (!notifications.equals(other.notifications))
-			return false;*/
 		if (type == null) {
 			if (other.type != null)
 				return false;
@@ -176,6 +151,11 @@ public class UserShare {
 			return false;
 		return true;
 	}
+
+
+	
+
+
 
 	/*@Override
 	public String toString() {

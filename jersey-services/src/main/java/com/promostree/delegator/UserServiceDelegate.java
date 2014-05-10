@@ -43,15 +43,11 @@ public class UserServiceDelegate {
 		return userShout;
 	}
 
+	
+
 	// to share
 	public boolean saveUserShares(UserShare userShares) {
 		Boolean save = userServices.saveUserShares(userShares);
-		return save;
-	}
-
-	// to share
-	public boolean saveUserShares(UserShare userShares, List<User> users) {
-		Boolean save = userServices.saveUserShares(userShares, users);
 		return save;
 	}
 

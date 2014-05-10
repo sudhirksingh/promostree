@@ -52,24 +52,37 @@ public class UserServiceTests {
 	@Autowired
 	NotificationRepository notificationRepository;
 
-	/*
-	 * @Test public void saveUserShareTest(){ List<User> users=new
-	 * ArrayList<>();
-	 * 
-	 * User user1=userRepository.findById(2L); users.add(user1);
-	 * user1=userRepository.findById(3L); users.add(user1);
-	 * 
-	 * UserShare userShare=new UserShare(); userShare.setComment("awesome...");
-	 * userShare.setCreateDate(new Date()); Type
-	 * type=typeRepository.findOne(2L); userShare.setType(type); User
-	 * user=userRepository.findOne(1L); userShare.setUser(user);
-	 * userShare.setValue(3L); userService.saveUserShares(userShare,users); }
-	 */
+	@Test 
+	public void ShareTest(){
+		List<User> users=userRepository.findByIdNotIn(2L);
+		for(User user:users){
+			System.out.println(user.getEmail());
+		}
+	}
+/*	@Test 
+	public void saveUserShareTest(){
+
 	
-	 /* @Test public void saveUserFeedBackTest(){ List<User> users=new
+		
+	
+
+		UserShare userShare=new UserShare(); 
+		userShare.setComment("awesome...");
+		userShare.setCreateDate(new Date()); 
+		Type type=typeRepository.findOne(2L); 
+		userShare.setType(type); 
+		User user=userRepository.findOne(2L);
+		userShare.setUser(user);
+		userShare.setValue(3L); 
+		userService.saveUserShares(userShare);
+
+	}*/
+	 
+	
+	 @Test public void saveUserFeedBackTest(){ List<User> users=new
 	  ArrayList<>();
 	  
-	  User user1=userRepository.findById(2L); users.add(user1);
+	  User user1=userRepository.findById(1L); users.add(user1);
 	  user1=userRepository.findById(3L); users.add(user1);
 	  
 	  UserFeedback userFeedback=new UserFeedback();
@@ -79,28 +92,26 @@ public class UserServiceTests {
 	  
 	  User user=new User(); user.setId(1L); userFeedback.setUser(user);
 	 userFeedback.setValue(4L);
-	  userService.saveUserFeedback(userFeedback); }*/
+	  userService.saveUserFeedback(userFeedback); }
 	 
-
+	 /* 
 	@Test
 	public void readNoitificationsTest() {
 		UserShare userShare = new UserShare();
-		 userShare=notificationRepository.findByUserShareId(1L);
-		System.out.println(userShare.getComment());
-		List<Notification> notifications = notificationRepository
-				.findByUserId(5L);
-
-		
-
 		UserFeedback userFeedback = new UserFeedback();
-		for(Notification notification:notifications){
+		 
+		
+		List<Notification>  u=notificationRepository.findById(1L);
+		
+		List<Notification> notifications = notificationRepository
+				.findById(5L);
+		
+		for(Notification notification:u){
 			System.out.println(notification.getId());
 		}
-		
-		
-		
-		
-		/*User user = userRepository.findOne(5L);
+	}
+				
+	User user = userRepository.findOne(3L);
 		List<Notification1> notification1s = userService
 				.readNotifications(user);
 		for (Notification1 notification1 : notification1s) {
@@ -117,8 +128,8 @@ public class UserServiceTests {
 				
 			}
 
-		}*/
-	}
+		}	*/
+	
 
 //	@Test
 //	public void saveUserPreferencesTest() { // List<UserPreference>

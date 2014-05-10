@@ -20,11 +20,12 @@ public User saveUserCredentials(User user);
 public String saveUserShout(UserShout userShout);
 public String  saveUserPreference(UserPreference userPreference);
 public List<UserPreference> readUserPreferences(User user);
-public boolean saveUserShares(UserShare userShares);
+//public boolean saveUserShares(UserShare userShares);
 public List<UserShare> readPostedUserShares(User user); 
 public List<UserShare> readRecievedUserShares(User user); 
 public UserProfile saveUserProfile(UserProfile userProfile);
-public boolean saveUserShares(UserShare userShares,List<User> users);
+public boolean saveUserShares(UserShare userShares);
+
 public boolean saveUserPreference(List<UserPreference> userPreferences);
 //public UserPreference deleteUserPreferences(UserPreference userPreferences);
 public UserLocation saveUserLocations(UserLocation userLocations);

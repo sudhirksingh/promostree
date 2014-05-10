@@ -223,7 +223,7 @@ public class UserServiceImpl implements UserServices {
 		}
 		return true;
 	}
-
+	
 
 	@Override
 	public List<Notification1> readNotifications(User user) {
@@ -233,7 +233,7 @@ public class UserServiceImpl implements UserServices {
 		Notification1 notification1 = new Notification1();
 
 		List<Notification> notifications = notificationRepository
-				.findByUserId(user.getId());
+				.findByUserId(5L);
 
 		UserShare userShare = new UserShare();
 
@@ -244,7 +244,7 @@ public class UserServiceImpl implements UserServices {
           
 		for (Notification notification : notifications) {
 			if (notification.getEventType().getId() == 2) { // if its share type
-				notification1 = new Notification1();
+				notification1 = new Notification1();				
 				userShare = notification.getUserShare();
 				notification1.setActivity_type("share");
 				notification1.setUserShare(userShare);
@@ -301,9 +301,25 @@ public class UserServiceImpl implements UserServices {
 
 	@Override
 	public boolean saveUserShares(UserShare userShares) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		
+		
+			List<User> users=userRepository.findByIdNotIn(userShares.getUser().getId());
+			
+			userShares.setCreateDate(new Date());
+			
+			// userFeedback.setUser(userRepository.findOne(userFeedback.getUser().getId()));
+			userSharesRepository.save(userShares);
+			for (User user : users) {
+				Notification notification = new Notification();
+				notification.setCreatedDate(new Date());
+				EventType eventType = eventTypeRepository.findOne(2L);
+				notification.setEventType(eventType);
+				notification.setUser(user);
+				notification.setUserShare(userShares);
+				notificationRepository.save(notification);
+			}
+			return true;
+		}
 
 	@Override
 	public UserProfile saveUserProfile(UserProfile userProfile) {
@@ -318,11 +334,5 @@ public class UserServiceImpl implements UserServices {
 	}
 
 
-
-	@Override
-	public boolean saveUserShares(UserShare userShares, List<User> users) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 }

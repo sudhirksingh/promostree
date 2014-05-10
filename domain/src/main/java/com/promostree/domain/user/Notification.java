@@ -33,12 +33,10 @@ public class Notification {
 		
 		@ManyToOne
 		@JoinColumn(name="userId")
-		@JsonBackReference
 		private User user;
 		
-		@OneToOne
+		@ManyToOne
 		@JoinColumn(name="eventTypeId")
-		@JsonManagedReference
 		private EventType eventType;
 		
 		

@@ -9,8 +9,8 @@ import com.promostree.domain.user.UserShare;
 
 public interface UserSharesRepository extends JpaRepository<UserShare, Long> {
 
-	//@Query("user.id:?0")
-	List<UserShare> findByUserId(Long userId);
-	List<UserShare> findByTypeIdAndValue(Long typeId,Long value);
+
+	public List<UserShare> findByUserId(Long userId);
+	public List<UserShare> findByTypeIdAndValue(Long typeId,Long value);
 	
 }

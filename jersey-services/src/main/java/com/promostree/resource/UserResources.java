@@ -102,7 +102,14 @@ public class UserResources {
 	public String saveUserPreference(UserPreference userPreference) {
 		return userServiceDelegate.saveUserPreference(userPreference);
 	}
-
+	
+	@POST
+	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+	@Path("/saveUserShare")
+	public  boolean saveUserShare(UserShare userShare) {
+		return userServiceDelegate.saveUserShares(userShare);
+	}
+	
 	// to read user preference
 	@GET
 	@Path("/readPreference/{userId}")
