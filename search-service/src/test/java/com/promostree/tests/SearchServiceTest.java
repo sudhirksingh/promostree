@@ -43,7 +43,7 @@ import com.promostree.repositories.entities.ShoutRepository;
 import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.solr.SolrVenueRepository;
 import com.promostree.repositories.user.LocationTypeRepository;
-import com.promostree.repositories.user.UserLocationsRepository;
+import com.promostree.repositories.user.UserLocationRepository;
 import com.promostree.repositories.user.UserRepository;
 import com.promostree.service.search.SearchServiceImpl;
 
@@ -66,7 +66,7 @@ public class SearchServiceTest {
 	UserRepository urep ;
 	
 	@Autowired
-	UserLocationsRepository ulrep;
+	UserLocationRepository ulrep;
 	
 	@Test
 	public void preferenceSearch(){

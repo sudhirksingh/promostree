@@ -9,5 +9,5 @@ import com.promostree.domain.user.UserFeedback;
 public interface UserFeedbackRepository extends JpaRepository<UserFeedback, Long> {
 	
 	// List<UserFeedback> findByVenueId(Long venueId);
-
+	 List<UserFeedback> findByTypeIdAndValue(Long typeId ,Long value);
 }

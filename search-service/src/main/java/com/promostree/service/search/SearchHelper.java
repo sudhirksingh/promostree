@@ -25,8 +25,8 @@ import com.promostree.domain.user.User;
 import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.solr.SolrVenueRepository;
 import com.promostree.repositories.user.UserFeedbackRepository;
-import com.promostree.repositories.user.UserPreferencesRepository;
-import com.promostree.repositories.user.UserSharesRepository;
+import com.promostree.repositories.user.UserPreferenceRepository;
+import com.promostree.repositories.user.UserShareRepository;
 import com.promostree.repositories.user.UserShoutRepository;
 
 @Component
@@ -40,11 +40,11 @@ public class SearchHelper {
 	@Autowired
 	SolrVenueRepository solrRepository;
 	@Autowired
-	UserSharesRepository userSharesRepository;
+	UserShareRepository userSharesRepository;
 	@Autowired
 	UserShoutRepository userShoutRepository;
 	@Autowired
-	UserPreferencesRepository userPreferencesRepository;
+	UserPreferenceRepository userPreferencesRepository;
 	@Autowired
 	UserFeedbackRepository userFeedbackRepository;
 

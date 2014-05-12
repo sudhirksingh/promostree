@@ -19,7 +19,7 @@ import com.promostree.domain.user.UserPreference;
 import com.promostree.repositories.entities.BrandRepository;
 import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.solr.SolrVenueRepository;
-import com.promostree.repositories.user.UserPreferencesRepository;
+import com.promostree.repositories.user.UserPreferenceRepository;
 
 @Service
 public class SearchServiceImpl implements SearchServices {
@@ -34,7 +34,7 @@ public class SearchServiceImpl implements SearchServices {
 	@Autowired
 	SearchHelper searchServiceHelper;
 	@Autowired
-	UserPreferencesRepository userPreferenceRepository;
+	UserPreferenceRepository userPreferenceRepository;
 	@Autowired
 	BrandRepository brandRepository;
 

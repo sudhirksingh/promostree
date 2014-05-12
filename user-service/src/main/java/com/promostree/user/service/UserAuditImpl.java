@@ -14,20 +14,22 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.promostree.domain.entities.Venue;
 import com.promostree.domain.user.EventType;
 import com.promostree.domain.user.User;
+import com.promostree.domain.user.UserAuditLog;
 import com.promostree.domain.user.UserEvent;
 import com.promostree.repositories.user.EventTypeRepository;
+import com.promostree.repositories.user.UserAuditLogRepository;
 import com.promostree.repositories.user.UserEventRepository;
 
 @Service
 public class UserAuditImpl implements UserAudit {
 	@Autowired
-	UserEventRepository userEventRepository;
+	UserAuditLogRepository userAuditLogRepository;
 
 	@Autowired
 	EventTypeRepository eventTypeRepository;
 
 	public boolean logWritter(User user, Object object) {
-		UserEvent userEvent = new UserEvent();
+		UserAuditLog userAuditLog =new UserAuditLog();
 		boolean result = false;
 
 		// convert object to json string
@@ -35,8 +37,7 @@ public class UserAuditImpl implements UserAudit {
 				.withDefaultPrettyPrinter();
 		try {
 			String json = ow.writeValueAsString(object);
-
-			userEvent.setData(json);
+			userAuditLog.setData(json);
 		} catch (JsonGenerationException ex) {
 
 			ex.printStackTrace();
@@ -57,18 +58,18 @@ public class UserAuditImpl implements UserAudit {
 				.lastIndexOf('.') + 1);
 		EventType eventType = eventTypeRepository.findByName(className
 				.toLowerCase());
-		userEvent.setType(eventType);
+		userAuditLog.setType(eventType);
 
-		userEvent.setUser(user);
-		UserEvent returnUserEvent = userEventRepository.save(userEvent);
-		if (returnUserEvent != null) {
+		userAuditLog.setUser(user);
+		UserAuditLog returnUserAuditLog = userAuditLogRepository.save(userAuditLog);
+		if (returnUserAuditLog != null) {
 			result = true;
 		}
 		return result;
 	}
 
 	public List<Object> logReader(User user, EventType eventType) {
-		List<UserEvent> UserEvents = userEventRepository.findByUserAndType(
+		List<UserAuditLog> userAuditLogs = userAuditLogRepository.findByUserAndType(
 				user, eventType);
 
 		ObjectMapper mapper = new ObjectMapper();
@@ -76,9 +77,9 @@ public class UserAuditImpl implements UserAudit {
 		Venue venue = null;
 
 		if (eventType.getName() == "venue") {
-			for (UserEvent userEvent : UserEvents) {
+			for (UserAuditLog userAuditLog : userAuditLogs) {
 				try {
-					venue = mapper.readValue(userEvent.getData(), Venue.class);
+					venue = mapper.readValue(userAuditLog.getData(), Venue.class);
 					System.out.println(venue.getName());
 
 				} catch (JsonGenerationException ex) {

@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.promostree.domain.entities.Venue;
 import com.promostree.domain.user.Notification;
-import com.promostree.domain.user.Notification1;
+
 import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserFeedback;
@@ -26,7 +26,7 @@ import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.user.NotificationRepository;
 import com.promostree.repositories.user.TypeRepository;
 import com.promostree.repositories.user.UserFeedbackRepository;
-import com.promostree.repositories.user.UserPreferencesRepository;
+import com.promostree.repositories.user.UserPreferenceRepository;
 import com.promostree.repositories.user.UserRepository;
 import com.promostree.user.service.UserServices;
 
@@ -46,7 +46,7 @@ public class UserServiceTests {
 	@Autowired
 	AddressRepository addressRepository;
 	@Autowired
-	UserPreferencesRepository userPreferencesRepository;
+	UserPreferenceRepository userPreferencesRepository;
 	@Autowired
 	UserFeedbackRepository userFeedbackRepository;
 	@Autowired

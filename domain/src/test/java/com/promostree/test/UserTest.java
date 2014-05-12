@@ -45,11 +45,11 @@ import com.promostree.repositories.user.TypeRepository;
 import com.promostree.repositories.user.UserAuditLogRepository;
 import com.promostree.repositories.user.UserEventRepository;
 import com.promostree.repositories.user.UserFeedbackRepository;
-import com.promostree.repositories.user.UserLocationsRepository;
-import com.promostree.repositories.user.UserPreferencesRepository;
+import com.promostree.repositories.user.UserLocationRepository;
+import com.promostree.repositories.user.UserPreferenceRepository;
 import com.promostree.repositories.user.UserProfileRepository;
 import com.promostree.repositories.user.UserRepository;
-import com.promostree.repositories.user.UserSharesRepository;
+import com.promostree.repositories.user.UserShareRepository;
 import com.promostree.repositories.user.UserShoutRepository;
 
 
@@ -68,10 +68,10 @@ public class UserTest {
 	LocationRepository lrep;
 	
 	@Autowired
-	UserLocationsRepository ulrep;
+	UserLocationRepository ulrep;
 	
 	@Autowired
-	UserPreferencesRepository upsrep;
+	UserPreferenceRepository upsrep;
 	
 	@Autowired
 	TypeRepository ptrep;
@@ -81,7 +81,7 @@ public class UserTest {
 	
 	
 	@Autowired
-	UserSharesRepository usrep;
+	UserShareRepository usrep;
 	
 	@Autowired
 	NotificationRepository nrep;
@@ -95,7 +95,7 @@ public class UserTest {
 	@Autowired
 	LocationTypeRepository ltrep ;
 	@Autowired
-	UserSharesRepository userSharesRep;
+	UserShareRepository userSharesRep;
 	
 	@Autowired
 	EventTypeRepository 	etrep;

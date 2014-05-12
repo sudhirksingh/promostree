@@ -20,11 +20,11 @@ import com.promostree.repositories.user.NotificationRepository;
 import com.promostree.repositories.user.TypeRepository;
 import com.promostree.repositories.user.UserEventRepository;
 import com.promostree.repositories.user.UserFeedbackRepository;
-import com.promostree.repositories.user.UserLocationsRepository;
-import com.promostree.repositories.user.UserPreferencesRepository;
+import com.promostree.repositories.user.UserLocationRepository;
+import com.promostree.repositories.user.UserPreferenceRepository;
 import com.promostree.repositories.user.UserProfileRepository;
 import com.promostree.repositories.user.UserRepository;
-import com.promostree.repositories.user.UserSharesRepository;
+import com.promostree.repositories.user.UserShareRepository;
 import com.promostree.repositories.user.UserShoutRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -41,13 +41,13 @@ public class UserRepositoryTest {
 	@Autowired
 	LocationRepository LocationRep;
 	@Autowired
-	UserLocationsRepository userLocationRep;
+	UserLocationRepository userLocationRep;
 	@Autowired
-	UserPreferencesRepository userPreferencesRep;
+	UserPreferenceRepository userPreferencesRep;
 	@Autowired
 	UserFeedbackRepository userFeedbackRep;
 	@Autowired
-	UserSharesRepository userSharesRep;
+	UserShareRepository userSharesRep;
 	@Autowired
 	NotificationRepository userNotificationRep;
 	@Autowired

@@ -27,11 +27,11 @@ import com.promostree.repositories.user.LocationTypeRepository;
 import com.promostree.repositories.user.NotificationRepository;
 import com.promostree.repositories.user.TypeRepository;
 import com.promostree.repositories.user.UserFeedbackRepository;
-import com.promostree.repositories.user.UserLocationsRepository;
-import com.promostree.repositories.user.UserPreferencesRepository;
+import com.promostree.repositories.user.UserLocationRepository;
+import com.promostree.repositories.user.UserPreferenceRepository;
 import com.promostree.repositories.user.UserProfileRepository;
 import com.promostree.repositories.user.UserRepository;
-import com.promostree.repositories.user.UserSharesRepository;
+import com.promostree.repositories.user.UserShareRepository;
 import com.promostree.repositories.user.UserShoutRepository;
 
 @Component
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserServices {
 	@Autowired
 	TypeRepository typeRepository;
 	@Autowired
-	UserSharesRepository userSharesRepository;
+	UserShareRepository userSharesRepository;
 	@Autowired
 	NotificationRepository notificationRepository;
 	@Autowired
@@ -47,9 +47,9 @@ public class UserServiceImpl implements UserServices {
 	@Autowired
 	UserProfileRepository userProfileRepository;
 	@Autowired
-	UserPreferencesRepository userPreferencesRepository;
+	UserPreferenceRepository userPreferencesRepository;
 	@Autowired
-	UserLocationsRepository userLocationsRepository;
+	UserLocationRepository userLocationsRepository;
 	@Autowired
 	LocationTypeRepository locationTypeRepository;
 	@Autowired

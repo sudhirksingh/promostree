@@ -15,7 +15,6 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.promostree.delegator.UserServiceDelegate;
-import com.promostree.domain.user.Notification1;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserPreference;
 import com.promostree.domain.user.UserProfile;
