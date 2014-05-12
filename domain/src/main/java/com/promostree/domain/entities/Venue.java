@@ -85,46 +85,34 @@ private int shoutCount;
 private int shareCount;
 private int feedBackCount;
 
-@ManyToMany(fetch = FetchType.EAGER)
-@JoinTable(name="venues_brands",
-joinColumns={@JoinColumn(name="venue_id", referencedColumnName="id")},
-inverseJoinColumns={@JoinColumn(name="brand_id", referencedColumnName="id")}
-)
-@JsonManagedReference
-@Fetch(value = FetchMode.SUBSELECT)
+
+
+
+@ManyToMany(mappedBy="venues",fetch = FetchType.EAGER)
+@JsonBackReference
 private  List<Brand> brands;
 
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "categoryId")
 	private Category category;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tenantId")
-	@JsonBackReference
 	private Tenant tenant;
+	
 	@OneToMany(mappedBy = "venue", cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = com.promostree.domain.entities.Offer.class)
 	@JsonManagedReference
 	private List<Offer> offers = new ArrayList<Offer>();
+	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "addressId")
-	@JsonBackReference
 	private Address address;
-	@OneToOne
-	@JoinColumn(name = "merchantId")
-	@JsonBackReference
-	private Merchant merchant;
-	@OneToOne(mappedBy = "venue", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonBackReference
-	private UserShout userShout;
+	
 
-	public UserShout getUserShout() {
-		return userShout;
-	}
 
-	public void setUserShout(UserShout userShout) {
-		this.userShout = userShout;
-	}
 
+	
 	public double getDistance() {
 		return distance;
 	}
@@ -181,13 +169,7 @@ private  List<Brand> brands;
 		this.fourSquareId = fourSquareId;
 	}
 
-	public Merchant getMerchant() {
-		return merchant;
-	}
-
-	public void setMerchant(Merchant merchant) {
-		this.merchant = merchant;
-	}
+	
 
 	public Address getAddress() {
 		return address;
@@ -312,8 +294,7 @@ private  List<Brand> brands;
 				+ ((fourSquareId == null) ? 0 : fourSquareId.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((image == null) ? 0 : image.hashCode());
-		result = prime * result
-				+ ((merchant == null) ? 0 : merchant.hashCode());
+		
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((offers == null) ? 0 : offers.hashCode());
 		result = prime * result + shareCount;
@@ -382,11 +363,7 @@ private  List<Brand> brands;
 				return false;
 		} else if (!image.equals(other.image))
 			return false;
-		if (merchant == null) {
-			if (other.merchant != null)
-				return false;
-		} else if (!merchant.equals(other.merchant))
-			return false;
+		
 		if (name == null) {
 			if (other.name != null)
 				return false;

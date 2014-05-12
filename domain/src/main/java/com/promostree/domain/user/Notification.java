@@ -2,12 +2,14 @@ package com.promostree.domain.user;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -18,48 +20,51 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity(name = "notification")
 @Table(name = "notification")
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="Notification_type",discriminatorType=DiscriminatorType.STRING)
+
 public class Notification {
 
 		@Id
 		@GeneratedValue(strategy = GenerationType.AUTO)
 		private Long id;
 		
+		private boolean status;
+		
 		@Temporal(TemporalType.DATE)
-		@NotNull
 		private Date createdDate;
+		
+		
 		
 		@ManyToOne
 		@JoinColumn(name="userId")
-		private User user;
-		
-		@ManyToOne
-		@JoinColumn(name="eventTypeId")
-		private EventType eventType;
+		private User recipientUser;
 		
 		
-	
-		
-		@ManyToOne
-		@JoinColumn(name = "userShareId")
-		@JsonManagedReference
-		private UserShare userShare;
+		private String phoneNo;
 		
 		
-		@ManyToOne
-		@JoinColumn(name = "userFeedbackId")
-		@JsonManagedReference
-		private UserFeedback userFeedback;
+		
 		
 
-		public UserShare getUserShare() {
-			return userShare;
+		public String getPhoneNo() {
+			return phoneNo;
 		}
 
-		public void setUserShare(UserShare userShare) {
-			this.userShare = userShare;
+		public void setPhoneNo(String phoneNo) {
+			this.phoneNo = phoneNo;
+		}
+
+		
+
+		public User getRecipientUser() {
+			return recipientUser;
+		}
+
+		public void setRecipientUser(User recipientUser) {
+			this.recipientUser = recipientUser;
 		}
 
 		public Long getId() {
@@ -70,6 +75,16 @@ public class Notification {
 			this.id = id;
 		}
 
+		
+
+		public boolean isStatus() {
+			return status;
+		}
+
+		public void setStatus(boolean status) {
+			this.status = status;
+		}
+
 		public Date getCreatedDate() {
 			return createdDate;
 		}
@@ -78,29 +93,10 @@ public class Notification {
 			this.createdDate = createdDate;
 		}
 
-		public User getUser() {
-			return user;
-		}
+		
+		
 
-		public void setUser(User user) {
-			this.user = user;
-		}
-
-		public EventType getEventType() {
-			return eventType;
-		}
-
-		public void setEventType(EventType eventType) {
-			this.eventType = eventType;
-		}
-
-		public UserFeedback getUserFeedback() {
-			return userFeedback;
-		}
-
-		public void setUserFeedback(UserFeedback userFeedback) {
-			this.userFeedback = userFeedback;
-		}
+	
 		
 		
 		

@@ -30,13 +30,10 @@ public class Groups {
 	@NotBlank(message = " group name must filled")
 	private String name;
 
-	@OneToMany(mappedBy = "group", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonManagedReference
-	private List<Merchant> merchants;
+
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tenantId")
-	@JsonBackReference
 	private Tenant tenant;
 
 	public Tenant getTenant() {
@@ -47,13 +44,7 @@ public class Groups {
 		this.tenant = tenant;
 	}
 
-	public List<Merchant> getMerchants() {
-		return merchants;
-	}
-
-	public void setMerchants(List<Merchant> merchants) {
-		this.merchants = merchants;
-	}
+	
 
 	public Long getId() {
 		return id;
@@ -76,8 +67,7 @@ public class Groups {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result
-				+ ((merchants == null) ? 0 : merchants.hashCode());
+		
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
@@ -96,11 +86,7 @@ public class Groups {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (merchants == null) {
-			if (other.merchants != null)
-				return false;
-		} else if (!merchants.equals(other.merchants))
-			return false;
+		
 		if (name == null) {
 			if (other.name != null)
 				return false;
@@ -111,8 +97,7 @@ public class Groups {
 
 	@Override
 	public String toString() {
-		return "Groups [id=" + id + ", name=" + name + ", merchants="
-				+ merchants + ", tenant=" + tenant + "]";
+		return "Groups [id=" + id + ", name=" + name  + ", tenant=" + tenant + "]";
 	}
 
 }

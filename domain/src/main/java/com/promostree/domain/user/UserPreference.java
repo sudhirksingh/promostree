@@ -48,7 +48,6 @@ public class UserPreference {
 
 	@OneToOne
 	@JoinColumn(name = "typeId")
-	@JsonManagedReference
 	private Type type;
 
 	@Temporal(TemporalType.DATE)
@@ -58,7 +57,6 @@ public class UserPreference {
 
 	@ManyToOne
 	@JoinColumn(name = "userId")
-	@JsonBackReference(value = "user-userPreferences")
 	private User user;
 
 
@@ -179,34 +177,7 @@ public class UserPreference {
 				+ ", value=" + value + "]";
 	}
 
-	public static void main(String args[]) {
-		Type type = new Type(2L);
-		User user = new User();
-		user.setId(2L);
-		UserPreference userPreference = new UserPreference(null, type, null,
-				2L, user);
 
-		List<UserPreference> list = new ArrayList<UserPreference>();
-		list.add(userPreference);
-
-		String jsonOutPut;
-		try {
-			jsonOutPut = userPreference.getJson(list);
-
-			System.out.println(jsonOutPut);
-
-			ObjectMapper mapper = new ObjectMapper();
-			List<UserPreference> userPreference2 = mapper.readValue(jsonOutPut,
-					new TypeReference<List<UserPreference>>() {
-					});
-			System.out.print(userPreference2);
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
 
 
 }

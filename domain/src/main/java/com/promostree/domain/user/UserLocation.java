@@ -27,15 +27,14 @@ public class UserLocation {
 	private Date createdDate;
 	@ManyToOne
 	@JoinColumn(name = "userId")
-	@JsonBackReference(value = "user-userLocations")
 	private User user;
+	
 	@OneToOne
 	@JoinColumn(name = "locationTypeId")
-	@JsonManagedReference
+	
 	private LocationType locationType;
 	@OneToOne
 	@JoinColumn(name = "locationId")
-	@JsonManagedReference
 	private Location location;
 	
 	public LocationType getLocationType() {

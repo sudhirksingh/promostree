@@ -21,13 +21,9 @@ public class EventType {
 	private Long id;
 	private String name;
 
-	@OneToOne
-	@JsonIgnore
-	private UserEvent userEvent;
 
-	@OneToOne(mappedBy = "eventType", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonBackReference
-	private Notification notification;
+
+
 
 	public Long getId() {
 		return id;
@@ -45,21 +41,7 @@ public class EventType {
 		this.name = name;
 	}
 
-	public UserEvent getUserEvent() {
-		return userEvent;
-	}
-
-	public void setUserEvent(UserEvent userEvent) {
-		this.userEvent = userEvent;
-	}
-
-	public Notification getNotification() {
-		return notification;
-	}
-
-	public void setNotification(Notification notification) {
-		this.notification = notification;
-	}
+	
 
 	@Override
 	public int hashCode() {

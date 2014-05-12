@@ -12,8 +12,8 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 
-@Entity(name="user_location_type")
-@Table(name="user_location_type")
+@Entity(name="location_type")
+@Table(name="location_type")
 public class LocationType {
 	
 	@Id
@@ -21,18 +21,11 @@ public class LocationType {
 private Long id;
 private String name;
 
-@OneToOne(mappedBy="locationType",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-@JsonBackReference
-private UserLocation userLocations;
 
 
 
-public UserLocation getUserLocations() {
-	return userLocations;
-}
-public void setUserLocations(UserLocation userLocations) {
-	this.userLocations = userLocations;
-}
+
+
 public Long getId() {
 	return id;
 }

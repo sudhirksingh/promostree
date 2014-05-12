@@ -34,12 +34,10 @@ public class UserShout {
 
 	@ManyToOne
 	@JoinColumn(name = "userId")
-	@JsonBackReference(value = "user-userShout")
 	private User user;
 
 	@OneToOne
 	@JoinColumn(name = "venueId")
-	@JsonManagedReference
 	private Venue venue;
 
 	public Venue getVenue() {

@@ -8,13 +8,19 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity(name="brand")
@@ -30,8 +36,13 @@ public class Brand {
 	private boolean active;
 	
 	
-	@ManyToMany(mappedBy="brands",fetch = FetchType.EAGER)
-	@JsonBackReference
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name="venues_brands",
+	inverseJoinColumns={@JoinColumn(name="venue_id", referencedColumnName="id")},
+	joinColumns={@JoinColumn(name="brand_id", referencedColumnName="id")}
+	)
+	@JsonManagedReference
+	@Fetch(value = FetchMode.SUBSELECT)
 	private  List<Venue> venues;
 	
 	public Long getId() {
