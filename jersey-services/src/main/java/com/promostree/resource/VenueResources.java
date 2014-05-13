@@ -1,5 +1,6 @@
 package com.promostree.resource;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -58,7 +59,7 @@ public class VenueResources {
 		userPreference.setType(type);*/
 	
 		//System.out.println(new String(i+""));
-		List<Venue> list = venueSearchDelegate.getPreferredVenues(userPreference);
+		List<Venue> list =new ArrayList<Venue>();// venueSearchDelegate.getPreferredVenues(userPreference);
 		return list;
 	}
 

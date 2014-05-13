@@ -110,7 +110,7 @@ public class UserTest {
 	UserAuditLogRepository 	ualrep;
 	
 	
-/*	@Test
+	@Test
 	public void create()
 	{
 		// for types
@@ -332,7 +332,7 @@ public class UserTest {
 		
 		
 		
-		}*/
+		}
 	
 	/*
 	

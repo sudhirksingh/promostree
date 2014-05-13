@@ -75,7 +75,7 @@ GroupsRepository grep ;
 	BrandRepository brep ;
 	
 	
-/*		@Test
+		@Test
 	public void save() throws ParseException
 	{
 		
@@ -224,7 +224,7 @@ GroupsRepository grep ;
 		
 		
 			
-	}*/
+	}
 
 		
 	@Test

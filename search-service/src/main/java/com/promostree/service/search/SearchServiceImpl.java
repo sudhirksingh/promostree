@@ -90,8 +90,7 @@ public class SearchServiceImpl implements SearchServices {
 		List<String> searchTerms = new ArrayList<String>();
 		List<UserPreference> userPreferences = new ArrayList<UserPreference>();
 		List<SolrVenue> solrVenues = new ArrayList<SolrVenue>();
-		userPreferences = userPreferenceRepository.findByUserIdAndTypeId(
-				user.getId(), userPreference.getType().getId());
+		
 
 		for (UserPreference userPreference1 : userPreferences) {
 			System.out.println(

@@ -1,12 +1,18 @@
 package com.promostree.delegator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
+
+
+
 import com.promostree.domain.user.Notification;
+import com.promostree.domain.user.NotificationUserFeedback;
+import com.promostree.domain.user.NotificationUserShare;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserFeedback;
 import com.promostree.domain.user.UserPreference;
@@ -38,57 +44,28 @@ public class UserServiceDelegate {
 		return ushout;
 	}
 
-	// tor read userShouts
-	public List<UserShout> readUserShout(User user) {
-		List<UserShout> userShout = userServices.readUserShout(user);
-		return userShout;
-	}
-
 	
-
 	// to share
-	public boolean saveUserShares(UserShare userShares) {
-		Boolean save = userServices.saveUserShares(userShares);
+	public boolean saveUserShares(NotificationUserShare notificationUserShares) {
+		Boolean save = userServices.saveUserShares(notificationUserShares);
 		return save;
 	}
 
-	// to read shares which i got
-	public List<UserShare> readReceivedUserShares(Long userId) {
-		User user = new User();
-		user.setId(userId);
-		return userServices.readRecievedUserShares(user);
-	}
 
-	// to read shares which i posted
-	public List<UserShare> readPostedUserShares(Long userId) {
-		User user = new User();
-		user.setId(userId);
-		return userServices.readPostedUserShares(user);
-	}
-
-	// to read user preferences
-	public List<UserPreference> readUserPreference(User user) {
-		return userServices.readUserPreferences(user);
-	}
+	
 
    //to read notifications
-	public List<Notification>  readNotifications(long userId)
+	public List<Notification>  readNotifications(User user)
 	{
-		User user=new User();
-		user.setId(userId);
-		return userServices.readNotifications(user);
+		List<Notification> notifications=new ArrayList<Notification>();
+		return notifications;// userServices.readNotifications(user);
 	}
 	//to save user feedback
-	public boolean saveUserFeedback(UserFeedback userFeedback){
-		return userServices.saveUserFeedback(userFeedback);
+	public boolean saveUserFeedback(NotificationUserFeedback notificationUserShare){
+		return userServices.saveUserFeedback(notificationUserShare);
 	}
 
 
-	// to read notifications
-	public List<Notification1> readNotifications(Long userId) {
-		User user = new User();
-		user.setId(userId);
-		return userServices.readNotifications(user);
-	}
+	
 
 }

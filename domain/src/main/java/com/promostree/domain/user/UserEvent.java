@@ -47,6 +47,10 @@ public class UserEvent
 	@JoinColumn(name="userId")
 	private User User;
 
+	
+	
+	
+	
 	public Long getId() {
 		return id;
 	}

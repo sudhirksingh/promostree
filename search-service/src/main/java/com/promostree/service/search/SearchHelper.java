@@ -132,10 +132,7 @@ public List<SolrVenue> getOfferInVenue( Venue venue) {
 					+ venue.getName().toLowerCase();
 			doc.setSearch_field(searchField);
 			
-			doc.setShare_count(new String(userSharesRepository.findByTypeIdAndValue(2L, venue.getId()).size()+""));
-			doc.setShout_count(new String(userShoutRepository.findByVenueId(venue.getId()).size()+""));
-			doc.setPreference_count(new String(userPreferencesRepository.findByTypeIdAndValue(2L, venue.getId()).size()+""));
-			doc.setFeedBack_count(new String(userFeedbackRepository.findByTypeIdAndValue(2L, venue.getId()).size()+""));
+			
 			
 			/* // merchant venues.setMerchant_id(venue.getMerchant().getId()
 			 * .toString());
