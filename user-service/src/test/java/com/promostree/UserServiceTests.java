@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.promostree.domain.entities.Venue;
 import com.promostree.domain.user.Notification;
 import com.promostree.domain.user.NotificationUserFeedback;
+import com.promostree.domain.user.NotificationUserShare;
 import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserFeedback;
@@ -51,23 +52,37 @@ public class UserServiceTests {
 	UserFeedbackRepository userFeedbackRepository;
 	@Autowired
 	NotificationRepository notificationRepository;
-	
 	@Test
-	public void saveUserFeedback(){
-		UserFeedback userFeedback=new UserFeedback();
-		userFeedback.setComment("its me ananth");
+	public void saveUserShare(){
+		UserShare userShare=new UserShare();
+		userShare.setComment("its me ananth");
 		Type type=new Type();
 		type.setId(2L);
-		userFeedback.setType(type);
+		userShare.setType(type);
 		User user=new User();
 		user.setId(2L);
-		userFeedback.setUser(user);
-		userFeedback.setValue(2L);
-		NotificationUserFeedback notificationUserFeedback=new NotificationUserFeedback();
-		notificationUserFeedback.setUserFeedback(userFeedback);
-	userService.saveUserFeedback(notificationUserFeedback);	
+		userShare.setUser(user);
+		userShare.setValue(2L);
+		NotificationUserShare notificationUserShare=new NotificationUserShare();
+		notificationUserShare.setUserShare(userShare);
+	userService.saveUserShare(notificationUserShare);	
 	}
-	@Test
+//	@Test
+//	public void saveUserFeedback(){
+//		UserFeedback userFeedback=new UserFeedback();
+//		userFeedback.setComment("its me ananth");
+//		Type type=new Type();
+//		type.setId(2L);
+//		userFeedback.setType(type);
+//		User user=new User();
+//		user.setId(2L);
+//		userFeedback.setUser(user);
+//		userFeedback.setValue(2L);
+//		NotificationUserFeedback notificationUserFeedback=new NotificationUserFeedback();
+//		notificationUserFeedback.setUserFeedback(userFeedback);
+//	userService.saveUserFeedback(notificationUserFeedback);	
+//	}
+//	@Test
 	public void readNotificationTest(){
 		User user=new User();
 		user.setId(2L);

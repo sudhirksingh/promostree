@@ -19,8 +19,8 @@ public List<UserPreference> readUserPreferences(User user);
 
 
 public boolean saveUserFeedback(NotificationUserFeedback notificationUserFeedback);
-public boolean saveUserShares(NotificationUserShare notificationUserShare);
 public List<Notification> readNotifications(User user);
+boolean saveUserShare(NotificationUserShare notificationUserShare);
 
 
 

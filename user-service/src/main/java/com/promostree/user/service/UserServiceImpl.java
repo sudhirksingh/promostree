@@ -150,7 +150,7 @@ public class UserServiceImpl implements UserServices {
 		userpreList = userPreferencesRepository.findByUserId(user.getId());
 		return userpreList;
 	}
-
+	
 	// to save user feedback
 	@Override
 	public boolean saveUserFeedback(
@@ -167,8 +167,32 @@ public class UserServiceImpl implements UserServices {
 
 		List<User> users = userRepository.findByIdNotIn(userFeedback.getUser()
 				.getId());
-		userFeedback.setCreatedDate(new Date());
-		userFeedback.setUpdatedDate(new Date());
+		
+
+		for (User user : users) {
+			Notification notification = new Notification();
+			notification.setCreatedDate(new Date());
+			notification.setPhoneNo(user.getPhoneNumber());
+			notification.setRecipientUser(user);
+			notification.setStatus(false);
+			notificationRepository.save(notification);
+
+		}
+		return true;
+	}
+	@Override
+	public boolean saveUserShare(NotificationUserShare notificationUserShare) {
+		UserShare userShare=notificationUserShare.getUserShare();
+		UserEvent userEvent = new UserEvent();
+		userEvent.setComment(userShare.getComment());
+		userEvent.setCreatedDate(new Date());
+		userEvent.setType(userShare.getType());
+		userEvent.setUser(userShare.getUser());
+		userEvent.setValue(userShare.getValue());
+		userEventRepository.save(userEvent);
+		List<User> users = userRepository.findByIdNotIn(userShare.getUser()
+				.getId());
+	
 
 		for (User user : users) {
 			Notification notification = new Notification();
@@ -187,15 +211,13 @@ public class UserServiceImpl implements UserServices {
 	 */
 	@Override
 	public List<Notification> readNotifications(User user) {
-		user=userRepository.findByPhoneNumber(user.getPhoneNumber());
+		user=userRepository.findOne(1L);
 		return notificationRepository.findByRecipientUserId(user.getId());
 
 	}
 
-	@Override
-	public boolean saveUserShares(NotificationUserShare userShares) {
 
-		return true;
-	}
+	
+	
 
 }

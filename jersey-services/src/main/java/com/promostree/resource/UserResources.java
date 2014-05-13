@@ -54,7 +54,7 @@ public class UserResources {
 	// to read notifications
 		@POST
 		@Path("/readNotifications")
-		@Consumes(MediaType.APPLICATION_JSON)
+		@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
 		public List<Notification> readNotifications(User user) {
 		
 			return userServiceDelegate.readNotifications(user);
@@ -77,7 +77,7 @@ public class UserResources {
 		return userServiceDelegate.saveUserShares(notificationUserShare);
 	}
 	
-	// to read user preference
+	//to read user preference
 
 
 	
