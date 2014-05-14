@@ -212,7 +212,7 @@ public class UserServiceImpl implements UserServices {
 	@Override
 	public List<Notification> readNotifications(User user) {
 		user=userRepository.findOne(1L);
-		return notificationRepository.findByRecipientUserId(user.getId());
+		return notificationRepository.findByRecipientUserId(1L);
 
 	}
 

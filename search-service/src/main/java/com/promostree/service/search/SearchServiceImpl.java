@@ -86,29 +86,27 @@ public class SearchServiceImpl implements SearchServices {
 	// search on Multiple search fields
 	public List<Venue> findBySearch_fieldIn(UserPreference userPreference) {
 		User user = userPreference.getUser();
-		int pageNumber = 0;
+		int pageNumber = user.getPageNumber();
 		List<String> searchTerms = new ArrayList<String>();
-		List<UserPreference> userPreferences = new ArrayList<UserPreference>();
+		List<UserPreference> userPreferences = userPreferenceRepository.findByUserIdAndTypeId(user.getId(), userPreference.getType().getId());
 		List<SolrVenue> solrVenues = new ArrayList<SolrVenue>();
 		
 
-		for (UserPreference userPreference1 : userPreferences) {
-			System.out.println(
-					userPreference1.getValue());
-			if (userPreference1.getType().getId() == 1) {  //FOR Brand type preferences
-				searchTerms.add(brandRepository.findOne(
-						userPreference1.getValue()).getName());
-				solrVenues.addAll(solrRepository.findBySearch_fieldIn(searchTerms, new PageRequest(pageNumber, 30)));
-			
-			} else if (userPreference1.getType().getId() == 2) { // for preferred venues 
+		
+			if (userPreference.getType().getId() == 1) {  //FOR Brand type preferences
+				for(UserPreference userPreference1:userPreferences){
+					
+				searchTerms.add(brandRepository.findOne(userPreference1.getValue()).getName());
+				}
+			} else if (userPreference.getType().getId() == 2) { // for preferred venues 
+				for(UserPreference userPreference1:userPreferences){
 				searchTerms.add(solrRepository
 						.findByEntity_id(userPreference1.getValue().toString())
 						.get(0).getName());
-				solrVenues.addAll(solrRepository.findBySearch_fieldIn(searchTerms, new PageRequest(pageNumber, 30)));
-
+				}
 			}
-		}
-
+			solrVenues.addAll(solrRepository.findBySearch_fieldIn(searchTerms, new PageRequest(pageNumber, 30)));
+		
 		return searchServiceHelper.toDomainVenues(solrVenues, user);
 	}
 }

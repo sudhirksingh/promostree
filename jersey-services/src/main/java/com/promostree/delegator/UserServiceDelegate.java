@@ -47,7 +47,7 @@ public class UserServiceDelegate {
 	
 	// to share
 	public boolean saveUserShares(NotificationUserShare notificationUserShares) {
-		Boolean save = userServices.saveUserShares(notificationUserShares);
+		Boolean save = userServices.saveUserShare(notificationUserShares);
 		return save;
 	}
 
