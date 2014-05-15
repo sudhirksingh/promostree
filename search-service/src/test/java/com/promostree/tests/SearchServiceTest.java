@@ -71,15 +71,15 @@ public class SearchServiceTest {
 		List<String> fav = new ArrayList<String>();
 		UserPreference userPreference = new UserPreference();
 		User user = new User();
-		user.setId(2L);
+		user.setId(1L);
 		user.setLat(17.24154);
 		user.setLng(78.23541254);
 		user.setRadius(1000.0);
 		user.setPageNumber(0);
-		fav.add("bawarchi");
+		
 		userPreference.setUser(user);
 		Type type = new Type();
-		type.setId(1L);
+		type.setId(2L);
 		userPreference.setType(type);
 
 		List<Venue> venues = vs.findBySearch_fieldIn(userPreference);

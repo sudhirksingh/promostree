@@ -11,6 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.promostree.domain.entities.Merchant;
 import com.promostree.domain.entities.Venue;
 import com.promostree.domain.user.Notification;
 import com.promostree.domain.user.NotificationUserFeedback;
@@ -52,25 +56,26 @@ public class UserServiceTests {
 	UserFeedbackRepository userFeedbackRepository;
 	@Autowired
 	NotificationRepository notificationRepository;
-	@Test
-	public void saveUserShare(){
-		UserShare userShare=new UserShare();
-		userShare.setComment("its me ananth");
-		Type type=new Type();
-		type.setId(2L);
-		userShare.setType(type);
-		User user=new User();
-		user.setId(2L);
-		userShare.setUser(user);
-		userShare.setValue(2L);
-		NotificationUserShare notificationUserShare=new NotificationUserShare();
-		notificationUserShare.setUserShare(userShare);
-	userService.saveUserShare(notificationUserShare);	
-	}
+//	@Test
+//	public void saveUserShare(){
+//		UserShare userShare=new UserShare();
+//		userShare.setComment("its me ananth shared..");
+//		Type type=new Type();
+//		type.setId(2L);
+//		userShare.setType(type);
+//		User user=new User();
+//		user.setId(2L);
+//		userShare.setUser(user);
+//		userShare.setValue(2L);
+//		NotificationUserShare notificationUserShare=new NotificationUserShare();
+//		notificationUserShare.setUserShare(userShare);
+//	userService.saveUserShare(notificationUserShare);	
+//	}
 //	@Test
 //	public void saveUserFeedback(){
 //		UserFeedback userFeedback=new UserFeedback();
 //		userFeedback.setComment("its me ananth");
+//		
 //		Type type=new Type();
 //		type.setId(2L);
 //		userFeedback.setType(type);
@@ -79,15 +84,27 @@ public class UserServiceTests {
 //		userFeedback.setUser(user);
 //		userFeedback.setValue(2L);
 //		NotificationUserFeedback notificationUserFeedback=new NotificationUserFeedback();
+//		
 //		notificationUserFeedback.setUserFeedback(userFeedback);
 //	userService.saveUserFeedback(notificationUserFeedback);	
 //	}
-//	@Test
+
+	@Test
 	public void readNotificationTest(){
 		User user=new User();
-		user.setId(2L);
+		user.setId(1L);
 		List<Notification> notifications=userService.readNotifications(user);
+		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		for(Notification notification:notifications){
+					
+			try{
+			String json = ow.writeValueAsString(notification);			
+			System.out.println(json);
+			} catch (Exception ex) {
+
+				ex.printStackTrace();
+
+			}
 			System.out.println(notification.getPhoneNo());
 		}
 	}

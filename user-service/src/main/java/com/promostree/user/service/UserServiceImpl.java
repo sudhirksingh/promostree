@@ -160,24 +160,23 @@ public class UserServiceImpl implements UserServices {
 			NotificationUserFeedback notificationUserFeedback) {
 
 		UserFeedback userFeedback = notificationUserFeedback.getUserFeedback();
-		UserEvent userEvent = new UserEvent();
-		userEvent.setComment(userFeedback.getComment());
-		userEvent.setCreatedDate(new Date());
-		userEvent.setType(userFeedback.getType());
-		userEvent.setUser(userFeedback.getUser());
-		userEvent.setValue(userFeedback.getValue());
-		userEventRepository.save(userEvent);
+		userFeedback.setCreatedDate(new Date());
+		userFeedback.setUpdatedDate(new Date());
+		userFeedbackRepository.save(userFeedback);
+		
+		
 
 		List<User> users = userRepository.findByIdNotIn(userFeedback.getUser()
 				.getId());
 		
-
+                                             
 		for (User user : users) {
-			Notification notification = new Notification();
+			NotificationUserFeedback notification = new NotificationUserFeedback();
 			notification.setCreatedDate(new Date());
 			notification.setPhoneNo(user.getPhoneNumber());
 			notification.setRecipientUser(user);
 			notification.setStatus(false);
+			notification.setUserFeedback(userFeedback);
 			notificationRepository.save(notification);
 
 		}
@@ -186,23 +185,19 @@ public class UserServiceImpl implements UserServices {
 	@Override
 	public boolean saveUserShare(NotificationUserShare notificationUserShare) {
 		UserShare userShare=notificationUserShare.getUserShare();
-		UserEvent userEvent = new UserEvent();
-		userEvent.setComment(userShare.getComment());
-		userEvent.setCreatedDate(new Date());
-		userEvent.setType(userShare.getType());
-		userEvent.setUser(userShare.getUser());
-		userEvent.setValue(userShare.getValue());
-		userEventRepository.save(userEvent);
+		userShare.setCreatedDate(new Date());
+		userEventRepository.save(userShare);
 		List<User> users = userRepository.findByIdNotIn(userShare.getUser()
 				.getId());
 	
 
 		for (User user : users) {
-			Notification notification = new Notification();
+			NotificationUserShare notification = new NotificationUserShare();
 			notification.setCreatedDate(new Date());
 			notification.setPhoneNo(user.getPhoneNumber());
 			notification.setRecipientUser(user);
 			notification.setStatus(false);
+			notification.setUserShare(userShare);
 			notificationRepository.save(notification);
 
 		}
