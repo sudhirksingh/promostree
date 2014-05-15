@@ -20,6 +20,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
@@ -36,12 +37,13 @@ public class Brand {
 	private boolean active;
 	
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name="venues_brands",
 	inverseJoinColumns={@JoinColumn(name="venue_id", referencedColumnName="id")},
 	joinColumns={@JoinColumn(name="brand_id", referencedColumnName="id")}
 	)
 	@JsonManagedReference
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@Fetch(value = FetchMode.SUBSELECT)
 	private  List<Venue> venues;
 	

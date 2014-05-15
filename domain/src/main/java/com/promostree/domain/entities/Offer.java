@@ -52,7 +52,7 @@ public class Offer {
 	private boolean active;
 
 	@JsonManagedReference
-	@OneToOne(mappedBy = "offer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(mappedBy = "offer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Shout shout;
 
 	@ManyToOne

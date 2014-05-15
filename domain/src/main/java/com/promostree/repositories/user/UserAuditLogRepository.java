@@ -13,5 +13,6 @@ import com.promostree.domain.user.UserAuditLog;
 public interface UserAuditLogRepository  extends JpaRepository<UserAuditLog, Long> {
 
 List<UserAuditLog>	findByUserAndType(User user,EventType eventType);
+List<UserAuditLog>	findByUser(User user);
 	
 }

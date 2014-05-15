@@ -4,17 +4,25 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional.TxType;
+
+
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.promostree.domain.entities.Brand;
 import com.promostree.domain.entities.Location;
+import com.promostree.domain.entities.Merchant;
 import com.promostree.domain.entities.Venue;
 import com.promostree.domain.tenant.Tenant;
 import com.promostree.domain.user.EventType;
@@ -33,7 +41,9 @@ import com.promostree.domain.user.UserPreference;
 import com.promostree.domain.user.UserProfile;
 import com.promostree.domain.user.UserShare;
 import com.promostree.domain.user.UserShout;
+import com.promostree.repositories.entities.BrandRepository;
 import com.promostree.repositories.entities.LocationRepository;
+import com.promostree.repositories.entities.MerchantRepository;
 import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.tenant.TenantRepository;
 import com.promostree.repositories.user.EventTypeRepository;
@@ -55,8 +65,14 @@ import com.promostree.repositories.user.UserShoutRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:domain-application-context.xml")
-public class UserTest {
 
+public class UserTest {
+	@Autowired
+	BrandRepository brep;
+	
+	@Autowired
+	MerchantRepository mrep;
+	
 	@Autowired
 	UserRepository urep;
 	@Autowired
@@ -110,7 +126,7 @@ public class UserTest {
 	UserAuditLogRepository 	ualrep;
 	
 	
-	@Test
+	/*@Test
 	public void create()
 	{
 		// for types
@@ -333,7 +349,7 @@ public class UserTest {
 		
 		
 		}
-	
+	*/
 	/*
 	
 	@Test
@@ -354,11 +370,15 @@ public class UserTest {
 	//}*/
 	
 	@Test
+	@Transactional(propagation=Propagation.REQUIRED,readOnly=true,timeout=100)
 	public void readNotification()
 	{
 
 		
-		//User u=urep.findById((long)1);
+	User u=urep.findById((long)1);
+		User u1=urep.findById((long)1);
+		System.out.println(u);
+		System.out.println(u1);
 		
 		
 		//UserLocation ul=ulrep.findOne(1L);
@@ -366,14 +386,16 @@ public class UserTest {
 		
 		//UserShout us=ussrep.findOne(1L);
 		
-		Notification n=nnrep.findOne(2L);
+		/*List<Notification> ns=nnrep.findByRecipientUserId(3L);
+		Notification n=ns.get(0);*/
 		
-		
-
+		//Brand b=brep.findOne(1L);
+		//Venue v=vrep.findById(1L);
+//Merchant m=mrep.findOne(1L);
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		try{
 			
-		String json = ow.writeValueAsString(n);
+		String json = ow.writeValueAsString(u);
 		
 		System.out.println(json);
 		} catch (JsonGenerationException ex) {

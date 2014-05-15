@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.promostree.domain.entities.Venue;
 import com.promostree.domain.solr.SolrVenue;
@@ -22,6 +24,7 @@ import com.promostree.repositories.solr.SolrVenueRepository;
 import com.promostree.repositories.user.UserPreferenceRepository;
 
 @Service
+@Transactional(propagation=Propagation.REQUIRED,readOnly=false,timeout=100)
 public class SearchServiceImpl implements SearchServices {
 
 	private static final Logger logger = LoggerFactory

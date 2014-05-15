@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.promostree.domain.entities.Location;
 import com.promostree.domain.user.EventType;
@@ -38,6 +40,7 @@ import com.promostree.repositories.user.UserShareRepository;
 import com.promostree.repositories.user.UserShoutRepository;
 
 @Component
+@Transactional(propagation=Propagation.REQUIRED,readOnly=false,timeout=100)
 public class UserServiceImpl implements UserServices {
 	@Autowired
 	TypeRepository typeRepository;

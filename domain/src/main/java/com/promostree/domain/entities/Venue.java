@@ -31,6 +31,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -88,25 +89,29 @@ private int feedBackCount;
 
 
 
-@ManyToMany(mappedBy="venues",fetch = FetchType.EAGER)
+@ManyToMany(mappedBy="venues",fetch = FetchType.LAZY)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @JsonBackReference
 private  List<Brand> brands;
 
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "categoryId")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Category category;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "tenantId")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Tenant tenant;
 	
 	@OneToMany(mappedBy = "venue", cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = com.promostree.domain.entities.Offer.class)
 	@JsonManagedReference
 	private List<Offer> offers = new ArrayList<Offer>();
 	
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "addressId")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Address address;
 	
 
