@@ -375,10 +375,10 @@ public class UserTest {
 	{
 
 		
-	User u=urep.findById((long)1);
-		User u1=urep.findById((long)1);
-		System.out.println(u);
-		System.out.println(u1);
+	//User u=urep.findById((long)1);
+		//User u1=urep.findById((long)1);
+	//	System.out.println(u);
+		//System.out.println(u1);
 		
 		
 		//UserLocation ul=ulrep.findOne(1L);
@@ -392,10 +392,14 @@ public class UserTest {
 		//Brand b=brep.findOne(1L);
 		//Venue v=vrep.findById(1L);
 //Merchant m=mrep.findOne(1L);
+		Type t = ptrep.findOne(1L);
+		Type t1 = ptrep.findOne(1L);
+		Type t2 = ptrep.findOne(1L);
+		
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		try{
 			
-		String json = ow.writeValueAsString(u);
+		String json = ow.writeValueAsString(t);
 		
 		System.out.println(json);
 		} catch (JsonGenerationException ex) {

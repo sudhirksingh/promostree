@@ -1,5 +1,6 @@
 package com.promostree.domain.user;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,10 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity(name="type")
 @Table(name="type")
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_ONLY)
 public  class Type
 {
 	@Id
