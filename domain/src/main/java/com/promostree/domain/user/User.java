@@ -17,6 +17,7 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import org.hibernate.annotations.Fetch;
@@ -47,11 +48,13 @@ public class User {
 	@Transient
 	private String searchTerm;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@JoinColumn(name = "tenantId")
 	private Tenant tenant;
 
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@JsonManagedReference(value = "user-userProfile")
 	private UserProfile userProfile;
 
@@ -153,6 +156,16 @@ public class User {
 		return result;
 	}
 
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", phoneNumber=" + phoneNumber + ", email="
+				+ email + ", lat=" + lat + ", lng=" + lng + ", radius="
+				+ radius + ", pageNumber=" + pageNumber + ", searchTerm="
+				+ searchTerm + ", tenant=" + tenant + ", userProfile="
+				+ userProfile + "]";
+	}
+
+	
 
 
 }

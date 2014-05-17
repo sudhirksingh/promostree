@@ -1,53 +1,56 @@
 package com.promostree.domain.user;
 
+import java.util.Date;
+
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-@Entity(name = "user_event")
-@Table(name = "user_event")
-public class UserEvent {
+@Entity(name="user_event")
+@Table(name="user_event")
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="event_type",discriminatorType=DiscriminatorType.STRING)
+public class UserEvent
+{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Size(max = 100000)
-	private String data;
+	private String comment;
+	@Temporal(TemporalType.DATE)
+	private Date createdDate;
 
-	@JoinColumn(name = "eventTypeId")
 	@OneToOne
-	@JsonIgnore
-	private EventType type;
+	@JoinColumn(name="typeId")
+	private Type type;
+
+	private Long value;
 
 	@ManyToOne
-	@JoinColumn(name = "userId")
-	private User user;
+	@JoinColumn(name="userId")
+	private User User;
 
-	public EventType getType() {
-		return type;
-	}
-
-	public void setType(EventType type) {
-		this.type = type;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
+	
+	
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -56,59 +59,56 @@ public class UserEvent {
 		this.id = id;
 	}
 
-	public String getData() {
-		return data;
+	public String getComment() {
+		return comment;
 	}
 
-	public void setData(String data) {
-		this.data = data;
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((data == null) ? 0 : data.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
-		return result;
+	public Date getCreatedDate() {
+		return createdDate;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		UserEvent other = (UserEvent) obj;
-		if (data == null) {
-			if (other.data != null)
-				return false;
-		} else if (!data.equals(other.data))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (type == null) {
-			if (other.type != null)
-				return false;
-		} else if (!type.equals(other.type))
-			return false;
-		if (user == null) {
-			if (other.user != null)
-				return false;
-		} else if (!user.equals(other.user))
-			return false;
-		return true;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
-	/*
-	 * @Override public String toString() { return "UserEvent [id=" + id +
-	 * ", data=" + data + ", type=" + type + ", user=" + user + "]"; }
-	 */
 
+	public Type getType() {
+		return type;
+	}
+
+	public void setType(Type type) {
+		this.type = type;
+	}
+
+	public Long getValue() {
+		return value;
+	}
+
+	public void setValue(Long value) {
+		this.value = value;
+	}
+
+	public User getUser() {
+		return User;
+	}
+
+	public void setUser(User user) {
+		User = user;
+	}
+
+	
+
+
+	
+	
+	
+
+	
+	
+	
+	
+	
 }

@@ -4,25 +4,36 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional.TxType;
+
+
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.promostree.domain.entities.Brand;
 import com.promostree.domain.entities.Location;
+import com.promostree.domain.entities.Merchant;
 import com.promostree.domain.entities.Venue;
 import com.promostree.domain.tenant.Tenant;
 import com.promostree.domain.user.EventType;
 import com.promostree.domain.user.LocationType;
 import com.promostree.domain.user.Notification;
 import com.promostree.domain.user.Notification;
+import com.promostree.domain.user.NotificationUserFeedback;
+import com.promostree.domain.user.NotificationUserShare;
 import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
+import com.promostree.domain.user.UserAuditLog;
 import com.promostree.domain.user.UserEvent;
 import com.promostree.domain.user.UserFeedback;
 import com.promostree.domain.user.UserLocation;
@@ -30,7 +41,9 @@ import com.promostree.domain.user.UserPreference;
 import com.promostree.domain.user.UserProfile;
 import com.promostree.domain.user.UserShare;
 import com.promostree.domain.user.UserShout;
+import com.promostree.repositories.entities.BrandRepository;
 import com.promostree.repositories.entities.LocationRepository;
+import com.promostree.repositories.entities.MerchantRepository;
 import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.tenant.TenantRepository;
 import com.promostree.repositories.user.EventTypeRepository;
@@ -39,20 +52,27 @@ import com.promostree.repositories.user.LocationTypeRepository;
 import com.promostree.repositories.user.NotificationRepository;
 import com.promostree.repositories.user.NotificationRepository;
 import com.promostree.repositories.user.TypeRepository;
+import com.promostree.repositories.user.UserAuditLogRepository;
 import com.promostree.repositories.user.UserEventRepository;
 import com.promostree.repositories.user.UserFeedbackRepository;
-import com.promostree.repositories.user.UserLocationsRepository;
-import com.promostree.repositories.user.UserPreferencesRepository;
+import com.promostree.repositories.user.UserLocationRepository;
+import com.promostree.repositories.user.UserPreferenceRepository;
 import com.promostree.repositories.user.UserProfileRepository;
 import com.promostree.repositories.user.UserRepository;
-import com.promostree.repositories.user.UserSharesRepository;
+import com.promostree.repositories.user.UserShareRepository;
 import com.promostree.repositories.user.UserShoutRepository;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:domain-application-context.xml")
-public class UserTest {
 
+public class UserTest {
+	@Autowired
+	BrandRepository brep;
+	
+	@Autowired
+	MerchantRepository mrep;
+	
 	@Autowired
 	UserRepository urep;
 	@Autowired
@@ -64,10 +84,10 @@ public class UserTest {
 	LocationRepository lrep;
 	
 	@Autowired
-	UserLocationsRepository ulrep;
+	UserLocationRepository ulrep;
 	
 	@Autowired
-	UserPreferencesRepository upsrep;
+	UserPreferenceRepository upsrep;
 	
 	@Autowired
 	TypeRepository ptrep;
@@ -77,7 +97,7 @@ public class UserTest {
 	
 	
 	@Autowired
-	UserSharesRepository usrep;
+	UserShareRepository usrep;
 	
 	@Autowired
 	NotificationRepository nrep;
@@ -91,7 +111,7 @@ public class UserTest {
 	@Autowired
 	LocationTypeRepository ltrep ;
 	@Autowired
-	UserSharesRepository userSharesRep;
+	UserShareRepository userSharesRep;
 	
 	@Autowired
 	EventTypeRepository 	etrep;
@@ -102,10 +122,11 @@ public class UserTest {
 	@Autowired
 	NotificationRepository 	nnrep;
 	
+	@Autowired
+	UserAuditLogRepository 	ualrep;
 	
 	
-	
-	@Test
+	/*@Test
 	public void create()
 	{
 		// for types
@@ -192,18 +213,7 @@ public class UserTest {
 		ussrep.save(uss);
 		
 		
-		//shares 
-				
-		UserShare us=new UserShare();
-		us.setUser(u);
-		Venue venue=vrep.findById((long)2);
 		
-
-		us.setValue(venue.getId());
-		us.setComment("nice..........");
-		us.setType(pt1);
-		us.setCreateDate(new Date());
-		usrep.save(us);
 		
 	//event Type
 		
@@ -225,64 +235,12 @@ public class UserTest {
 		
 		EventType et4=etrep.findByName("share");
 
-		Notification n=new Notification();
-		n.setUserShare(us);
-		n.setUser(u1);
-		n.setEventType(et4);
-		n.setCreatedDate(new Date());
-		nrep.save(n);
-		
-		
-		Notification n1=new Notification();
-		n1.setUserShare(us);
-		n1.setUser(u2);
-		n1.setEventType(et4);
-		n1.setCreatedDate(new Date());
-		nrep.save(n1);
-		
-				
-		//feedback
-		
-		UserFeedback ufb1=new UserFeedback();
-		ufb1.setUser(u);	
-		ufb1.setComment("nice");
-		ufb1.setCreatedDate(new Date());
-		ufb1.setType(pt3);
-		ufb1.setValue(venue.getOffers().get(0).getId());
-		ufbrep.save(ufb1);
-		
-       EventType et5=etrep.findByName("feedback");
-		
-       Notification n3=new Notification();
-		n3.setUserShare(us);
-		n3.setUser(u1);
-		n3.setEventType(et5);
-		n3.setUserFeedback(ufb1);
-		n3.setUserShare(null);
-		n3.setCreatedDate(new Date());
-		nrep.save(n3);
-		
-		UserFeedback ufb2=new UserFeedback();
-		ufb2.setUser(u);	
-		ufb2.setComment("worst");
-		ufb2.setCreatedDate(new Date());
-		ufb2.setType(pt3);
-		ufb1.setValue(venue.getOffers().get(1).getId());
-		ufbrep.save(ufb2);
-		
-		Notification n4=new Notification();
-		n4.setUserShare(us);
-		n4.setUser(u2);
-		n4.setEventType(et5);
-		n4.setUserFeedback(ufb1);
-		n4.setUserShare(null);
-		n4.setCreatedDate(new Date());
-		nrep.save(n4);
 		
 		//preferences
 		
 		UserPreference ups=new UserPreference();
 		ups.setType(pt4);
+		Venue venue=vrep.findById(1L);
 		ups.setValue(venue.getOffers().get(0).getShout().getId());
 		ups.setCreatedDate(new Date());
 		ups.setUser(u);
@@ -291,6 +249,7 @@ public class UserTest {
 		UserPreference ups1=new UserPreference();
 		ups1.setType(pt1);
 		ups1.setValue(venue.getId());
+		ups1.setCreatedDate(new Date());
 		ups1.setUser(u);
 		upsrep.save(ups1);
 		
@@ -320,18 +279,52 @@ public class UserTest {
 		up.setUser(u);
 		uprep.save(up);
 		
+	
 		
+		//shares 
+		
+				UserShare us=new UserShare();
+				us.setUser(u);
+				us.setType(pt1);
+				us.setValue(venue.getId());
+				us.setComment("nice..........");
+				us.setCreatedDate(new Date());
+				usrep.save(us);
+				
+				NotificationUserShare n=new NotificationUserShare();
+				n.setRecipientUser(u1);
+				n.setCreatedDate(new Date());
+				n.setStatus(false);
+				n.setPhoneNo("900208863");
+				n.setUserShare(us);
+				nnrep.save(n);
+						
+				UserFeedback ufb2=new UserFeedback();
+				ufb2.setUser(u);
+				ufb2.setComment("worst");
+				ufb2.setCreatedDate(new Date());
+				ufb2.setType(pt3);
+				ufb2.setValue(venue.getOffers().get(0).getId());
+				ufbrep.save(ufb2);
+				
+				NotificationUserFeedback n1=new NotificationUserFeedback();
+				n1.setRecipientUser(u2);
+				n1.setCreatedDate(new Date());
+				n1.setStatus(false);
+				n1.setPhoneNo("900208863");
+				n1.setUserFeedback(ufb2);
+				nnrep.save(n1);
 	
 		
       //user event
 		
-		UserEvent ue=new UserEvent();
+		UserAuditLog ual=new UserAuditLog();
 		Venue vv=vrep.findById((long)1);
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		try{
 		String json = ow.writeValueAsString(vv);
 		
-		ue.setData(json);
+		ual.setData(json);
 		} catch (JsonGenerationException ex) {
 
 			ex.printStackTrace();
@@ -346,16 +339,17 @@ public class UserTest {
 
 		}
 		
-		ue.setType(et);
-		ue.setUser(u);
-		uErep.save(ue);
+		ual.setType(et);
+		ual.setCreatedDate(new Date());
+		ual.setUser(u);
+		ualrep.save(ual);
 		
 		
 		
 		
 		
 		}
-	
+	*/
 	/*
 	
 	@Test
@@ -376,12 +370,28 @@ public class UserTest {
 	//}*/
 	
 	@Test
+	@Transactional(propagation=Propagation.REQUIRED,readOnly=true,timeout=100)
 	public void readNotification()
 	{
 
-		//System.out.println(Notifications.get(0));
-		User u=urep.findById((long)2);
-
+		
+	User u=urep.findById((long)1);
+		User u1=urep.findById((long)1);
+		System.out.println(u);
+		System.out.println(u1);
+		
+		
+		//UserLocation ul=ulrep.findOne(1L);
+		
+		
+		//UserShout us=ussrep.findOne(1L);
+		
+		/*List<Notification> ns=nnrep.findByRecipientUserId(3L);
+		Notification n=ns.get(0);*/
+		
+		//Brand b=brep.findOne(1L);
+		//Venue v=vrep.findById(1L);
+//Merchant m=mrep.findOne(1L);
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		try{
 			

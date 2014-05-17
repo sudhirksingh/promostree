@@ -1,14 +1,22 @@
 package com.promostree.user.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.promostree.domain.entities.Location;
+import com.promostree.domain.user.EventType;
 import com.promostree.domain.user.LocationType;
 import com.promostree.domain.user.Notification;
-import com.promostree.domain.user.Notification1;
+import com.promostree.domain.user.NotificationUserFeedback;
+import com.promostree.domain.user.NotificationUserShare;
 import com.promostree.domain.user.User;
+import com.promostree.domain.user.UserEvent;
 import com.promostree.domain.user.UserFeedback;
 import com.promostree.domain.user.UserLocation;
 import com.promostree.domain.user.UserPreference;
@@ -18,23 +26,26 @@ import com.promostree.domain.user.UserShout;
 import com.promostree.repositories.entities.LocationRepository;
 import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.entities.OfferRepository;
+import com.promostree.repositories.user.EventTypeRepository;
 import com.promostree.repositories.user.LocationTypeRepository;
 import com.promostree.repositories.user.NotificationRepository;
 import com.promostree.repositories.user.TypeRepository;
+import com.promostree.repositories.user.UserEventRepository;
 import com.promostree.repositories.user.UserFeedbackRepository;
-import com.promostree.repositories.user.UserLocationsRepository;
-import com.promostree.repositories.user.UserPreferencesRepository;
+import com.promostree.repositories.user.UserLocationRepository;
+import com.promostree.repositories.user.UserPreferenceRepository;
 import com.promostree.repositories.user.UserProfileRepository;
 import com.promostree.repositories.user.UserRepository;
-import com.promostree.repositories.user.UserSharesRepository;
+import com.promostree.repositories.user.UserShareRepository;
 import com.promostree.repositories.user.UserShoutRepository;
 
 @Component
+@Transactional(propagation=Propagation.REQUIRED,readOnly=false,timeout=100)
 public class UserServiceImpl implements UserServices {
 	@Autowired
 	TypeRepository typeRepository;
 	@Autowired
-	UserSharesRepository userSharesRepository;
+	UserShareRepository userSharesRepository;
 	@Autowired
 	NotificationRepository notificationRepository;
 	@Autowired
@@ -42,9 +53,9 @@ public class UserServiceImpl implements UserServices {
 	@Autowired
 	UserProfileRepository userProfileRepository;
 	@Autowired
-	UserPreferencesRepository userPreferencesRepository;
+	UserPreferenceRepository userPreferencesRepository;
 	@Autowired
-	UserLocationsRepository userLocationsRepository;
+	UserLocationRepository userLocationsRepository;
 	@Autowired
 	LocationTypeRepository locationTypeRepository;
 	@Autowired
@@ -57,6 +68,10 @@ public class UserServiceImpl implements UserServices {
 	VenueRepository venueRepository;
 	@Autowired
 	OfferRepository offerRepository;
+	@Autowired
+	EventTypeRepository eventTypeRepository;
+	@Autowired
+	UserEventRepository userEventRepository;
 
 	// for user Registration
 	@Override
@@ -133,160 +148,69 @@ public class UserServiceImpl implements UserServices {
 		userpreList = userPreferencesRepository.findByUserId(user.getId());
 		return userpreList;
 	}
-
-	/*
-	 * List<UserPreference> userpreferences=user.getUserPreferences();
-	 * List<UserPreference> userpreList = new ArrayList<UserPreference>();
-	 * for(UserPreference userPreference:userpreferences) { Long userid =
-	 * userPreference.getUser().getId();
-	 * userPreference.setUser(userRepository.findById(userid)); userPreference
-	 * .setType(typeRepository.findById(userPreference.getType().getId()));
-	 * if(userPreference!=null) userpreList =
-	 * userPreferencesRepository.findByUserId(userid); } return userpreList;
-	 */
-
-	// to get shares which i posted
+	
+	// to save user feedback
 	@Override
-	public List<UserShare> readPostedUserShares(User user) {
-		return userSharesRepository.findByUserId(user.getId());
-	}
+	public boolean saveUserFeedback(
+			NotificationUserFeedback notificationUserFeedback) {
 
-	@Override
-	public List<UserShare> readRecievedUserShares(User user) {
-		List<UserShare> userShares = new ArrayList<UserShare>();
-		List<Notification> notifications = notificationRepository
-				.findByUserId(user.getId());
-		for (Notification notification : notifications) {
-			userShares.add(userSharesRepository.findOne(notification
-					.getUserShare().getId()));
+		UserFeedback userFeedback = notificationUserFeedback.getUserFeedback();
+		userFeedback.setCreatedDate(new Date());
+		userFeedback.setUpdatedDate(new Date());
+		userFeedbackRepository.save(userFeedback);
+		
+		
+
+		List<User> users = userRepository.findByIdNotIn(userFeedback.getUser()
+				.getId());
+		
+                                             
+		for (User user : users) {
+			NotificationUserFeedback notification = new NotificationUserFeedback();
+			notification.setCreatedDate(new Date());
+			notification.setPhoneNo(user.getPhoneNumber());
+			notification.setRecipientUser(user);
+			notification.setStatus(false);
+			notification.setUserFeedback(userFeedback);
+			notificationRepository.save(notification);
+
 		}
-		return userShares;
+		return true;
 	}
-
-	/*
-	 * @Override public UserPreference deleteUserPreferences(UserPreference
-	 * userPreferences){ userPreferencesRepository.delete(userPreferences);
-	 * return userPreferences; }
-	 */
-
 	@Override
-	public UserLocation saveUserLocations(UserLocation userLocations) {
-		UserLocation userLocations1 = userLocationsRepository
-				.save(userLocations);
-		return userLocations1;
-	}
+	public boolean saveUserShare(NotificationUserShare notificationUserShare) {
+		UserShare userShare=notificationUserShare.getUserShare();
+		userShare.setCreatedDate(new Date());
+		userEventRepository.save(userShare);
+		List<User> users = userRepository.findByIdNotIn(userShare.getUser()
+				.getId());
+	
 
-	@Override
-	public boolean saveLocationType(LocationType locationType) {
-		LocationType locationType1 = locationTypeRepository.save(locationType);
-		if (locationType1.equals(locationType))
-			return true;
-		else
-			return false;
-	}
+		for (User user : users) {
+			NotificationUserShare notification = new NotificationUserShare();
+			notification.setCreatedDate(new Date());
+			notification.setPhoneNo(user.getPhoneNumber());
+			notification.setRecipientUser(user);
+			notification.setStatus(false);
+			notification.setUserShare(userShare);
+			notificationRepository.save(notification);
 
-	public Location saveLocation(Location location) {
-		Location location1 = locationRepository.save(location);
-		return location1;
-	}
-
-	@Override
-	public List<Notification1> readNotifications(User user) {
-
-		List<Notification1> notification1s = new ArrayList<Notification1>();
-
-		Notification1 notification1 = new Notification1();
-
-		List<Notification> notifications = notificationRepository
-				.findByUserId(user.getId());
-
-		UserShare userShare = new UserShare();
-
-		UserFeedback userFeedback = new UserFeedback();
-
-		for (Notification notification : notifications) {
-			if (notification.getEventType().getId() == 2) { // if its share type
-				notification1 = new Notification1();
-				userShare = notification.getUserShare();
-				notification1.setActivity_type("share");
-				notification1.setUserShare(userShare);
-				notification1.setUser(userRepository.findById(userShare
-						.getUser().getId()));
-
-				notification1.setUserProfile(userProfileRepository
-						.findByUserId(userShare.getUser().getId()));
-				if (userShare.getType().getId() == 2) { // venue shared
-					notification1.setVenue(venueRepository
-							.findOne((long) userShare.getValue()));
-				}
-				if (userShare.getType().getId() == 4) { // offer shared
-					notification1.setOffer(offerRepository.findOne(userShare
-							.getValue()));
-				}
-				notification1s.add(notification1);
-			} else if (notification.getEventType().getId() == 3) { // if its a
-																	// feedback
-																	// type
-				notification1 = new Notification1();
-				userFeedback = notification.getUserFeedback();
-				notification1.setActivity_type("feedback");
-				notification1.setUserFeedback(userFeedback);
-				notification1.setUser(userRepository.findById(userFeedback
-						.getUser().getId()));
-				notification1.setUserProfile(userProfileRepository
-						.findByUserId(notification1.getUser().getId()));
-				if (userShare.getType().getId() == 2) { // feedback on venue
-					notification1.setVenue(venueRepository.findOne(userFeedback
-							.getValue()));
-
-					notification1s.add(notification1);
-				}
-				if (userShare.getType().getId() == 4) { // feedback on offer
-					notification1.setOffer(offerRepository.findOne(userFeedback
-							.getValue()));
-				}
-
-			}
 		}
-
-		return notification1s;
-
+		return true;
 	}
 
+	/**
+	 * to read notifications
+	 */
 	@Override
-	public List<UserShout> readUserShout(User user) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Notification> readNotifications(User user) {
+		user=userRepository.findOne(1L);
+		return notificationRepository.findByRecipientUserId(1L);
+
 	}
 
-	@Override
-	public boolean saveUserShares(UserShare userShares) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
-	@Override
-	public UserProfile saveUserProfile(UserProfile userProfile) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean saveUserPreference(List<UserPreference> userPreferences) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean saveUserFeedback(UserFeedback userFeedback) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean saveUserShares(UserShare userShares, List<User> users) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
+	
 
 }

@@ -23,7 +23,7 @@ SolrVenueRepository solrVenueRepository;
 	public void nearestVenues() throws Exception {
 		int pageNumber=0;
 		List<String> searchField=new ArrayList<String>();
-		searchField.add("bawarchi");
+		searchField.add("pub");
 		//searchField.add("cream");
 		//searchField.add("wine");
 		List<SolrVenue> v1=	solrVenueRepository.findBySearch_fieldIn( searchField, new PageRequest(pageNumber, 30));

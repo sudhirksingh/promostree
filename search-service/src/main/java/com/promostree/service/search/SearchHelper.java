@@ -19,12 +19,15 @@ import com.promostree.domain.entities.Category;
 import com.promostree.domain.entities.Location;
 import com.promostree.domain.entities.Offer;
 import com.promostree.domain.entities.Shout;
-
 import com.promostree.domain.entities.Venue;
 import com.promostree.domain.solr.SolrVenue;
 import com.promostree.domain.user.User;
 import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.solr.SolrVenueRepository;
+import com.promostree.repositories.user.UserFeedbackRepository;
+import com.promostree.repositories.user.UserPreferenceRepository;
+import com.promostree.repositories.user.UserShareRepository;
+import com.promostree.repositories.user.UserShoutRepository;
 
 @Component
 public class SearchHelper {
@@ -36,6 +39,14 @@ public class SearchHelper {
 
 	@Autowired
 	SolrVenueRepository solrRepository;
+	@Autowired
+	UserShareRepository userSharesRepository;
+	@Autowired
+	UserShoutRepository userShoutRepository;
+	@Autowired
+	UserPreferenceRepository userPreferencesRepository;
+	@Autowired
+	UserFeedbackRepository userFeedbackRepository;
 
 public List<SolrVenue> getOfferInVenue( Venue venue) {
 	logger.info("enter into getOfferInVenue( Venue venue)============================== ");
@@ -122,6 +133,7 @@ public List<SolrVenue> getOfferInVenue( Venue venue) {
 			doc.setSearch_field(searchField);
 			
 			
+			
 			/* // merchant venues.setMerchant_id(venue.getMerchant().getId()
 			 * .toString());
 			 * venues.setMerchant_name(venue.getMerchant().getName());
@@ -132,6 +144,7 @@ public List<SolrVenue> getOfferInVenue( Venue venue) {
 		}
 		return solrVenues;
 	}
+
 
 	public List<Venue> getVenuesFromSource() {
 		logger.info("enter into getVenuesFromSource()============================== ");
@@ -252,6 +265,7 @@ public List<SolrVenue> getOfferInVenue( Venue venue) {
 				shout.setActive(Boolean.valueOf(doc.getShout_active()));
 				shout.setCreatedBy(doc.getShout_created_by());
 				shout.setUpdatedBy(doc.getShout_updated_by());
+				
 				try
 				{
 				shout.setCreatedDate(sdf.parse(docs.getShout_created_dt()));
@@ -260,7 +274,10 @@ public List<SolrVenue> getOfferInVenue( Venue venue) {
 				
 				offer.setShout(shout);
 				domainVenue.getOffers().add(offer);
-
+                domainVenue.setShareCount(Integer.parseInt(docs.getShare_count()));
+                domainVenue.setShoutCount(Integer.parseInt(docs.getShout_count()));
+                domainVenue.setPreferenceCount(Integer.parseInt(docs.getPreference_count()));
+                domainVenue.setFeedBackCount(Integer.parseInt(docs.getFeedback_count()));
 			}
 
 			// System.out.println(domainVenue.getName() + "");

@@ -29,7 +29,7 @@ public class Location {
 	
 	
 	
-	@OneToOne(mappedBy="location",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	/*@OneToOne(mappedBy="location",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JsonBackReference
 	private Address address;
 	
@@ -60,7 +60,7 @@ public class Location {
 		this.address = address;
 	}
 	
-	
+	*/
 
 
 
@@ -92,7 +92,6 @@ public class Location {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(lat);
@@ -111,12 +110,7 @@ public class Location {
 		if (getClass() != obj.getClass())
 			return false;
 		Location other = (Location) obj;
-		if (address == null) {
-			if (other.address != null)
-				return false;
-		} else if (!address.equals(other.address))
-			return false;
-		if (id == null) {
+				if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
@@ -131,7 +125,6 @@ public class Location {
 	@Override
 	public String toString() {
 		return "Location [id=" + id + ", lat=" + lat + ", lng=" + lng
-				+ ", address=" + address + ", userLocations=" + userLocations
 				+ "]";
 	}
 

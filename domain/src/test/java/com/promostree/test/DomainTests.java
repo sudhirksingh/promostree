@@ -113,25 +113,9 @@ GroupsRepository grep ;
 		grep.save(g);
 			
 		
-	    Merchant m=new Merchant();
-	    m.setName("visigenix");
-	    m.setLoginId("visi");
-	    m.setPwd("visi@123");
-	    m.setTenant(t);
-	    m.setGroup(g);
-	    mrep.save(m);
+	   
 	    
-	    Brand b1=new Brand();
-	    b1.setCreatedDate(new Date());
-	    b1.setActive(true);
-	    b1.setName("puma");
-	    brep.save(b1);
-	    
-	    Brand b2=new Brand();
-	    b2.setCreatedDate(new Date());
-	    b2.setActive(true);
-	    b2.setName("levis");
-	    brep.save(b2);
+	   
 	    
 	    
 	    
@@ -145,11 +129,8 @@ GroupsRepository grep ;
 		v.setCategory(c);
 		v.setTenant(t);
 		
-		List<Brand> bs=new ArrayList<Brand>();
-		bs.add(b1);
-		bs.add(b2);
-		v.setBrands(bs);
-		v.setMerchant(m);
+
+
 		
 		v.setActive(false);
 		v.setCreatedBy("visigenix");
@@ -158,6 +139,35 @@ GroupsRepository grep ;
 		v.setUpdatedDate(new Date());
 		vrep.save(v);
 		
+		
+		List<Venue> vs=new ArrayList<Venue>();
+		vs.add(v);
+		
+
+		
+		 Brand b1=new Brand();
+		    b1.setCreatedDate(new Date());
+		    b1.setActive(true);
+		    b1.setName("puma");
+		    b1.setVenues(vs);
+		    brep.save(b1);
+		    
+		    Brand b2=new Brand();
+		    b2.setCreatedDate(new Date());
+		    b2.setActive(true);
+		    b2.setName("levis");
+		    b2.setVenues(vs);
+		    brep.save(b2);
+		
+		
+		 Merchant m=new Merchant();
+		    m.setName("visigenix");
+		    m.setLoginId("visi");
+		    m.setPwd("visi@123");
+		    m.setTenant(t);
+		    m.setGroup(g);
+		    m.setVenue(v);
+		    mrep.save(m);
 		
 		Offer o1=new Offer();
 		o1.setSubject("special offer");
@@ -216,85 +226,18 @@ GroupsRepository grep ;
 			
 	}
 
-		/*	
-
-@Test
-	public void save1() throws ParseException
-	{
 		
-		
-	
-		Address add=new Address();
-		add.setCity("hyderabad");
-		add.setCountry("india");
-		add.setLandMark("ap bavan");
-		add.setState("ap");
-		add.setZip("500070");
-		arep.save(add);
-		
-		Location l1=new Location();
-		l1.setLat(17.444);
-		l1.setLng(78.333);
-		l1.setAddress(add);
-		lrep.save(l1);
-		
-		Category c=new Category();
-		c.setName("computers");
-		crep.save(c);
-		
-		Venue v=new Venue();
-		v.setName("computer");
-		v.setAddress(add);
-		v.setImage("http://");
-		v.setVerified("verified");
-		v.setCategory(c);
-		vrep.save(v);
-		
-		Offer o1=new Offer();
-		o1.setDescription("special offer on computer");
-		o1.setVenue(v);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd");
-		//String dateInString = "2014-11-2";
-		//Date date = sdf.parse(dateInString);
-		o1.setStartingDate(new Date());
-		o1.setEndingDate(sdf.parse("2014-11-2"));
-		orep.save(o1);
-		
-		Offer o2=new Offer();
-		o2.setDescription("special offer 50% off on computer");
-		o2.setVenue(v);
-		o2.setStartingDate(new Date());
-		o2.setEndingDate(sdf.parse("2014-11-22"));
-		orep.save(o2);
-		
-		Shout s1=new Shout();
-		s1.setDesciption("special offer on computer");
-		s1.setOffer(o1);
-	
-		srep.save(s1);
-		
-		
-		Shout s2=new Shout();
-		s2.setDesciption("special offer 50% off on computer");
-		s2.setOffer(o2);
-	
-		srep.save(s2);
-		
-			
-	}
-	
-	*/
-
 	@Test
 	public void readVenue()
 	{
-		Venue venue=vrep.findById((long)1);
+		//Venue venue=vrep.findById((long)1);
 		
-		
+		//Brand b=brep.findOne(1L);
+		Merchant m=mrep.findOne(1L);
 		
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		try{
-		String json = ow.writeValueAsString(venue);
+		String json = ow.writeValueAsString(m);
 		
 		System.out.println(json);
 		} catch (JsonGenerationException ex) {

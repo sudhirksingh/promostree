@@ -88,4 +88,11 @@ public class Tenant {
 		this.active = active;
 	}
 
+	@Override
+	public String toString() {
+		return "Tenant [id=" + id + ", name=" + name + ", loginId=" + loginId
+				+ ", pwd=" + pwd + ", createdDate=" + createdDate + ", active="
+				+ active + "]";
+	}
+
 }

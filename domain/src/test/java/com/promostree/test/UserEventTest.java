@@ -11,8 +11,10 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.promostree.domain.entities.Venue;
 import com.promostree.domain.user.User;
+import com.promostree.domain.user.UserAuditLog;
 import com.promostree.domain.user.UserEvent;
 import com.promostree.repositories.user.EventTypeRepository;
+import com.promostree.repositories.user.UserAuditLogRepository;
 import com.promostree.repositories.user.UserEventRepository;
 import com.promostree.repositories.user.UserRepository;
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -27,6 +29,11 @@ public class UserEventTest {
 
 	@Autowired
 	EventTypeRepository etrep;
+	
+	@Autowired
+	UserAuditLogRepository ualrep;
+	
+	
 
 	/*
 	 * @Test public void read() { User uu=urep.findById((long)1); EventType
@@ -46,7 +53,7 @@ public class UserEventTest {
 
 	@Test
 	public void toJson() {
-		UserEvent ue = uerep.findOne((long) 1);
+		UserAuditLog ue = ualrep.findOne((long) 1);
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			User user = mapper.readValue(ue.getData(), User.class);
@@ -67,28 +74,8 @@ public class UserEventTest {
 
 	}
 
-	@Test
-	public void toJson1() {
-		UserEvent ue = uerep.findOne((long) 3);
-		ObjectMapper mapper = new ObjectMapper();
-
-		try {
-			Venue user = mapper.readValue(ue.getData(), Venue.class);
-			System.out.println(user);
-		} catch (JsonGenerationException ex) {
-
-			ex.printStackTrace();
-
-		} catch (JsonMappingException ex) {
-
-			ex.printStackTrace();
-
-		} catch (IOException ex) {
-
-			ex.printStackTrace();
-
-		}
+	
 
 	}
 
-}
+

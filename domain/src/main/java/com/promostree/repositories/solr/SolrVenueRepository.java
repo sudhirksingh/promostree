@@ -14,6 +14,7 @@ public interface SolrVenueRepository extends
 		SolrCrudRepository<SolrVenue, String> {
     @Query("entity_id:?0")
     public List<SolrVenue> findByEntity_id(String entityId);
+    
 	@Query("search_field:*?0*")
 	public List<SolrVenue> findByQueryAnnotation(String searchTerm);
 

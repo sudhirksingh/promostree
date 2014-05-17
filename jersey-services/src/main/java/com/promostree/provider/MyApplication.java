@@ -3,8 +3,6 @@ package com.promostree.provider;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.web.filter.RequestContextFilter;
 
-import com.promostree.resource.UserResources;
-import com.promostree.resource.VenueResources;
 
 public class MyApplication extends ResourceConfig {
 

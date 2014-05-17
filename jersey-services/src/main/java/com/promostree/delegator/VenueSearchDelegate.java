@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
+
 import com.promostree.domain.entities.Venue;
 import com.promostree.domain.user.User;
+import com.promostree.domain.user.UserPreference;
 import com.promostree.service.core.CoreService;
 import com.promostree.service.search.SearchServices;
 
@@ -45,9 +47,7 @@ public class VenueSearchDelegate {
 
 		return result;
 	}
-	public List<Venue> getPreferredVenues(User user){
-		return searchServices.findBySearch_fieldIn(user);
-	}
+	
 	public VenueSearchDelegate() {
 		System.out.println("VenueSearchDelegate");
 	}

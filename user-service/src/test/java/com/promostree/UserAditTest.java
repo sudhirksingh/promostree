@@ -12,11 +12,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.promostree.domain.entities.Venue;
 import com.promostree.domain.user.EventType;
+
+import com.promostree.domain.user.Notification;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserEvent;
 import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.user.EventTypeRepository;
+import com.promostree.repositories.user.NotificationRepository;
 import com.promostree.repositories.user.UserRepository;
+import com.promostree.user.service.Log;
 import com.promostree.user.service.UserAuditImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -35,14 +39,26 @@ public class UserAditTest
    @Autowired
    EventTypeRepository etrep ;
    
- /* @Test
+   @Autowired
+   NotificationRepository nrep ;
+   
+/*   
+  @Test
   public void writterTest(){
 	  
 	//  UserAudit userAudit=new UserAuditImpl();
 	  
-	  User user=urep.findById((long)1);
+	  User user=new User();
+	  user.setId(1L);
+	  user.setRadius(23.233);
+	  user.setSearchTerm("sweats");
+	  user.setLat(17.222);
+	  user.setLng(72.1223);
+	  user.setPageNumber(1);
 	  
-Venue v=vrep.findById((long)1);
+//Venue v=vrep.findById((long)1);
+	  
+  // Notification n=nrep.findOne(2L);
 	  
 	System.out.println(  userAuditImpl.logWritter(user,user));
 	  
@@ -55,24 +71,25 @@ Venue v=vrep.findById((long)1);
 	//  UserAudit userAudit=new UserAuditImpl();
 	  
 	  User uu=urep.findById((long)1);
-		EventType et=etrep.findByName("venue");
-	  
-	List<Object> UserEvents= userAuditImpl.logReader(uu, et);
+		//EventType et=etrep.findOne(7L);
+		Log logs=userAuditImpl.logReader(uu);
+		
+	  	
 		 
-
+List<User> l=logs.getUsers();
 			
-			for(Object ue:UserEvents)
+			for(User u:l)
 			{
-				System.out.println(ue);
-			
+				System.out.println(u);
 			}
 			
+			
 			 
-			 
+  } 
 			 
 			
 		
 	  
-  }
+  
  
 }

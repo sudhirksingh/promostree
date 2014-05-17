@@ -4,8 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javassist.bytecode.stackmap.TypeData.ClassName;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -13,30 +17,35 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.promostree.domain.entities.Venue;
 import com.promostree.domain.user.EventType;
+
+import com.promostree.domain.user.NotificationUserFeedback;
 import com.promostree.domain.user.User;
+import com.promostree.domain.user.UserAuditLog;
 import com.promostree.domain.user.UserEvent;
 import com.promostree.repositories.user.EventTypeRepository;
+import com.promostree.repositories.user.UserAuditLogRepository;
 import com.promostree.repositories.user.UserEventRepository;
 
 @Service
+@Transactional(propagation=Propagation.REQUIRED,readOnly=false,timeout=100)
 public class UserAuditImpl implements UserAudit {
 	@Autowired
-	UserEventRepository userEventRepository;
-
+	UserAuditLogRepository userAuditLogRepository;
+	
+	
 	@Autowired
 	EventTypeRepository eventTypeRepository;
 
 	public boolean logWritter(User user, Object object) {
-		UserEvent userEvent = new UserEvent();
+		UserAuditLog userAuditLog =new UserAuditLog();
 		boolean result = false;
-
+		
 		// convert object to json string
 		ObjectWriter ow = new ObjectMapper().writer()
 				.withDefaultPrettyPrinter();
 		try {
 			String json = ow.writeValueAsString(object);
-
-			userEvent.setData(json);
+			userAuditLog.setData(json);
 		} catch (JsonGenerationException ex) {
 
 			ex.printStackTrace();
@@ -52,34 +61,50 @@ public class UserAuditImpl implements UserAudit {
 
 		// to catch the which event type
 
-		String qualifierName = object.getClass().getName();
-		String className = qualifierName.substring(qualifierName
-				.lastIndexOf('.') + 1);
-		EventType eventType = eventTypeRepository.findByName(className
-				.toLowerCase());
-		userEvent.setType(eventType);
+		//String qualifierName = object.getClass().getName();
+		//String className = qualifierName.substring(qualifierName.lastIndexOf('.') + 1);
+		String className = object.getClass().getName();
+		EventType eventType = null;
+		eventType=eventTypeRepository.findByName(className);
+			if(eventType==null)
+		{
+				eventType=new EventType();
+				eventType.setName(className);
+				eventType=eventTypeRepository.save(eventType);
+			
+		}
+		
+		System.out.println(className);
+		userAuditLog.setType(eventType);
 
-		userEvent.setUser(user);
-		UserEvent returnUserEvent = userEventRepository.save(userEvent);
-		if (returnUserEvent != null) {
+		userAuditLog.setUser(user);
+		UserAuditLog returnUserAuditLog = userAuditLogRepository.save(userAuditLog);
+		if (returnUserAuditLog != null) {
 			result = true;
 		}
 		return result;
 	}
 
-	public List<Object> logReader(User user, EventType eventType) {
-		List<UserEvent> UserEvents = userEventRepository.findByUserAndType(
-				user, eventType);
 
+	
+	
+	public Log logReader(User user)  {
+		
+		
+		List<UserAuditLog> userAuditLogs = userAuditLogRepository.findByUser(user);
+		
+			
 		ObjectMapper mapper = new ObjectMapper();
-		List<Object> result = new ArrayList<Object>();
-		Venue venue = null;
+		List<User> result = new ArrayList<User>();
+	
+		User getUser=null;
 
-		if (eventType.getName() == "venue") {
-			for (UserEvent userEvent : UserEvents) {
+		
+			for (UserAuditLog userAuditLog : userAuditLogs) {
 				try {
-					venue = mapper.readValue(userEvent.getData(), Venue.class);
-					System.out.println(venue.getName());
+					
+				getUser = mapper.readValue(userAuditLog.getData(), User.class);
+					//System.out.println(venue.getName());
 
 				} catch (JsonGenerationException ex) {
 
@@ -95,12 +120,14 @@ public class UserAuditImpl implements UserAudit {
 
 				}
 
-				result.add(venue);
+				result.add(getUser);
 
 			}
-		}
-
-		return result;
+		
+Log log=new Log();
+log.setUsers(result);
+		return log;
+	
 	}
 
 }

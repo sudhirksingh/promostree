@@ -1,5 +1,6 @@
 package com.promostree.resource;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -12,9 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.promostree.delegator.VenueSearchDelegate;
-
 import com.promostree.domain.entities.Venue;
+import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
+import com.promostree.domain.user.UserPreference;
 
 @Path("service")
 @Component
@@ -30,18 +32,34 @@ public class VenueResources {
 			@QueryParam("lat") double lat, @QueryParam("lng") double lng,
 			@QueryParam("radius") double radius,
 			@QueryParam("pageNumber") int pageNumber,
-			@QueryParam("searchTerm") String searchTerm) {
-		
-	String i=new String("2");
+			@QueryParam("typeId") long typeId) {
+		UserPreference userPreference=new UserPreference();
+		Type type=new Type();
+		type.setId(typeId);
+	
 		User user=new User();
 		user.setId(userId);
 		user.setLat(lat);
 		user.setLng(lng);	
 		user.setRadius(radius);
 		user.setPageNumber(pageNumber);
-		user.setSearchTerm(searchTerm);
+		userPreference.setUser(user);
+		userPreference.setType(type);
+		/*UserPreference userPreference=new UserPreference();
+		User user=new User();
+		user.setId(2L);
+		user.setLat(17.24154);
+		user.setLng(78.23541254);	
+		user.setRadius(1000.0);
+	
+		
+		userPreference.setUser(user);
+		Type type=new Type();
+		type.setId(1L);
+		userPreference.setType(type);*/
+	
 		//System.out.println(new String(i+""));
-		List<Venue> list = venueSearchDelegate.getPreferredVenues(user);
+		List<Venue> list =new ArrayList<Venue>();// venueSearchDelegate.getPreferredVenues(userPreference);
 		return list;
 	}
 

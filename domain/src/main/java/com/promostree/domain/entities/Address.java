@@ -26,8 +26,7 @@ public class Address {
 	private String zip;
 	
 	@OneToOne
-	@JoinColumn(name="locationId",nullable=true)
-	@JsonManagedReference
+	@JoinColumn(name="locationId")
 	private Location location;
 	
 	

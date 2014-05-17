@@ -31,6 +31,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -57,54 +58,66 @@ public class Venue {
 	private String image;
 	private String verified;
 	private String fourSquareId;
-	@Transient
-	private double distance;
-	@Temporal(TemporalType.DATE)
-	@NotNull
-	private Date createdDate;
-	@Temporal(TemporalType.DATE)
-	private Date updatedDate;
-	@NotBlank(message = " createdBy must filled")
-	private String createdBy;
-	private String updatedBy;
-	private boolean active;
-	private int shareCount;
-	private int feedBackCount;
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "venues_brands", joinColumns = { @JoinColumn(name = "venue_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "brand_id", referencedColumnName = "id") })
-	@JsonManagedReference
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<Brand> brands;
-	@ManyToOne(fetch = FetchType.EAGER)
+
+
+@Transient
+private double distance;
+
+
+@Temporal(TemporalType.DATE)
+@NotNull
+private Date createdDate;
+
+@Temporal(TemporalType.DATE)
+private Date updatedDate;
+
+
+@NotBlank(message = " createdBy must filled")
+private String createdBy;
+
+
+private String updatedBy;
+
+
+private boolean active;
+
+private int preferenceCount;
+private int shoutCount;
+private int shareCount;
+private int feedBackCount;
+
+
+
+
+@ManyToMany(mappedBy="venues",fetch = FetchType.LAZY)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonBackReference
+private  List<Brand> brands;
+
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "categoryId")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Category category;
-	@ManyToOne(fetch = FetchType.EAGER)
+	
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "tenantId")
-	@JsonBackReference
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Tenant tenant;
+	
 	@OneToMany(mappedBy = "venue", cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = com.promostree.domain.entities.Offer.class)
 	@JsonManagedReference
 	private List<Offer> offers = new ArrayList<Offer>();
-	@OneToOne(fetch = FetchType.EAGER)
+	
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "addressId")
-	@JsonBackReference
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Address address;
-	@OneToOne
-	@JoinColumn(name = "merchantId")
-	@JsonBackReference
-	private Merchant merchant;
-	@OneToOne(mappedBy = "venue", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonBackReference
-	private UserShout userShout;
+	
 
-	public UserShout getUserShout() {
-		return userShout;
-	}
 
-	public void setUserShout(UserShout userShout) {
-		this.userShout = userShout;
-	}
 
+	
 	public double getDistance() {
 		return distance;
 	}
@@ -161,13 +174,7 @@ public class Venue {
 		this.fourSquareId = fourSquareId;
 	}
 
-	public Merchant getMerchant() {
-		return merchant;
-	}
-
-	public void setMerchant(Merchant merchant) {
-		this.merchant = merchant;
-	}
+	
 
 	public Address getAddress() {
 		return address;
@@ -292,8 +299,7 @@ public class Venue {
 				+ ((fourSquareId == null) ? 0 : fourSquareId.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((image == null) ? 0 : image.hashCode());
-		result = prime * result
-				+ ((merchant == null) ? 0 : merchant.hashCode());
+		
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((offers == null) ? 0 : offers.hashCode());
 		result = prime * result + shareCount;
@@ -362,11 +368,7 @@ public class Venue {
 				return false;
 		} else if (!image.equals(other.image))
 			return false;
-		if (merchant == null) {
-			if (other.merchant != null)
-				return false;
-		} else if (!merchant.equals(other.merchant))
-			return false;
+		
 		if (name == null) {
 			if (other.name != null)
 				return false;
@@ -395,6 +397,22 @@ public class Venue {
 		} else if (!verified.equals(other.verified))
 			return false;
 		return true;
+	}
+   
+	public int getPreferenceCount() {
+		return preferenceCount;
+	}
+
+	public void setPreferenceCount(int preferenceCount) {
+		this.preferenceCount = preferenceCount;
+	}
+
+	public int getShoutCount() {
+		return shoutCount;
+	}
+
+	public void setShoutCount(int shoutCount) {
+		this.shoutCount = shoutCount;
 	}
 
 	/*@Override

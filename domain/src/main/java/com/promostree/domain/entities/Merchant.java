@@ -12,6 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.promostree.domain.tenant.Tenant;
 
@@ -27,17 +28,28 @@ public class Merchant {
 	private String loginId;
 	@NotBlank(message = "merchant pwd must filled")
 	private String pwd;
+	
 	@ManyToOne
 	@JoinColumn(name = "groupId")
-	@JsonBackReference
 	private Groups group;
-	@ManyToOne(fetch = FetchType.EAGER)
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@JoinColumn(name = "tenantId")
-	@JsonBackReference
 	private Tenant tenant;
-	@OneToOne(mappedBy = "merchant", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonManagedReference
+	@OneToOne
+	@JoinColumn(name = "venueId")
 	private Venue venue;
+
+	
+	
+	public Groups getGroup() {
+		return group;
+	}
+
+	public void setGroup(Groups group) {
+		this.group = group;
+	}
 
 	public Long getId() {
 		return id;
@@ -63,13 +75,7 @@ public class Merchant {
 		this.venue = venue;
 	}
 
-	public Groups getGroup() {
-		return group;
-	}
-
-	public void setGroup(Groups group) {
-		this.group = group;
-	}
+	
 
 	public String getLoginId() {
 		return loginId;
@@ -99,7 +105,7 @@ public class Merchant {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((group == null) ? 0 : group.hashCode());
+		
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((loginId == null) ? 0 : loginId.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -116,11 +122,7 @@ public class Merchant {
 		if (getClass() != obj.getClass())
 			return false;
 		Merchant other = (Merchant) obj;
-		if (group == null) {
-			if (other.group != null)
-				return false;
-		} else if (!group.equals(other.group))
-			return false;
+		
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -147,7 +149,7 @@ public class Merchant {
 	@Override
 	public String toString() {
 		return "Merchant [id=" + id + ", name=" + name + ", loginId=" + loginId
-				+ ", pwd=" + pwd + ", group=" + group + ", tenant=" + tenant
+				+ ", pwd=" + pwd  + ", tenant=" + tenant
 				+ ", venue=" + venue + "]";
 	}
 

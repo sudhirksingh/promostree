@@ -154,11 +154,13 @@ public class UserProfile {
 		return true;
 	}
 
-	/*
-	 * @Override public String toString() { return "UserProfile [id=" + id +
-	 * ", fristName=" + fristName + ", lastName=" + lastName + ", createdDate="
-	 * + createdDate + ", updatedDate=" + updatedDate + ", isReg=" + isReg +
-	 * ", user=" + user + "]"; }
-	 */
+	@Override
+	public String toString() {
+		return "UserProfile [id=" + id + ", fristName=" + fristName
+				+ ", lastName=" + lastName + ", createdDate=" + createdDate
+				+ ", updatedDate=" + updatedDate + ", isReg=" + isReg + "]";
+	}
+
+	
 
 }

@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.promostree.domain.entities.Venue;
 import com.promostree.domain.solr.SolrVenue;
@@ -19,9 +21,10 @@ import com.promostree.domain.user.UserPreference;
 import com.promostree.repositories.entities.BrandRepository;
 import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.solr.SolrVenueRepository;
-import com.promostree.repositories.user.UserPreferencesRepository;
+import com.promostree.repositories.user.UserPreferenceRepository;
 
 @Service
+@Transactional(propagation=Propagation.REQUIRED,readOnly=false,timeout=100)
 public class SearchServiceImpl implements SearchServices {
 
 	private static final Logger logger = LoggerFactory
@@ -34,7 +37,7 @@ public class SearchServiceImpl implements SearchServices {
 	@Autowired
 	SearchHelper searchServiceHelper;
 	@Autowired
-	UserPreferencesRepository userPreferenceRepository;
+	UserPreferenceRepository userPreferenceRepository;
 	@Autowired
 	BrandRepository brandRepository;
 
@@ -81,31 +84,32 @@ public class SearchServiceImpl implements SearchServices {
 
 		return searchServiceHelper.toDomainVenues(solrVenue, user);
 	}
+	 
 
 	// search on Multiple search fields
-	public List<Venue> findBySearch_fieldIn(User user) {
+	public List<Venue> findBySearch_fieldIn(UserPreference userPreference) {
+		User user = userPreference.getUser();
 		int pageNumber = user.getPageNumber();
 		List<String> searchTerms = new ArrayList<String>();
-		List<UserPreference> userPreferences = new ArrayList<UserPreference>();
+		List<UserPreference> userPreferences = userPreferenceRepository.findByUserIdAndTypeId(user.getId(), userPreference.getType().getId());
 		List<SolrVenue> solrVenues = new ArrayList<SolrVenue>();
-		userPreferences = userPreferenceRepository.findByUserIdAndTypeId(
-				user.getId(), Long.parseLong(user.getSearchTerm()));
+		
 
-		if (Integer.parseInt(user.getSearchTerm())==Integer.parseInt("1")) {
-			for (UserPreference userPreference : userPreferences) {
-				searchTerms.add(brandRepository.findOne(
-						userPreference.getValue()).getName());
+		
+			if (userPreference.getType().getId() == 1) {  //FOR Brand type preferences
+				for(UserPreference userPreference1:userPreferences){
+					
+				searchTerms.add(brandRepository.findOne(userPreference1.getValue()).getName());
+				}
+			} else if (userPreference.getType().getId() == 2) { // for preferred venues 
+				for(UserPreference userPreference1:userPreferences){
+				searchTerms.add(solrRepository
+						.findByEntity_id(userPreference1.getValue().toString())
+						.get(0).getName());
+				}
 			}
-			return searchServiceHelper.toDomainVenues(solrRepository
-					.findBySearch_fieldIn(searchTerms, new PageRequest(
-							pageNumber, 30)), user);
-		} else if (user.getSearchTerm()=="2") {
-			for (UserPreference userPreference : userPreferences) {
-				solrVenues.addAll(solrRepository.findByEntity_id(userPreference
-						.getValue().toString()));
-			}
-		}
-
+			solrVenues.addAll(solrRepository.findBySearch_fieldIn(searchTerms, new PageRequest(pageNumber, 30)));
+		
 		return searchServiceHelper.toDomainVenues(solrVenues, user);
 	}
 }

@@ -1,5 +1,10 @@
 package com.promostree.domain.user;
 
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,32 +18,55 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 @Entity(name = "user_preference")
 @Table(name = "user_preference")
 public class UserPreference {
-	
+
+	public UserPreference() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public UserPreference(Long id, Type type, Date createdDate, Long value,
+			User user) {
+		super();
+		this.id = id;
+		this.type = type;
+		this.createdDate = createdDate;
+		this.value = value;
+		this.user = user;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@OneToOne
 	@JoinColumn(name = "typeId")
-	//@JsonManagedReference(value = "type-userPreferences")
 	private Type type;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date createdDate;
-	
+
 	private Long value;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "userId")
-	//@JsonBackReference(value = "user-userPreferences")
-	//@JsonManagedReference
 	private User user;
 
+
+
+
+
 	
+
+	
+
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
@@ -55,12 +83,13 @@ public class UserPreference {
 		this.user = user;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public Long getId() {
 		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Type getType() {
@@ -128,10 +157,27 @@ public class UserPreference {
 			return false;
 		return true;
 	}
+
 	/*
 	 * @Override public String toString() { return "UserPreference [id=" + id +
 	 * ", type=" + type + ", createdDate=" + createdDate + ", value=" + value +
 	 * ", user=" + user + "]"; }
 	 */
+
+
+	public String getJson(Object userPreference) throws IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.setSerializationInclusion(Include.NON_DEFAULT);
+		return mapper.writeValueAsString(userPreference);
+	}
+
+	@Override
+	public String toString() {
+		return "UserPreference [id=" + id + ", createdDate=" + createdDate
+				+ ", value=" + value + "]";
+	}
+
+
+
 
 }
