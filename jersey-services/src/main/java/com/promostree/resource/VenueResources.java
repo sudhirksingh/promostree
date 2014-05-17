@@ -87,7 +87,6 @@ public class VenueResources {
 		Venue venue = new Venue();
 		venue.setId(venueId);
 		Venue returnVenue = venueSearchDelegate.VenueService(venue);
-
 		return returnVenue;
 	}
 
@@ -98,13 +97,13 @@ public class VenueResources {
 		boolean result = venueSearchDelegate.getIndexing();
 		return result;
 	}
-	//
-	// @GET
-	// @Path("/sample")
-	// public String something()
-	// {
-	// return "mallik";
-	// }
-	//
+	
+	 @GET
+	 @Path("/sample")
+	 public String something()
+	 {
+	 return "mallik";
+	 }
+	
 
 }

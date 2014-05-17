@@ -41,13 +41,12 @@ import org.hibernate.annotations.FetchMode;
 import com.promostree.domain.tenant.Tenant;
 import com.promostree.domain.user.UserShout;
 
-@XmlRootElement(name = "venue")
+@XmlRootElement(name="venue")
 @XmlType
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity(name = "venue")
 @Table(name = "venue")
 public class Venue {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
