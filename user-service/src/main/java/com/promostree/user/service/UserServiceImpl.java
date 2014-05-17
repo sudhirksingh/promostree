@@ -63,42 +63,37 @@ public class UserServiceImpl implements UserServices {
 	public User saveUserCredentials(User user) {
 		User dbUser = null;
 		if (user != null) {
-			if (user.getPhoneNumber() != null && user.getEmail() == null) {
-				dbUser = userRepository
-						.findByPhoneNumber(user.getPhoneNumber());
-				if (dbUser == null) {
-					dbUser = userRepository.save(user);
-				}
-			} else if (user.getEmail() != null && user.getPhoneNumber() == null) {
-				dbUser = userRepository.findByEmail(user.getEmail());
+			if (user.getPhoneNumber() != null && user.getEmail() == null)
+			{
+				dbUser = userRepository.findByPhoneNumber(user.getPhoneNumber());
 				if (dbUser == null) {
 					dbUser = userRepository.save(user);
 				}
 			}
+		else if (user.getEmail() != null && user.getPhoneNumber() == null) 
+		{
+				dbUser = userRepository.findByEmail(user.getEmail());
+				if (dbUser == null) {
+					dbUser = userRepository.save(user);
+				}
+		}
 			// if (user.getPhoneNumber() != null && user.getEmail() != null)
-			else {
+		else {
 				User dbemail = userRepository.findByEmail(user.getEmail());
-				User dbphone = userRepository.findByPhoneNumber(user
-						.getPhoneNumber());
-				if (dbemail.getEmail() == null
-						&& dbphone.getPhoneNumber() == null) {
-					dbUser = userRepository.findByPhoneNumberAndEmail(
-							user.getPhoneNumber(), user.getEmail());
-					if (dbUser == null) {
+				User dbphone = userRepository.findByPhoneNumber(user.getPhoneNumber());
+				dbUser = userRepository.findByPhoneNumberAndEmail(user.getPhoneNumber(), user.getEmail());
+					if (dbemail==null && dbphone==null) {
+						if (dbUser == null) {
 						dbUser = userRepository.save(user);
 					}
-				} else {
-					dbUser = userRepository.findByPhoneNumberAndEmail(
-							user.getPhoneNumber(), user.getEmail());
-					if (!dbemail.getEmail().equals(user.getEmail())
-							&& !dbphone.getPhoneNumber().equals(
-									user.getPhoneNumber())) {
-						if (dbUser == null) {
-							dbUser = userRepository.save(user);
-						}
-
-					}
+				}
+				else {
+//					if (!dbemail.getEmail().equals(user.getEmail())&& !dbphone.getPhoneNumber().equals(user.getPhoneNumber())) {
+//						if (dbUser == null) {
+//							dbUser = userRepository.save(user);
+//						}
 					return dbUser;
+					
 				}
 			}
 		}

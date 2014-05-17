@@ -79,27 +79,27 @@ public class UserServiceTests {
 	 * userService.saveUserFeedback(userFeedback,users); }
 	 */
 
-	@Test
-	public void readNoitificationsTest() {
-		User user = userRepository.findOne(3L);
-		List<Notification1> notification1s = userService
-				.readNotifications(user);
-		for (Notification1 notification1 : notification1s) {
-
-			if (notification1.getActivity_type() == "share") {
-				System.out.println("notification read test :share:   "
-						+ notification1.getUserShare().getComment());
-				
-			}
-			if (notification1.getActivity_type() == "feedback") {
-				System.out.println("notification read test :feedback:   "
-						+ notification1.getUserFeedback().getComment());
-				
-				
-			}
-
-		}
-	}
+//	@Test
+//	public void readNoitificationsTest() {
+//		User user = userRepository.findOne(3L);
+//		List<Notification1> notification1s = userService
+//				.readNotifications(user);
+//		for (Notification1 notification1 : notification1s) {
+//
+//			if (notification1.getActivity_type() == "share") {
+//				System.out.println("notification read test :share:   "
+//						+ notification1.getUserShare().getComment());
+//				
+//			}
+//			if (notification1.getActivity_type() == "feedback") {
+//				System.out.println("notification read test :feedback:   "
+//						+ notification1.getUserFeedback().getComment());
+//				
+//				
+//			}
+//
+//		}
+//	}
 
 //	@Test
 //	public void saveUserPreferencesTest() { // List<UserPreference>
@@ -145,8 +145,8 @@ public class UserServiceTests {
 	public void IntialRegistration() {
 		try {
 			User user = new User();
-			user.setEmail("naresh@gmail.com");
-			user.setPhoneNumber("9035288863");
+			user.setEmail("mnvsdd@gmail.com");
+			user.setPhoneNumber("9849386839");
 			User dbuser = userService.saveUserCredentials(user);
 			//Assert.assertNotNull(dbuser);
 			System.out.println(dbuser);
