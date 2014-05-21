@@ -204,19 +204,19 @@ public class UserServiceTests {
 	// ushout.setVenue(ven);
 	// userService.saveUserShout(ushout);
 	// }
-	@Test
-	public void IntialRegistration() {
-		try {
-			User user = new User();
-			user.setEmail("mnvsdd@gmail.com");
-			user.setPhoneNumber("9849386839");
-			User dbuser = userService.saveUserCredentials(user);
-			//Assert.assertNotNull(dbuser);
-			System.out.println(dbuser);
-		} catch (Exception e) {
-			Assert.fail("Exception");
-		}
-	}
+//	@Test
+//	public void IntialRegistration() {
+//		try {
+//			User user = new User();
+//			user.setEmail("mnvsdd@gmail.com");
+//			user.setPhoneNumber("9849386839");
+//			User dbuser = userService.saveUserCredentials(user);
+//			//Assert.assertNotNull(dbuser);
+//			System.out.println(dbuser);
+//		} catch (Exception e) {
+//			Assert.fail("Exception");
+//		}
+//	}
 	
 
 }

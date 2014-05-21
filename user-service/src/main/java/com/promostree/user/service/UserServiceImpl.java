@@ -117,45 +117,7 @@ public class UserServiceImpl implements UserServices {
   			}
   		return dbUser;
   	}
-		/*if (user != null) {
-			if (user.getPhoneNumber() != null && user.getEmail() == null)
-			{
-				dbUser = userRepository.findByPhoneNumber(user.getPhoneNumber());
-				if (dbUser == null) {
-					dbUser = userRepository.save(user);
-				}
-			}
-		else if (user.getEmail() != null && user.getPhoneNumber() == null) 
-		{
-				dbUser = userRepository.findByEmail(user.getEmail());
-				if (dbUser == null) {
-					dbUser = userRepository.save(user);
-				}
-		}
-			// if (user.getPhoneNumber() != null && user.getEmail() != null)
-		else {
-				User dbemail = userRepository.findByEmail(user.getEmail());
-				User dbphone = userRepository.findByPhoneNumber(user.getPhoneNumber());
-				dbUser = userRepository.findByPhoneNumberAndEmail(user.getPhoneNumber(), user.getEmail());
-					if (dbemail==null && dbphone==null) {
-						if (dbUser == null) {
-						dbUser = userRepository.save(user);
-					}
-				}
-				else {
-//					if (!dbemail.getEmail().equals(user.getEmail())&& !dbphone.getPhoneNumber().equals(user.getPhoneNumber())) {
-//						if (dbUser == null) {
-//							dbUser = userRepository.save(user);
-//						}
-					dbUser = userRepository.findByPhoneNumberOrEmail(user.getPhoneNumber(), user.getEmail());
-					return dbUser;
-					
-				}
-			}
-		}
-		return dbUser;
-	}
-*/
+
 	// for storing the user shout
 
 	public String saveUserShout(UserShout userShout) {
@@ -245,8 +207,8 @@ public class UserServiceImpl implements UserServices {
 	 */
 	@Override
 	public List<Notification> readNotifications(User user) {
-		user=userRepository.findOne(1L);
-		return notificationRepository.findByRecipientUserId(1L);
+		//user=userRepository.findOne(user.getId());
+		return notificationRepository.findByRecipientUserId(user.getId());
 
 	}
 

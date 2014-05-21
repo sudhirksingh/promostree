@@ -58,7 +58,7 @@ public class UserServiceDelegate {
 	public List<Notification>  readNotifications(User user)
 	{
 		List<Notification> notifications=new ArrayList<Notification>();
-		return notifications;// userServices.readNotifications(user);
+		 return userServices.readNotifications(user);
 	}
 	//to save user feedback
 	public boolean saveUserFeedback(NotificationUserFeedback notificationUserShare){

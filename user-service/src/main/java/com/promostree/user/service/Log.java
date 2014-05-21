@@ -2,8 +2,10 @@ package com.promostree.user.service;
 
 import java.util.List;
 
-import com.promostree.domain.user.User;
+import org.springframework.stereotype.Component;
 
+import com.promostree.domain.user.User;
+@Component
 public class Log {
 private List<User> users;
 

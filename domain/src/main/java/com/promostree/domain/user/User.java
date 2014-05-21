@@ -48,7 +48,7 @@ public class User {
 	@Transient
 	private String searchTerm;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@JoinColumn(name = "tenantId")
 	private Tenant tenant;

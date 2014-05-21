@@ -20,16 +20,7 @@
 		</init-param>
 		<init-param>
         	<param-name>com.sun.jersey.config.property.packages</param-name>
-        	<param-value>
-            <!--
-              Your application packages go here
-            -->
-
-            <!--
-              Jackson 2.x JAX-RS @Providers
-            -->
-            com.fasterxml.jackson.jaxrs.json  <!-- JSON -->
-        	</param-value>
+        	<param-value>com.fasterxml.jackson.jaxrs.json</param-value>
     	</init-param>
 		
 		<load-on-startup>1</load-on-startup>

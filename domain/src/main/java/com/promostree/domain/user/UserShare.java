@@ -15,9 +15,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.springframework.stereotype.Component;
@@ -25,7 +27,16 @@ import org.springframework.stereotype.Component;
 @Entity
 public class UserShare extends UserEvent{
 
+@Transient
+List<String> phoneNumbersList;
 
+public List<String> getPhoneNumbersList() {
+	return phoneNumbersList;
+}
+
+public void setPhoneNumbersList(List<String> phoneNumbersList) {
+	this.phoneNumbersList = phoneNumbersList;
+}
 		
 
 }

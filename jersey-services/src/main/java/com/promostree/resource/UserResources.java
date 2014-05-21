@@ -45,6 +45,7 @@ public class UserResources {
 	@POST
 	@Path("/shout")
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response AudituingUserShot(UserShout userShout) {
 		String usershout = userServiceDelegate.saveUserShout(userShout);
 		ResponseBuilder builder = Response.ok();
@@ -54,7 +55,8 @@ public class UserResources {
 	// to read notifications
 		@POST
 		@Path("/readNotifications")
-		@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
 		public List<Notification> readNotifications(User user) {
 		
 			return userServiceDelegate.readNotifications(user);
