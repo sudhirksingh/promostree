@@ -26,8 +26,8 @@ public interface SolrVenueRepository extends
 	@Query("lat:?0* AND lng:?1*")
 	public List<SolrVenue> findByQueryAnnotation(String lat, String lng);
 
-    @Query("search_field:*?0*")
-    public List<SolrVenue> findBySearch_fieldIn(List<String> searchField,Pageable page);
+	@Query("fq={!geofilt pt=?0,?1 sfield=geolocation d=?2} AND (search_field:*?3* )")
+    public List<SolrVenue> findBySearch_fieldIn(double lat,double lng,double d,List<String> searchField,Pageable page);
 	
 	@Query("fq={!geofilt pt=?0,?1 sfield=geolocation d=?2} AND (search_field:*?3* )")
 	public List<SolrVenue> findByQueryAnnotation(double lat, double lng, double d,String searchterm,Pageable page);

@@ -3,7 +3,6 @@ package com.promostree.tests;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -27,7 +26,6 @@ import com.promostree.domain.entities.Location;
 import com.promostree.domain.entities.Offer;
 import com.promostree.domain.entities.Shout;
 import com.promostree.domain.entities.Venue;
-
 import com.promostree.domain.solr.SolrVenue;
 import com.promostree.domain.user.LocationType;
 import com.promostree.domain.user.Type;
@@ -45,6 +43,7 @@ import com.promostree.repositories.user.LocationTypeRepository;
 import com.promostree.repositories.user.UserLocationRepository;
 import com.promostree.repositories.user.UserRepository;
 import com.promostree.service.search.SearchServiceImpl;
+import com.promostree.service.search.SearchServices;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:search-service-application-context.xml")
@@ -52,7 +51,7 @@ public class SearchServiceTest {
 	@Autowired
 	SolrVenueRepository vrep;
 	@Autowired
-	SearchServiceImpl vs;
+	SearchServices vs;
 
 	@Autowired
 	LocationTypeRepository ltrep;

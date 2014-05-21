@@ -185,8 +185,8 @@ public class UserServiceImpl implements UserServices {
 		UserShare userShare=notificationUserShare.getUserShare();
 		userShare.setCreatedDate(new Date());
 		userEventRepository.save(userShare);
-		List<User> users = userRepository.findByIdNotIn(userShare.getUser()
-				.getId());
+		;
+		List<User> users = userRepository.findByPhoneNumberIn(userShare.getPhoneNumbersList());
 	
 
 		for (User user : users) {

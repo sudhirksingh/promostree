@@ -26,7 +26,7 @@ SolrVenueRepository solrVenueRepository;
 		searchField.add("pub");
 		//searchField.add("cream");
 		//searchField.add("wine");
-		List<SolrVenue> v1=	solrVenueRepository.findBySearch_fieldIn( searchField, new PageRequest(pageNumber, 30));
+		List<SolrVenue> v1=	solrVenueRepository.findBySearch_fieldIn(14.7542,72.24587,100, searchField, new PageRequest(pageNumber, 30));
 		int i = 0;
 		for (SolrVenue v : v1) {
 			System.out.println( ++i +"     "+ v.getSearch_field() + "  id:   "

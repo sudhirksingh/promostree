@@ -90,26 +90,26 @@ public class UserServiceTests {
 //	}
 
 
-	@Test
-	public void readNotificationTest(){
-		User user=new User();
-		user.setId(1L);
-		List<Notification> notifications=userService.readNotifications(user);
-		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-		for(Notification notification:notifications){
-					
-			try{
-			String json = ow.writeValueAsString(notification);			
-			System.out.println(json);
-			} catch (Exception ex) {
-
-				ex.printStackTrace();
-
-			}
-			System.out.println(notification.getPhoneNo());
-		}
-	}
-	
+//	@Test
+//	public void readNotificationTest(){
+//		User user=new User();
+//		user.setId(1L);
+//		List<Notification> notifications=userService.readNotifications(user);
+//		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+//		for(Notification notification:notifications){
+//					
+//			try{
+//			String json = ow.writeValueAsString(notification);			
+//			System.out.println(json+",");
+//			} catch (Exception ex) {
+//
+//				ex.printStackTrace();
+//
+//			}
+//			//System.out.println(notification.getPhoneNo());
+//		}
+//	}
+//	
 
 //	@Test
 //	public void readUserPreferencesTest() {
