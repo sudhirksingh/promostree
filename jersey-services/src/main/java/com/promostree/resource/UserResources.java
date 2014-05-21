@@ -3,8 +3,10 @@ package com.promostree.resource;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -46,7 +48,7 @@ public class UserResources {
 	@Path("/shout")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response AudituingUserShot(UserShout userShout) {
+	public Response SavingUserShot(UserShout userShout) {
 		String usershout = userServiceDelegate.saveUserShout(userShout);
 		ResponseBuilder builder = Response.ok();
 		return builder.entity(usershout).build();
@@ -79,7 +81,15 @@ public class UserResources {
 		return userServiceDelegate.saveUserShares(notificationUserShare);
 	}
 	
-	//to read user preference
+	@GET
+	@Path("/readPreference/{userId}")
+	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+	public List<UserPreference> readUserPreference(@PathParam("userId") Long userId) {
+		User user=new User();
+		user.setId(userId);
+		return userServiceDelegate.readUserPreference(user);
+	}
+	
 
 
 	
