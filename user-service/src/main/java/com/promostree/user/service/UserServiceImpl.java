@@ -183,6 +183,9 @@ public class UserServiceImpl implements UserServices {
 	@Override
 	public boolean saveUserShare(NotificationUserShare notificationUserShare) {
 		UserShare userShare=notificationUserShare.getUserShare();
+		for(String ph:userShare.getPhoneNumbersList()){
+			System.out.println(ph);
+		}
 		userShare.setCreatedDate(new Date());
 		userEventRepository.save(userShare);
 		;
