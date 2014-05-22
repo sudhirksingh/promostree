@@ -214,6 +214,20 @@ public class UserServiceImpl implements UserServices {
 
 	}
 
+	@Override
+	public String saveUsersProfile(UserProfile userProfile) {
+		userProfile.setCreatedDate(new Date());
+		userProfile.setUpdatedDate(new Date());
+		userProfile.setReg(true);
+		userProfile.setUser(userRepository.findById(userProfile.getUser().getId()));
+        UserProfile dbuserProfile=userProfileRepository.save(userProfile);
+         if(dbuserProfile.equals(userProfile))
+         {
+         return  "successfully Stored";
+          }
+         return "notStored";
+	    }
+
 
 	
 	

@@ -10,12 +10,14 @@ import org.springframework.stereotype.Component;
 
 
 
+
 import com.promostree.domain.user.Notification;
 import com.promostree.domain.user.NotificationUserFeedback;
 import com.promostree.domain.user.NotificationUserShare;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserFeedback;
 import com.promostree.domain.user.UserPreference;
+import com.promostree.domain.user.UserProfile;
 import com.promostree.domain.user.UserShare;
 import com.promostree.domain.user.UserShout;
 import com.promostree.user.service.UserServices;
@@ -54,7 +56,11 @@ public class UserServiceDelegate {
 		return save;
 	}
 
-
+    public String saveUserProfile(UserProfile userProfile)
+    {
+   	 String data=userServices.saveUsersProfile(userProfile);
+   	 return data;
+   }
 	
 
    //to read notifications
