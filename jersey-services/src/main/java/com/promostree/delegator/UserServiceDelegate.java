@@ -43,7 +43,10 @@ public class UserServiceDelegate {
 		String ushout = userServices.saveUserShout(userShout);
 		return ushout;
 	}
-
+	//to read preference
+		public List<UserPreference> readUserPreference(User user){
+			return userServices.readUserPreferences(user);
+		}
 	
 	// to share
 	public boolean saveUserShares(NotificationUserShare notificationUserShares) {
