@@ -24,7 +24,7 @@ import com.promostree.repositories.solr.SolrVenueRepository;
 import com.promostree.repositories.user.UserPreferenceRepository;
 
 @Service
-@Transactional(propagation=Propagation.REQUIRED,readOnly=false,timeout=100)
+@Transactional(propagation = Propagation.REQUIRED, readOnly = false, timeout = 100)
 public class SearchServiceImpl implements SearchServices {
 
 	private static final Logger logger = LoggerFactory
@@ -42,7 +42,7 @@ public class SearchServiceImpl implements SearchServices {
 	BrandRepository brandRepository;
 
 	// indexing
-
+@Override
 	public boolean indexing() {
 		logger.info("enter into indexing ()");
 		List<Venue> domainVenues = searchServiceHelper.getVenuesFromSource();
@@ -84,32 +84,37 @@ public class SearchServiceImpl implements SearchServices {
 
 		return searchServiceHelper.toDomainVenues(solrVenue, user);
 	}
-	 
 
 	// search on Multiple search fields
+	@Override
 	public List<Venue> findBySearch_fieldIn(UserPreference userPreference) {
 		User user = userPreference.getUser();
+		System.out.println(user.getLat() +"lng "+user.getLng());
 		int pageNumber = user.getPageNumber();
 		List<String> searchTerms = new ArrayList<String>();
-		List<UserPreference> userPreferences = userPreferenceRepository.findByUserIdAndTypeId(user.getId(), userPreference.getType().getId());
+		List<UserPreference> userPreferences = userPreferenceRepository
+				.findByUserIdAndTypeId(user.getId(), userPreference.getType()
+						.getId());
 		List<SolrVenue> solrVenues = new ArrayList<SolrVenue>();
-		
 
-		
-			if (userPreference.getType().getId() == 1) {  //FOR Brand type preferences
-				for(UserPreference userPreference1:userPreferences){
-					
-				searchTerms.add(brandRepository.findOne(userPreference1.getValue()).getName());
-				}
-			} else if (userPreference.getType().getId() == 2) { // for preferred venues 
-				for(UserPreference userPreference1:userPreferences){
+		for (UserPreference userPreference1 : userPreferences) {
+			if (userPreference.getType().getId() == 1) { // FOR Brand type
+															// preferences
+
+				searchTerms.add(brandRepository.findOne(
+						userPreference1.getValue()).getName());
+
+			} else if (userPreference.getType().getId() == 2) { // for preferred
+																// venues
+
 				searchTerms.add(solrRepository
 						.findByEntity_id(userPreference1.getValue().toString())
 						.get(0).getName());
-				}
 			}
-			solrVenues.addAll(solrRepository.findBySearch_fieldIn(searchTerms, new PageRequest(pageNumber, 30)));
-		
+		}
+		solrVenues.addAll(solrRepository.findBySearch_fieldIn(user.getLat(),user.getLng(),user.getRadius(), searchTerms,
+				new PageRequest(pageNumber, 30)));
+
 		return searchServiceHelper.toDomainVenues(solrVenues, user);
 	}
 }

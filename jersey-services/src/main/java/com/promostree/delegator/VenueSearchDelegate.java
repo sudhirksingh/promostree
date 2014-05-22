@@ -51,6 +51,8 @@ public class VenueSearchDelegate {
 	public VenueSearchDelegate() {
 		System.out.println("VenueSearchDelegate");
 	}
-	
+	public List<Venue> readPrefferedVenues(UserPreference userPreference){
+		return searchServices.findBySearch_fieldIn(userPreference);
+	}
 
 }

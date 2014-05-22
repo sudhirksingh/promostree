@@ -59,6 +59,13 @@ public class UserRepositoryTest {
 
 	@Test
 	public void readNotificationTest() {
+         List<String> ids=new ArrayList<String>();
+         ids.add("9542128262");
+         ids.add("9000208863");
+         List<User> users=userRep.findByPhoneNumberIn(ids);
+         for(User user:users){
+        	 System.out.println(user.getId());
+         }
          
 	}
 

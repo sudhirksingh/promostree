@@ -185,10 +185,13 @@ public class UserServiceImpl implements UserServices {
 	@Override
 	public boolean saveUserShare(NotificationUserShare notificationUserShare) {
 		UserShare userShare=notificationUserShare.getUserShare();
+		for(String ph:userShare.getPhoneNumbersList()){
+			System.out.println(ph);
+		}
 		userShare.setCreatedDate(new Date());
 		userEventRepository.save(userShare);
-		List<User> users = userRepository.findByIdNotIn(userShare.getUser()
-				.getId());
+		;
+		List<User> users = userRepository.findByPhoneNumberIn(userShare.getPhoneNumbersList());
 	
 
 		for (User user : users) {

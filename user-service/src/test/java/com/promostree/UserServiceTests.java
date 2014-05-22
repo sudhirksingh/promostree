@@ -71,9 +71,12 @@ public class UserServiceTests {
 //		user.setId(2L);
 //		userShare.setUser(user);
 //		userShare.setValue(2L);
+//		List<String> phoneNumbersList= new ArrayList<String>();
+//		userShare.setPhoneNumbersList(phoneNumbersList);
 //		NotificationUserShare notificationUserShare=new NotificationUserShare();
 //		notificationUserShare.setUserShare(userShare);
 //	userService.saveUserShare(notificationUserShare);	
+//	
 //	}
 //	@Test
 //	public void saveUserFeedback(){
@@ -92,6 +95,7 @@ public class UserServiceTests {
 //		notificationUserFeedback.setUserFeedback(userFeedback);
 //	userService.saveUserFeedback(notificationUserFeedback);	
 //	}
+
 
 //
 //	@Test
@@ -113,6 +117,7 @@ public class UserServiceTests {
 //			System.out.println(notification.getPhoneNo());
 //		}
 //	}
+
 	
 
 //	@Test

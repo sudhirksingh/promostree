@@ -28,7 +28,7 @@ public class UserProfile {
 	private Date createdDate;
 	@Temporal(TemporalType.DATE)
 	private Date updatedDate;
-
+	private String imageUrl;
 	private boolean isReg;
 
 	@OneToOne
@@ -90,6 +90,14 @@ public class UserProfile {
 
 	public void setReg(boolean isReg) {
 		this.isReg = isReg;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 	@Override
@@ -160,7 +168,5 @@ public class UserProfile {
 				+ ", lastName=" + lastName + ", createdDate=" + createdDate
 				+ ", updatedDate=" + updatedDate + ", isReg=" + isReg + "]";
 	}
-
-	
 
 }

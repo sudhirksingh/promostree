@@ -45,21 +45,8 @@ public class VenueResources {
 		user.setPageNumber(pageNumber);
 		userPreference.setUser(user);
 		userPreference.setType(type);
-		/*UserPreference userPreference=new UserPreference();
-		User user=new User();
-		user.setId(2L);
-		user.setLat(17.24154);
-		user.setLng(78.23541254);	
-		user.setRadius(1000.0);
-	
 		
-		userPreference.setUser(user);
-		Type type=new Type();
-		type.setId(1L);
-		userPreference.setType(type);*/
-	
-		//System.out.println(new String(i+""));
-		List<Venue> list =new ArrayList<Venue>();// venueSearchDelegate.getPreferredVenues(userPreference);
+		List<Venue> list = venueSearchDelegate.readPrefferedVenues(userPreference);
 		return list;
 	}
 

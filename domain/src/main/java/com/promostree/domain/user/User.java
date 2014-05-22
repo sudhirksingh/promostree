@@ -47,7 +47,7 @@ public class User {
 	private int pageNumber;
 	@Transient
 	private String searchTerm;
-
+  
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@JoinColumn(name = "tenantId")
@@ -137,6 +137,8 @@ public class User {
 	public void setTenant(Tenant tenant) {
 		this.tenant = tenant;
 	}
+
+	
 
 	@Override
 	public int hashCode() {
