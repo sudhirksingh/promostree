@@ -30,7 +30,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 
+
+
+
 import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -60,15 +65,16 @@ public class CoreServiceTests {
 	
 	@Autowired
 	CoreService service ;
-	
+
 	
 
 	@Test
-	public void read()
+	public void read() throws JsonProcessingException
 	{
 		Venue venue=new Venue();
 		venue.setId((long)1);
 		Venue rvenue=service.getVenue(venue);
+
 		System.out.println(rvenue.getCreatedBy()+", "+rvenue.getOffers().get(1).getSubject()+" ,"+rvenue.getAddress().getCity()+" ," +rvenue.getOffers().get(1).getShout().getSubject()+rvenue.getCategory().getName());
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		try{
@@ -89,6 +95,11 @@ public class CoreServiceTests {
 			ex.printStackTrace();
 
 		}
+
+		//ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+		//String json=ow.writeValueAsString(rvenue);
+		//System.out.println(rvenue.getCreatedBy()+""+rvenue.getOffers().get(1).getDescription());
+
 		
 	}
 

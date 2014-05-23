@@ -97,26 +97,26 @@ public class UserServiceTests {
 //	}
 
 
-//
-//	@Test
-//	public void readNotificationTest(){
-//		User user=new User();
-//		user.setId(1L);
-//		List<Notification> notifications=userService.readNotifications(user);
-//		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-//		for(Notification notification:notifications){
-//					
-//			try{
-//			String json = ow.writeValueAsString(notification);			
-//			System.out.println(json);
-//			} catch (Exception ex) {
-//
-//				ex.printStackTrace();
-//
-//			}
-//			System.out.println(notification.getPhoneNo());
-//		}
-//	}
+
+	@Test
+	public void readNotificationTest(){
+		User user=new User();
+		user.setId(1L);
+		List<Notification> notifications=userService.readNotifications(user);
+		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+		for(Notification notification:notifications){
+					
+			try{
+			String json = ow.writeValueAsString(notification);			
+			System.out.println(json);
+			} catch (Exception ex) {
+
+				ex.printStackTrace();
+
+			}
+			System.out.println(notification.getPhoneNo());
+		}
+	}
 
 	
 
@@ -147,15 +147,15 @@ public class UserServiceTests {
 	@Test
 	public void userProfileSaveing()
 	{
-		UserProfile uprofile= new UserProfile();
-		uprofile.setCreatedDate(new Date());
-		uprofile.setFristName("mallik");
-		uprofile.setLastName("arjun");
-		uprofile.setReg(true);
-		uprofile.setUpdatedDate(new Date());
-		uprofile.setUser(userRepository.findById(7L));
-		UserProfile uprofile1= userProfileRepository.save(uprofile);
-		System.out.println(uprofile1);
+//		UserProfile uprofile= new UserProfile();
+//		uprofile.setCreatedDate(new Date());
+//		uprofile.setFristName("mallik");
+//		uprofile.setLastName("arjun");
+//		uprofile.setReg(true);
+//		uprofile.setUpdatedDate(new Date());
+//		uprofile.setUser(userRepository.findById(7L));
+//		UserProfile uprofile1= userProfileRepository.save(uprofile);
+//		System.out.println(uprofile1);
 	}
 
 
