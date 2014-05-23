@@ -12,7 +12,7 @@ import com.promostree.repositories.entities.VenueRepository;
 
 
 @Service
-@Transactional(propagation=Propagation.REQUIRED,readOnly=false,timeout=100)
+@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
 public class CoreServiceImpl implements CoreService{
 	private static final Logger logger = LoggerFactory.getLogger(CoreServiceImpl.class);
 	

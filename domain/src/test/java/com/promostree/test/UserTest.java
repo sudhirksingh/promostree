@@ -390,7 +390,7 @@ public class UserTest {
 		Notification n=ns.get(0);*/
 		
 		//Brand b=brep.findOne(1L);
-		//Venue v=vrep.findById(1L);
+		Venue v=vrep.findById(1L);
 //Merchant m=mrep.findOne(1L);
 		Type t = ptrep.findOne(1L);
 		Type t1 = ptrep.findOne(1L);
@@ -399,7 +399,7 @@ public class UserTest {
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		try{
 			
-		String json = ow.writeValueAsString(u);
+		String json = ow.writeValueAsString(v);
 		
 		System.out.println(json);
 		} catch (JsonGenerationException ex) {
