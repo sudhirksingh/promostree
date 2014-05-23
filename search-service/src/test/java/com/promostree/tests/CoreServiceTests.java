@@ -27,6 +27,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
 
+
+
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.promostree.domain.entities.Address;
 import com.promostree.domain.entities.Category;
 import com.promostree.domain.entities.Location;
@@ -39,6 +45,7 @@ import com.promostree.repositories.entities.LocationRepository;
 import com.promostree.repositories.entities.OfferRepository;
 import com.promostree.repositories.entities.ShoutRepository;
 import com.promostree.repositories.entities.VenueRepository;
+import com.promostree.service.core.CoreService;
 import com.promostree.service.core.CoreServiceImpl;
 
 
@@ -51,17 +58,19 @@ public class CoreServiceTests {
 	
 	
 	@Autowired
-	CoreServiceImpl service ;
+	CoreService service ;
 	
 
 
 	@Test
-	public void read()
+	public void read() throws JsonProcessingException
 	{
 		Venue venue=new Venue();
 		venue.setId((long)1);
 		Venue rvenue=service.getVenue(venue);
-		System.out.println(rvenue.getCreatedBy()+", "+rvenue.getOffers().get(1).getSubject()+" ,"+rvenue.getAddress().getCity()+" ," +rvenue.getOffers().get(1).getShout().getSubject()+rvenue.getCategory().getName());
+		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+		String json=ow.writeValueAsString(rvenue);
+		System.out.println(rvenue.getCreatedBy()+""+rvenue.getOffers().get(1).getDescription());
 		
 	}
 

@@ -39,7 +39,7 @@ public class Shout {
 	private String updatedBy;
 	private boolean active;
 	
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="offerId",nullable=true)
     @JsonBackReference
 	private Offer offer;
