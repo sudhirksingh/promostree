@@ -23,6 +23,7 @@ import com.promostree.domain.user.Type;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserFeedback;
 import com.promostree.domain.user.UserPreference;
+import com.promostree.domain.user.UserProfile;
 import com.promostree.domain.user.UserShare;
 import com.promostree.domain.user.UserShout;
 import com.promostree.repositories.entities.AddressRepository;
@@ -32,6 +33,7 @@ import com.promostree.repositories.user.NotificationRepository;
 import com.promostree.repositories.user.TypeRepository;
 import com.promostree.repositories.user.UserFeedbackRepository;
 import com.promostree.repositories.user.UserPreferenceRepository;
+import com.promostree.repositories.user.UserProfileRepository;
 import com.promostree.repositories.user.UserRepository;
 import com.promostree.user.service.UserServices;
 
@@ -56,6 +58,8 @@ public class UserServiceTests {
 	UserFeedbackRepository userFeedbackRepository;
 	@Autowired
 	NotificationRepository notificationRepository;
+	@Autowired
+	UserProfileRepository userProfileRepository;
 //	@Test
 //	public void saveUserShare(){
 //		UserShare userShare=new UserShare();
@@ -93,25 +97,27 @@ public class UserServiceTests {
 //	}
 
 
-	@Test
-	public void readNotificationTest(){
-		User user=new User();
-		user.setId(1L);
-		List<Notification> notifications=userService.readNotifications(user);
-		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-		for(Notification notification:notifications){
-					
-			try{
-			String json = ow.writeValueAsString(notification);			
-			System.out.println(json+",");
-			} catch (Exception ex) {
+//
+//	@Test
+//	public void readNotificationTest(){
+//		User user=new User();
+//		user.setId(1L);
+//		List<Notification> notifications=userService.readNotifications(user);
+//		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+//		for(Notification notification:notifications){
+//					
+//			try{
+//			String json = ow.writeValueAsString(notification);			
+//			System.out.println(json);
+//			} catch (Exception ex) {
+//
+//				ex.printStackTrace();
+//
+//			}
+//			System.out.println(notification.getPhoneNo());
+//		}
+//	}
 
-				ex.printStackTrace();
-
-			}
-			//System.out.println(notification.getPhoneNo());
-		}
-	}
 	
 
 //	@Test
@@ -134,9 +140,23 @@ public class UserServiceTests {
 //		ushout.setUser(use);
 //		Venue ven = venueRepository.findById(1L);
 //		ushout.setVenue(ven);
-//		userService.saveUserShout(ushout);
+//	String data	=userService.saveUserShout(ushout);
+//	System.out.println(data);
 //	}
 
+	@Test
+	public void userProfileSaveing()
+	{
+		UserProfile uprofile= new UserProfile();
+		uprofile.setCreatedDate(new Date());
+		uprofile.setFristName("mallik");
+		uprofile.setLastName("arjun");
+		uprofile.setReg(true);
+		uprofile.setUpdatedDate(new Date());
+		uprofile.setUser(userRepository.findById(7L));
+		UserProfile uprofile1= userProfileRepository.save(uprofile);
+		System.out.println(uprofile1);
+	}
 
 
 	/*
