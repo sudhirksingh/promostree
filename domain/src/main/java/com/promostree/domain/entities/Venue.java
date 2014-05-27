@@ -94,10 +94,7 @@ private int feedBackCount;
 private  List<Brand> brands;
 
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "categoryId")
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	private Category category;
+	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "tenantId")
@@ -113,6 +110,10 @@ private  List<Brand> brands;
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Address address;
 	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "categoryId")
+	//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	private Category category;
 
 
 

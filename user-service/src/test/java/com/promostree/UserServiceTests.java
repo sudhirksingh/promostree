@@ -78,45 +78,46 @@ public class UserServiceTests {
 //	userService.saveUserShare(notificationUserShare);	
 //	
 //	}
-//	@Test
-//	public void saveUserFeedback(){
-//		UserFeedback userFeedback=new UserFeedback();
-//		userFeedback.setComment("its me ananth");
-//		
-//		Type type=new Type();
-//		type.setId(2L);
-//		userFeedback.setType(type);
-//		User user=new User();
-//		user.setId(2L);
-//		userFeedback.setUser(user);
-//		userFeedback.setValue(2L);
-//		NotificationUserFeedback notificationUserFeedback=new NotificationUserFeedback();
-//		
-//		notificationUserFeedback.setUserFeedback(userFeedback);
-//	userService.saveUserFeedback(notificationUserFeedback);	
-//	}
-
-
-
+	
 	@Test
-	public void readNotificationTest(){
+	public void saveUserFeedback(){
+		UserFeedback userFeedback=new UserFeedback();
+		userFeedback.setComment("its me ananth");
+		
+		Type type=new Type();
+		type.setId(2L);
+		userFeedback.setType(type);
 		User user=new User();
-		user.setId(1L);
-		List<Notification> notifications=userService.readNotifications(user);
-		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-		for(Notification notification:notifications){
-					
-			try{
-			String json = ow.writeValueAsString(notification);			
-			System.out.println(json);
-			} catch (Exception ex) {
-
-				ex.printStackTrace();
-
-			}
-			System.out.println(notification.getPhoneNo());
-		}
+		user.setId(2L);
+		userFeedback.setUser(user);
+		userFeedback.setValue(4L);
+		NotificationUserFeedback notificationUserFeedback=new NotificationUserFeedback();
+		
+		notificationUserFeedback.setUserFeedback(userFeedback);
+	userService.saveUserFeedback(notificationUserFeedback);	
 	}
+
+
+
+//	@Test
+//	public void readNotificationTest(){
+//		User user=new User();
+//		user.setId(1L);
+//		List<Notification> notifications=userService.readNotifications(user);
+//		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+//		for(Notification notification:notifications){
+//					
+//			try{
+//			String json = ow.writeValueAsString(notification);			
+//			System.out.println(json);
+//			} catch (Exception ex) {
+//
+//				ex.printStackTrace();
+//
+//			}
+//			System.out.println(notification.getPhoneNo());
+//		}
+//	}
 
 	
 

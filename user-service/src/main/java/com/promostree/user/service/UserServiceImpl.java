@@ -158,10 +158,12 @@ public class UserServiceImpl implements UserServices {
 	@Override
 	public boolean saveUserFeedback(
 			NotificationUserFeedback notificationUserFeedback) {
-
+        
 		UserFeedback userFeedback = notificationUserFeedback.getUserFeedback();
+		User user1 =userRepository.findById( userFeedback.getUser().getId());
 		userFeedback.setCreatedDate(new Date());
 		userFeedback.setUpdatedDate(new Date());
+		userFeedback.setUser(user1);
 		userFeedbackRepository.save(userFeedback);
 		
 		
