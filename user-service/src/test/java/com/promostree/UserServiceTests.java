@@ -144,19 +144,19 @@ public class UserServiceTests {
 //	System.out.println(data);
 //	}
 
-	@Test
-	public void userProfileSaveing()
-	{
-		UserProfile uprofile= new UserProfile();
-		uprofile.setCreatedDate(new Date());
-		uprofile.setFristName("mallik");
-		uprofile.setLastName("arjun");
-		uprofile.setReg(true);
-		uprofile.setUpdatedDate(new Date());
-		uprofile.setUser(userRepository.findById(7L));
-		UserProfile uprofile1= userProfileRepository.save(uprofile);
-		System.out.println(uprofile1);
-	}
+//	@Test
+//	public void userProfileSaveing()
+//	{
+//		UserProfile uprofile= new UserProfile();
+//		uprofile.setCreatedDate(new Date());
+//		uprofile.setFristName("mallik");
+//		uprofile.setLastName("arjun");
+//		uprofile.setReg(true);
+//		uprofile.setUpdatedDate(new Date());
+//		uprofile.setUser(userRepository.findById(7L));
+//		UserProfile uprofile1= userProfileRepository.save(uprofile);
+//		System.out.println(uprofile1);
+//	}
 
 
 	/*
@@ -189,21 +189,21 @@ public class UserServiceTests {
 	 * System.out.println(u.getComment()); } }
 	 */
 
-	// @Test
-	// public void saveUserPreferencesTest() { 
-	// List<UserPreference> userPreferences = new ArrayList<UserPreference>();
-	// UserPreference userPreference = new UserPreference();
-	// Type type = new Type();
-	// type.setId(4L);
-	// User user = new User();
-	// user.setId(1L);
-	// userPreference.setType(type);
-	// userPreference.setUser(user);
-	// userPreference.setValue(1L); // userPreferences.add(userPreference);
-	// String userPreferences1 = userService.saveUserPreference(userPreference);
-	// System.out.println(userPreferences1);
-	//
-	// }
+	 @Test
+	 public void saveUserPreferencesTest() { 
+	 List<UserPreference> userPreferences = new ArrayList<UserPreference>();
+	 UserPreference userPreference = new UserPreference();
+	 Type type = new Type();
+	 type.setId(2L);
+	 User user = new User();
+	 user.setId(1L);
+	 userPreference.setType(type);
+	 userPreference.setUser(user);
+	 userPreference.setValue(3L); // userPreferences.add(userPreference);
+	 String userPreferences1 = userService.saveUserPreference(userPreference);
+	 System.out.println(userPreferences1);
+	
+	 }
 
 	// @Test
 	// public void readUserPreferencesTest() {

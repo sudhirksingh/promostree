@@ -59,14 +59,6 @@ public class UserPreference {
 	@JoinColumn(name = "userId")
 	private User user;
 
-
-
-
-
-	
-
-	
-
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}

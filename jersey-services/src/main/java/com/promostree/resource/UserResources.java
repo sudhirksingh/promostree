@@ -52,10 +52,20 @@ public class UserResources {
 	@POST
 	@Path("/profile")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public String ToSaveUserProfile(UserProfile userProfile)
+	public String  ToSaveUserProfile(UserProfile userProfile)
 	{
-		String data=userServiceDelegate.saveUserProfile(userProfile);
-		return data;
+		String returnval=null;
+		if(userProfile!=null)
+		{
+			 returnval=userServiceDelegate.saveUserProfile(userProfile);
+		}
+		else 
+		{
+			return "profile must null";
+		}
+			return returnval;
+//		System.out.println(userProfile.getUser().getId());
+//		System.out.println(userProfile.getFristName());
 	}
 
 	@POST

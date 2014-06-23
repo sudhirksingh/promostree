@@ -376,6 +376,8 @@ public class UserTest {
 
 		
 	User u=urep.findById((long)1);
+	UserProfile up=uprep.findOne(1L);
+	
 		//User u1=urep.findById((long)1);
 	//	System.out.println(u);
 		//System.out.println(u1);
@@ -399,7 +401,7 @@ public class UserTest {
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		try{
 			
-		String json = ow.writeValueAsString(u);
+		String json = ow.writeValueAsString(up);
 		
 		System.out.println(json);
 		} catch (JsonGenerationException ex) {

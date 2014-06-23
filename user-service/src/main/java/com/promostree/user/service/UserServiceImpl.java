@@ -9,21 +9,23 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.promostree.domain.entities.Brand;
 import com.promostree.domain.entities.Location;
-import com.promostree.domain.user.EventType;
-import com.promostree.domain.user.LocationType;
+import com.promostree.domain.entities.Offer;
+import com.promostree.domain.entities.Shout;
+import com.promostree.domain.entities.Venue;
 import com.promostree.domain.user.Notification;
 import com.promostree.domain.user.NotificationUserFeedback;
 import com.promostree.domain.user.NotificationUserShare;
 import com.promostree.domain.user.User;
-import com.promostree.domain.user.UserEvent;
 import com.promostree.domain.user.UserFeedback;
-import com.promostree.domain.user.UserLocation;
 import com.promostree.domain.user.UserPreference;
 import com.promostree.domain.user.UserProfile;
 import com.promostree.domain.user.UserShare;
 import com.promostree.domain.user.UserShout;
+import com.promostree.repositories.entities.BrandRepository;
 import com.promostree.repositories.entities.LocationRepository;
+import com.promostree.repositories.entities.ShoutRepository;
 import com.promostree.repositories.entities.VenueRepository;
 import com.promostree.repositories.entities.OfferRepository;
 import com.promostree.repositories.user.EventTypeRepository;
@@ -40,7 +42,7 @@ import com.promostree.repositories.user.UserShareRepository;
 import com.promostree.repositories.user.UserShoutRepository;
 
 @Component
-@Transactional(propagation=Propagation.REQUIRED,readOnly=false,timeout=100)
+@Transactional(propagation = Propagation.REQUIRED, readOnly = false, timeout = 100)
 public class UserServiceImpl implements UserServices {
 	@Autowired
 	TypeRepository typeRepository;
@@ -72,6 +74,10 @@ public class UserServiceImpl implements UserServices {
 	EventTypeRepository eventTypeRepository;
 	@Autowired
 	UserEventRepository userEventRepository;
+	@Autowired
+	BrandRepository brandRepository;
+	@Autowired
+	ShoutRepository shoutRepository;
 
 	// for user Registration
 	@Override
@@ -90,7 +96,7 @@ public class UserServiceImpl implements UserServices {
 					dbUser = userRepository.save(user);
 				}
 			}
-			       // if (user.getPhoneNumber() != null && user.getEmail() != null)
+			// if (user.getPhoneNumber() != null && user.getEmail() != null)
 			else {
 				User dbemail = userRepository.findByEmail(user.getEmail());
 				User dbphone = userRepository.findByPhoneNumber(user
@@ -106,8 +112,8 @@ public class UserServiceImpl implements UserServices {
 						dbUser = userRepository.findByPhoneNumberOrEmail(
 								user.getPhoneNumber(), user.getEmail());
 					} catch (Exception NE) {
-					   NE.printStackTrace();
-						//throw new Exception("");
+						NE.printStackTrace();
+						// throw new Exception("");
 					}
 
 					// if(!dbemail.getEmail().equals(user.getEmail())&&
@@ -125,7 +131,8 @@ public class UserServiceImpl implements UserServices {
 
 	public String saveUserShout(UserShout userShout) {
 		userShout.setUser(userRepository.findById(userShout.getUser().getId()));
-		userShout.setVenue(venueRepository.findById(userShout.getVenue().getId()));
+		userShout.setVenue(venueRepository.findById(userShout.getVenue()
+				.getId()));
 		UserShout dbusershout = userShoutRepository.save(userShout);
 		if (dbusershout.equals(userShout))
 			return "stored successfully......";
@@ -134,15 +141,64 @@ public class UserServiceImpl implements UserServices {
 	}
 
 	public String saveUserPreference(UserPreference userPreference) {
+
 		// List<UserPreference> userpreList = null;
-		Long userid = userPreference.getUser().getId();
-		userPreference.setUser(userRepository.findById(userid));
+		userPreference.setUser(userRepository.findById(userPreference.getUser()
+				.getId()));
 		userPreference.setType(typeRepository.findById(userPreference.getType()
 				.getId()));
+		userPreference.setCreatedDate(new Date());
+		int id = userPreference.getType().getId().intValue();
+		switch (id) {
+		case 1:
+			Brand brand = brandRepository.findById(userPreference.getValue());
+			userPreference.setValue(brand.getId());
+		case 2:
+			Venue venue = venueRepository.findById(userPreference.getValue());
+			userPreference.setValue(venue.getId());
+			break;
+		case 3:
+			Location location = locationRepository.findById(userPreference
+					.getValue());
+			userPreference.setValue(location.getId());
+			break;
+		case 4:
+			Offer offer = offerRepository.findById(userPreference.getValue());
+			userPreference.setValue(offer.getId());
+			break;
+		case 5:
+			Shout shout = shoutRepository.findById(userPreference.getValue());
+			userPreference.setValue(shout.getId());
+			break;
+		}
+		// if(id==1L){
+		// Brand brand=brandRepository.findById(userPreference.getValue());
+		// userPreference.setValue(brand.getId());
+		// }
+		// else if(id==2L)
+		// {
+		// Venue venue=venueRepository.findById(userPreference.getValue());
+		// userPreference.setValue(venue.getId());
+		// }
+		// else if(id==3L)
+		// {
+		// Location
+		// location=locationRepository.findById(userPreference.getValue());
+		// userPreference.setValue(location.getId());
+		// }
+		// else if(id==4L)
+		// {
+		// Offer offer=offerRepository.findById(userPreference.getValue());
+		// userPreference.setValue(offer.getId());
+		// }
+		// else if(id==5L)
+		// {
+		// Shout shout=shoutRepository.findById(userPreference.getValue());
+		// userPreference.setValue(shout.getId());
+		// }
 		UserPreference dbuserPreference = userPreferencesRepository
 				.save(userPreference);
 		if (userPreference.equals(dbuserPreference)) {
-			// userpreList = userPreferencesRepository.findByUserId(userid);
 			return "successfully Stored";
 		}
 		return "notStored";
@@ -153,7 +209,7 @@ public class UserServiceImpl implements UserServices {
 		userpreList = userPreferencesRepository.findByUserId(user.getId());
 		return userpreList;
 	}
-	
+
 	// to save user feedback
 	@Override
 	public boolean saveUserFeedback(
@@ -163,13 +219,10 @@ public class UserServiceImpl implements UserServices {
 		userFeedback.setCreatedDate(new Date());
 		userFeedback.setUpdatedDate(new Date());
 		userFeedbackRepository.save(userFeedback);
-		
-		
 
 		List<User> users = userRepository.findByIdNotIn(userFeedback.getUser()
 				.getId());
-		
-                                             
+
 		for (User user : users) {
 			NotificationUserFeedback notification = new NotificationUserFeedback();
 			notification.setCreatedDate(new Date());
@@ -182,17 +235,18 @@ public class UserServiceImpl implements UserServices {
 		}
 		return true;
 	}
+
 	@Override
 	public boolean saveUserShare(NotificationUserShare notificationUserShare) {
-		UserShare userShare=notificationUserShare.getUserShare();
-		for(String ph:userShare.getPhoneNumbersList()){
+		UserShare userShare = notificationUserShare.getUserShare();
+		for (String ph : userShare.getPhoneNumbersList()) {
 			System.out.println(ph);
 		}
 		userShare.setCreatedDate(new Date());
 		userEventRepository.save(userShare);
 		;
-		List<User> users = userRepository.findByPhoneNumberIn(userShare.getPhoneNumbersList());
-	
+		List<User> users = userRepository.findByPhoneNumberIn(userShare
+				.getPhoneNumbersList());
 
 		for (User user : users) {
 			NotificationUserShare notification = new NotificationUserShare();
@@ -212,7 +266,7 @@ public class UserServiceImpl implements UserServices {
 	 */
 	@Override
 	public List<Notification> readNotifications(User user) {
-		//user=userRepository.findOne(user.getId());
+		// user=userRepository.findOne(user.getId());
 		return notificationRepository.findByRecipientUserId(user.getId());
 
 	}
@@ -222,17 +276,13 @@ public class UserServiceImpl implements UserServices {
 		userProfile.setCreatedDate(new Date());
 		userProfile.setUpdatedDate(new Date());
 		userProfile.setReg(true);
-		userProfile.setUser(userRepository.findById(userProfile.getUser().getId()));
-        UserProfile dbuserProfile=userProfileRepository.save(userProfile);
-         if(dbuserProfile.equals(userProfile))
-         {
-         return  "successfully Stored";
-          }
-         return "notStored";
-	    }
-
-
-	
-	
+		userProfile.setUser(userRepository.findById(userProfile.getUser()
+				.getId()));
+		UserProfile dbuserProfile = userProfileRepository.save(userProfile);
+		if (dbuserProfile.equals(userProfile)) {
+			return "successfully Stored";
+		}
+		return "notStored";
+	}
 
 }
