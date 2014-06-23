@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.promostree.delegator.UserServiceDelegate;
 import com.promostree.domain.user.Notification;
+import com.promostree.domain.user.NotificationUserFeedback;
 import com.promostree.domain.user.NotificationUserShare;
 import com.promostree.domain.user.User;
 import com.promostree.domain.user.UserPreference;
@@ -103,7 +104,12 @@ public class UserResources {
 	public  boolean saveUserShare(NotificationUserShare notificationUserShare) {
 		return userServiceDelegate.saveUserShares(notificationUserShare);
 	}
-	
+	@POST
+	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+	@Path("/saveUserFeedback")
+	public  boolean saveUserFeedback(NotificationUserFeedback notificationUserFeedback) {
+		return userServiceDelegate.saveUserFeedback(notificationUserFeedback);
+	}
 	@GET
 	@Path("/readPreference/{userId}")
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)

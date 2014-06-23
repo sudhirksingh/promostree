@@ -12,16 +12,17 @@ import com.promostree.repositories.entities.VenueRepository;
 
 
 @Service
-@Transactional(propagation=Propagation.REQUIRED,readOnly=false,timeout=100)
+@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
 public class CoreServiceImpl implements CoreService{
 	private static final Logger logger = LoggerFactory.getLogger(CoreServiceImpl.class);
 	
 	@Autowired
 	VenueRepository domainRepository;
 
-
+   @Override
 	public Venue getVenue(Venue venue) {
 		logger.info("enter into getVenue================================================================");
+		System.out.println("entered..");
 		Venue returnVenue=domainRepository.findById(venue.getId());
 		return returnVenue;
 	}

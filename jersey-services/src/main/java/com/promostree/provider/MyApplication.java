@@ -16,6 +16,7 @@ public class MyApplication extends ResourceConfig {
 
 	// private Set<Class<?>> classes
 	public MyApplication() {
+		
 		register(RequestContextFilter.class)
 		.packages("com.promostree.resource", "com.fasterxml.jackson.jaxrs.base")
 		.register(MyObjectMapperProvider.class);

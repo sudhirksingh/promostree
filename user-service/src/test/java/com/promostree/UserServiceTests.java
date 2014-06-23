@@ -78,26 +78,27 @@ public class UserServiceTests {
 //	userService.saveUserShare(notificationUserShare);	
 //	
 //	}
-//	@Test
-//	public void saveUserFeedback(){
-//		UserFeedback userFeedback=new UserFeedback();
-//		userFeedback.setComment("its me ananth");
-//		
-//		Type type=new Type();
-//		type.setId(2L);
-//		userFeedback.setType(type);
-//		User user=new User();
-//		user.setId(2L);
-//		userFeedback.setUser(user);
-//		userFeedback.setValue(2L);
-//		NotificationUserFeedback notificationUserFeedback=new NotificationUserFeedback();
-//		
-//		notificationUserFeedback.setUserFeedback(userFeedback);
-//	userService.saveUserFeedback(notificationUserFeedback);	
-//	}
+	
+	@Test
+	public void saveUserFeedback(){
+		UserFeedback userFeedback=new UserFeedback();
+		userFeedback.setComment("its me ananth");
+		
+		Type type=new Type();
+		type.setId(2L);
+		userFeedback.setType(type);
+		User user=new User();
+		user.setId(2L);
+		userFeedback.setUser(user);
+		userFeedback.setValue(4L);
+		NotificationUserFeedback notificationUserFeedback=new NotificationUserFeedback();
+		
+		notificationUserFeedback.setUserFeedback(userFeedback);
+	userService.saveUserFeedback(notificationUserFeedback);	
+	}
 
 
-//
+
 //	@Test
 //	public void readNotificationTest(){
 //		User user=new User();
@@ -144,6 +145,7 @@ public class UserServiceTests {
 //	System.out.println(data);
 //	}
 
+//
 //	@Test
 //	public void userProfileSaveing()
 //	{
@@ -156,6 +158,8 @@ public class UserServiceTests {
 //		uprofile.setUser(userRepository.findById(7L));
 //		UserProfile uprofile1= userProfileRepository.save(uprofile);
 //		System.out.println(uprofile1);
+
+//	}
 //	}
 
 

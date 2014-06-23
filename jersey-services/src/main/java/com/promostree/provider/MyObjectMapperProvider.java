@@ -79,15 +79,15 @@ public class MyObjectMapperProvider implements ContextResolver<ObjectMapper> {
     private final ObjectMapper mapper;
 
     public MyObjectMapperProvider() {
-        System.out.println("new ObjectMapperResolver()");
+      //  System.out.println("new ObjectMapperResolver()");
         mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
-
+     
     }
 
     @Override
     public ObjectMapper getContext(Class<?> type) {
-        System.out.println("ObjectMapperResolver.getContext(...)");
+        //System.out.println("ObjectMapperResolver.getContext(...)");
         return mapper;
    
 }
